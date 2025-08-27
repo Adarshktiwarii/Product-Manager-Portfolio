@@ -24,6 +24,7 @@ Usage rules:
 - YYYY-MM-DD: <decision> — Rationale: <why> — Link: <Issue/PR>
 
 ## Recent Activity
+- 2025-08-27 15:47 UTC — Cursor Agent: fix(hero): merge photo fallback for hero image — https://github.com/Adarshktiwarii/Product-Manager-Portfolio/commit/19544cdb9061cb577e9daba40d07faa7beeaf17e
 - YYYY-MM-DD HH:MM UTC — <short action> — Link: <commit/issue/pr>
 
 ---
