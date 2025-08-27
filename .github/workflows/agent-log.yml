@@ -1,0 +1,68 @@
+name: Auto Agent Log
+
+on:
+  push:
+    branches:
+      - dev
+      - feat/**
+      - main
+
+permissions:
+  contents: write
+
+jobs:
+  update-log:
+    if: ${{ !contains(github.event.head_commit.message, '[skip-log]') && github.actor != 'github-actions[bot]' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: Prepare log entry
+        id: prep
+        run: |
+          if [ ! -f docs/AGENT_LOG.md ]; then
+            echo "No AGENT_LOG.md found; nothing to do." >&2
+            echo "skip=true" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+
+          COMMIT_SHA="${GITHUB_SHA::7}"
+          COMMIT_URL="${{ github.server_url }}/${{ github.repository }}/commit/${GITHUB_SHA}"
+          COMMIT_MSG=$(printf "%s" "${{ github.event.head_commit.message }}" | head -n1)
+          AUTHOR="${{ github.event.head_commit.author.name }}"
+          WHEN=$(date -u +"%Y-%m-%d %H:%M UTC")
+
+          # Create the Recent Activity line
+          echo "entry=- ${WHEN} — ${AUTHOR}: ${COMMIT_MSG} — ${COMMIT_URL}" >> $GITHUB_OUTPUT
+
+      - name: Append to AGENT_LOG.md (Recent Activity)
+        if: steps.prep.outputs.skip != 'true'
+        run: |
+          set -euo pipefail
+          ENTRY="${{ steps.prep.outputs.entry }}"
+          tmp=$(mktemp)
+          # Insert under the '## Recent Activity' header (after the header line)
+          awk -v entry="$ENTRY" '
+            BEGIN{added=0}
+            /^## Recent Activity$/ {print; print entry; added=1; next}
+            {print}
+            END{if(added==0){print "\n## Recent Activity"; print entry}}
+          ' docs/AGENT_LOG.md > "$tmp"
+          mv "$tmp" docs/AGENT_LOG.md
+
+      - name: Commit log update
+        if: steps.prep.outputs.skip != 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/AGENT_LOG.md
+          # Add [skip-log] to avoid recursive runs
+          git commit -m "chore: auto-log ${GITHUB_SHA::7} [skip-log]" || echo "No changes to commit"
+
+      - name: Push changes
+        if: steps.prep.outputs.skip != 'true'
+        run: |
+          git push
