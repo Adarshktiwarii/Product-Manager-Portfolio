@@ -6,9 +6,8 @@
 }
 
 /* Optimized transitions for performance */
-* {
-    transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
-}
+/* Avoid global transitions on all elements to prevent performance/accessibility issues */
+/* Transitions are applied selectively on interactive components below */
 
 /* Use transform instead of changing properties when possible */
 .btn:hover,
@@ -19,14 +18,7 @@
     will-change: transform;
 }
 
-/* Optimize font loading */
-@font-face {
-    font-family: 'Inter';
-    font-style: normal;
-    font-weight: 300 900;
-    font-display: swap;
-    src: url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
-}
+/* Inter font is loaded via <link> in HTML; no custom @font-face is needed */
 
 :root {
     /* Light Theme Variables */
@@ -90,6 +82,16 @@ body {
     transform: translateZ(0);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+}
+
+/* Respect users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.001ms !important;
+        scroll-behavior: auto !important;
+    }
 }
 
 /* Custom Cursor */
