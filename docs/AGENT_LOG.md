@@ -9,23 +9,29 @@ Usage rules:
 
 ## Today (2025-08-27)
 - Owner: @cursorcursor[bot]
-- Context: Branch chore/persistent-tracking; dev at 586c8e4
+- Context: Branch dev; baseline 586c8e4 restored; tracking merged; auto-log enabled
 - Summary:
-  - What changed: Added persistent tracking (AGENT_LOG, TODO, Issue/PR templates, CONTRIBUTING)
-  - Why it changed: Ensure seamless cross-agent handoff and traceability
-  - Impact: Future agents can resume with clear log, tasks, and templates
+  - What changed:
+    - Restored dev to 586c8e4 and redeployed
+    - Added persistent tracking (AGENT_LOG, TODO, Issue/PR templates, CONTRIBUTING) and merged into dev
+    - Enabled CI to auto-append Recent Activity to AGENT_LOG on push
+    - Fixed hero image visibility; added image fallback; uploaded real `images/profile.jpg` and deployed
+  - Why it changed: Ensure dev reflects requested baseline and future agents have seamless handoff
+  - Impact: Dev shows correct photo; tasks and activity are recorded automatically
 - In Progress:
-  - [ ] Open PR to merge persistent tracking into dev
+  - [ ] None
 - Next Actions:
-  - Open PR for branch chore/persistent-tracking into dev
-  - After merge, require new tasks to use Issue template
+  - New tasks should be opened via Agent Task issue template
+  - Agents should append “Today/In Progress/Next Actions” context here when starting significant work
 
 ## Decisions Registry
 - YYYY-MM-DD: <decision> — Rationale: <why> — Link: <Issue/PR>
 
 ## Recent Activity
-- 2025-08-27 15:47 UTC — Cursor Agent: fix(hero): merge photo fallback for hero image — https://github.com/Adarshktiwarii/Product-Manager-Portfolio/commit/19544cdb9061cb577e9daba40d07faa7beeaf17e
-- YYYY-MM-DD HH:MM UTC — <short action> — Link: <commit/issue/pr>
+- 2025-08-27 15:54 UTC — Cursor Agent: chore(assets): add profile photo for hero image — b14ffca
+- 2025-08-27 15:47 UTC — Cursor Agent: fix(hero): merge photo fallback for hero image — 19544cd
+- 2025-08-27 15:40 UTC — Cursor Agent: chore(ci): auto-append AGENT_LOG entries on push — 6270997
+- 2025-08-27 15:29 UTC — Cursor Agent: chore: merge persistent tracking (AGENT_LOG, TODO, templates, CONTRIBUTING) — 6a62812
 
 ---
 
