@@ -75,10 +75,36 @@ jobs:
         run: |
           curl -sS -X POST -H "Content-Type: application/json" -d '{}' "${AMPLIFY_WEBHOOK_URL}" || curl -sS -X POST "${AMPLIFY_WEBHOOK_URL}"
 
-      - name: Trigger Amplify (optional via StartJob)
+      - name: Trigger Amplify (CreateDeployment/StartDeployment)
         if: env.AMPLIFY_WEBHOOK_URL == '' && env.AMPLIFY_APP_ID != '' && env.AMPLIFY_BRANCH != ''
         run: |
-          aws amplify start-job \
+          sudo apt-get update -y && sudo apt-get install -y jq zip
+          
+          echo "Zipping site files..."
+          zip -r artifact.zip . \
+            -x ".git/*" \
+            -x ".github/*" \
+            -x "index - Copy.html"
+          
+          echo "Creating Amplify deployment..."
+          DEPLOY_JSON=$(aws amplify create-deployment \
             --app-id "${AMPLIFY_APP_ID}" \
             --branch-name "${AMPLIFY_BRANCH}" \
-            --job-type RELEASE
+            --output json)
+          echo "$DEPLOY_JSON" | jq '.'
+          JOB_ID=$(echo "$DEPLOY_JSON" | jq -r '.jobId')
+          UPLOAD_URL=$(echo "$DEPLOY_JSON" | jq -r '.zipUploadUrl')
+          
+          if [ -z "$JOB_ID" ] || [ -z "$UPLOAD_URL" ] || [ "$JOB_ID" = "null" ] || [ "$UPLOAD_URL" = "null" ]; then
+            echo "Failed to obtain Amplify deployment upload URL/jobId" >&2
+            exit 1
+          fi
+          
+          echo "Uploading artifact to pre-signed URL..."
+          curl -sS -X PUT -T artifact.zip -H "Content-Type: application/zip" "$UPLOAD_URL"
+          
+          echo "Starting Amplify deployment..."
+          aws amplify start-deployment \
+            --app-id "${AMPLIFY_APP_ID}" \
+            --branch-name "${AMPLIFY_BRANCH}" \
+            --job-id "$JOB_ID"
