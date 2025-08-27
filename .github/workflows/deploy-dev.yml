@@ -14,6 +14,9 @@ env:
   AWS_REGION: ${{ secrets.AWS_REGION }}
   S3_DEV_BUCKET: ${{ secrets.S3_DEV_BUCKET }}
   CLOUDFRONT_DISTRIBUTION_ID: ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }}
+  AMPLIFY_WEBHOOK_URL: ${{ secrets.AMPLIFY_WEBHOOK_URL }}
+  AMPLIFY_APP_ID: ${{ secrets.AMPLIFY_APP_ID }}
+  AMPLIFY_BRANCH: ${{ secrets.AMPLIFY_BRANCH }}
 
 jobs:
   deploy:
@@ -70,3 +73,16 @@ jobs:
           aws cloudfront create-invalidation \
             --distribution-id "${CLOUDFRONT_DISTRIBUTION_ID}" \
             --paths "/*"
+
+      - name: Trigger Amplify (optional via webhook)
+        if: env.AMPLIFY_WEBHOOK_URL != ''
+        run: |
+          curl -sS -X POST -H "Content-Type: application/json" -d '{}' "${AMPLIFY_WEBHOOK_URL}" || curl -sS -X POST "${AMPLIFY_WEBHOOK_URL}"
+
+      - name: Trigger Amplify (optional via StartJob)
+        if: env.AMPLIFY_WEBHOOK_URL == '' && env.AMPLIFY_APP_ID != '' && env.AMPLIFY_BRANCH != ''
+        run: |
+          aws amplify start-job \
+            --app-id "${AMPLIFY_APP_ID}" \
+            --branch-name "${AMPLIFY_BRANCH}" \
+            --job-type RELEASE
