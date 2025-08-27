@@ -40,14 +40,8 @@ jobs:
             sudo apt-get install -y awscli
           fi
 
-      - name: Validate required secrets
-        run: |
-          if [ -z "${S3_DEV_BUCKET}" ]; then
-            echo "S3_DEV_BUCKET is not set. Add it in repo Settings > Secrets and variables > Actions" >&2
-            exit 1
-          fi
-
-      - name: Sync static assets (cacheable)
+      - name: Sync static assets to S3 (optional)
+        if: env.S3_DEV_BUCKET != ''
         run: |
           aws s3 sync . "s3://${S3_DEV_BUCKET}" \
             --delete \
@@ -57,7 +51,8 @@ jobs:
             --exclude "index - Copy.html" \
             --exclude "*.html"
 
-      - name: Upload HTML with no-cache headers
+      - name: Upload HTML with no-cache headers to S3 (optional)
+        if: env.S3_DEV_BUCKET != ''
         run: |
           find . -type f -name "*.html" \
             -not -path "./.git/*" \
@@ -68,7 +63,7 @@ jobs:
               --content-type "text/html"
 
       - name: Invalidate CloudFront (optional)
-        if: env.CLOUDFRONT_DISTRIBUTION_ID != ''
+        if: env.S3_DEV_BUCKET != '' && env.CLOUDFRONT_DISTRIBUTION_ID != ''
         run: |
           aws cloudfront create-invalidation \
             --distribution-id "${CLOUDFRONT_DISTRIBUTION_ID}" \
