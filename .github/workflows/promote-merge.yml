@@ -1,0 +1,71 @@
+name: Promote to Prod (merge)
+
+on:
+  workflow_dispatch:
+    inputs:
+      source_branch:
+        description: Branch to promote (e.g., dev or feature branch)
+        required: true
+      target_branch:
+        description: Prod branch to receive merge (default main)
+        required: false
+        default: main
+      allow_merge_commit:
+        description: If fast-forward fails, allow a merge commit?
+        required: false
+        default: 'false'
+
+permissions:
+  contents: write
+
+jobs:
+  promote:
+    name: Merge ${{ github.event.inputs.source_branch }} -> ${{ github.event.inputs.target_branch }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Configure Git identity
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+      - name: Fetch branches
+        run: |
+          git fetch origin
+
+      - name: Ensure target branch exists locally
+        run: |
+          git checkout "${{ github.event.inputs.target_branch }}" || git checkout -b "${{ github.event.inputs.target_branch }}" "origin/${{ github.event.inputs.target_branch }}"
+
+      - name: Update target branch from origin
+        run: |
+          git pull --ff-only origin "${{ github.event.inputs.target_branch }}"
+
+      - name: Attempt fast-forward merge
+        id: ffmerge
+        continue-on-error: true
+        run: |
+          git merge --ff-only "origin/${{ github.event.inputs.source_branch }}"
+
+      - name: Fallback merge commit (optional)
+        if: steps.ffmerge.outcome == 'failure' && github.event.inputs.allow_merge_commit == 'true'
+        run: |
+          git merge --no-ff -m "Promote: merge ${{ github.event.inputs.source_branch }} into ${{ github.event.inputs.target_branch }}" "origin/${{ github.event.inputs.source_branch }}"
+
+      - name: Abort on non-FF without merge permission
+        if: steps.ffmerge.outcome == 'failure' && github.event.inputs.allow_merge_commit != 'true'
+        run: |
+          echo "Fast-forward failed and merge commits are not allowed. Rebase or enable merge commits in the workflow inputs." >&2
+          exit 1
+
+      - name: Push to origin
+        run: |
+          git push origin "${{ github.event.inputs.target_branch }}"
+
+      - name: Summary
+        run: |
+          echo "Promoted ${{ github.event.inputs.source_branch }} -> ${{ github.event.inputs.target_branch }}" > $GITHUB_STEP_SUMMARY

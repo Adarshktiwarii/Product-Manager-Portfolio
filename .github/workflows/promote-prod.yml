@@ -1,0 +1,82 @@
+name: Promote to Production (Amplify)
+
+on:
+  workflow_dispatch:
+    inputs:
+      note:
+        description: Optional release note
+        required: false
+        default: ''
+
+permissions:
+  contents: read
+
+env:
+  AWS_REGION: ${{ secrets.AWS_REGION }}
+  # Option A: Webhook
+  AMPLIFY_PROD_WEBHOOK_URL: ${{ secrets.AMPLIFY_PROD_WEBHOOK_URL }}
+  # Option B: Direct deployment (for apps not connected to repo)
+  AMPLIFY_PROD_APP_ID: ${{ secrets.AMPLIFY_PROD_APP_ID }}
+  AMPLIFY_PROD_BRANCH: ${{ secrets.AMPLIFY_PROD_BRANCH }}
+
+jobs:
+  promote:
+    name: Promote to Production
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Configure AWS credentials
+        if: env.AMPLIFY_PROD_APP_ID != '' || env.AMPLIFY_PROD_WEBHOOK_URL != ''
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Trigger Amplify prod via webhook (preferred)
+        if: env.AMPLIFY_PROD_WEBHOOK_URL != ''
+        run: |
+          curl -sS -X POST -H "Content-Type: application/json" -d '{"note":"${{ github.event.inputs.note }}"}' "${AMPLIFY_PROD_WEBHOOK_URL}" || curl -sS -X POST "${AMPLIFY_PROD_WEBHOOK_URL}"
+
+      - name: Trigger Amplify prod via CreateDeployment/StartDeployment
+        if: env.AMPLIFY_PROD_WEBHOOK_URL == '' && env.AMPLIFY_PROD_APP_ID != '' && env.AMPLIFY_PROD_BRANCH != ''
+        run: |
+          sudo apt-get update -y && sudo apt-get install -y jq zip
+          
+          echo "Zipping site files for production..."
+          zip -r artifact.zip . \
+            -x ".git/*" \
+            -x ".github/*" \
+            -x "index - Copy.html"
+          
+          echo "Create Amplify deployment (prod)..."
+          DEPLOY_JSON=$(aws amplify create-deployment \
+            --app-id "${AMPLIFY_PROD_APP_ID}" \
+            --branch-name "${AMPLIFY_PROD_BRANCH}" \
+            --output json)
+          echo "$DEPLOY_JSON" | jq '.'
+          JOB_ID=$(echo "$DEPLOY_JSON" | jq -r '.jobId')
+          UPLOAD_URL=$(echo "$DEPLOY_JSON" | jq -r '.zipUploadUrl')
+          
+          if [ -z "$JOB_ID" ] || [ -z "$UPLOAD_URL" ] || [ "$JOB_ID" = "null" ] || [ "$UPLOAD_URL" = "null" ]; then
+            echo "Failed to obtain Amplify prod deployment upload URL/jobId" >&2
+            exit 1
+          fi
+          
+          echo "Uploading prod artifact..."
+          curl -sS -X PUT -T artifact.zip -H "Content-Type: application/zip" "$UPLOAD_URL"
+          
+          echo "Start Amplify deployment (prod)..."
+          aws amplify start-deployment \
+            --app-id "${AMPLIFY_PROD_APP_ID}" \
+            --branch-name "${AMPLIFY_PROD_BRANCH}" \
+            --job-id "$JOB_ID"
+
+      - name: Summary
+        run: |
+          echo "Promotion requested by $GITHUB_ACTOR" \
+            > $GITHUB_STEP_SUMMARY
+          echo "Note: ${{ github.event.inputs.note }}" \
+            >> $GITHUB_STEP_SUMMARY
