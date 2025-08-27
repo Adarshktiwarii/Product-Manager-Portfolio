@@ -1,0 +1,72 @@
+name: Deploy to S3 (dev)
+
+on:
+  push:
+    branches:
+      - dev
+      - feat/**
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+env:
+  AWS_REGION: ${{ secrets.AWS_REGION }}
+  S3_DEV_BUCKET: ${{ secrets.S3_DEV_BUCKET }}
+  CLOUDFRONT_DISTRIBUTION_ID: ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }}
+
+jobs:
+  deploy:
+    name: Sync to S3 (dev)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Install AWS CLI (if needed)
+        run: |
+          if ! command -v aws >/dev/null 2>&1; then
+            sudo apt-get update -y
+            sudo apt-get install -y awscli
+          fi
+
+      - name: Validate required secrets
+        run: |
+          if [ -z "${S3_DEV_BUCKET}" ]; then
+            echo "S3_DEV_BUCKET is not set. Add it in repo Settings > Secrets and variables > Actions" >&2
+            exit 1
+          fi
+
+      - name: Sync static assets (cacheable)
+        run: |
+          aws s3 sync . "s3://${S3_DEV_BUCKET}" \
+            --delete \
+            --exclude ".git/*" \
+            --exclude ".github/*" \
+            --exclude "README.md" \
+            --exclude "index - Copy.html" \
+            --exclude "*.html"
+
+      - name: Upload HTML with no-cache headers
+        run: |
+          find . -type f -name "*.html" \
+            -not -path "./.git/*" \
+            -not -path "./.github/*" \
+            -not -name "index - Copy.html" \
+            -print0 | xargs -0 -I{} aws s3 cp "{}" "s3://${S3_DEV_BUCKET}/{}" \
+              --cache-control "no-cache, no-store, must-revalidate" \
+              --content-type "text/html"
+
+      - name: Invalidate CloudFront (optional)
+        if: env.CLOUDFRONT_DISTRIBUTION_ID != ''
+        run: |
+          aws cloudfront create-invalidation \
+            --distribution-id "${CLOUDFRONT_DISTRIBUTION_ID}" \
+            --paths "/*"
