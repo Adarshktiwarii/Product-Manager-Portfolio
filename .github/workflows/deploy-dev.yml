@@ -17,6 +17,7 @@ env:
   AMPLIFY_WEBHOOK_URL: ${{ secrets.AMPLIFY_WEBHOOK_URL }}
   AMPLIFY_APP_ID: ${{ secrets.AMPLIFY_APP_ID }}
   AMPLIFY_BRANCH: ${{ secrets.AMPLIFY_BRANCH }}
+  ENABLE_S3: ${{ secrets.ENABLE_S3 }}
 
 jobs:
   deploy:
@@ -41,7 +42,7 @@ jobs:
           fi
 
       - name: Sync static assets to S3 (optional)
-        if: env.S3_DEV_BUCKET != ''
+        if: env.ENABLE_S3 == 'true' && env.S3_DEV_BUCKET != ''
         run: |
           aws s3 sync . "s3://${S3_DEV_BUCKET}" \
             --delete \
@@ -52,7 +53,7 @@ jobs:
             --exclude "*.html"
 
       - name: Upload HTML with no-cache headers to S3 (optional)
-        if: env.S3_DEV_BUCKET != ''
+        if: env.ENABLE_S3 == 'true' && env.S3_DEV_BUCKET != ''
         run: |
           find . -type f -name "*.html" \
             -not -path "./.git/*" \
@@ -63,7 +64,7 @@ jobs:
               --content-type "text/html"
 
       - name: Invalidate CloudFront (optional)
-        if: env.S3_DEV_BUCKET != '' && env.CLOUDFRONT_DISTRIBUTION_ID != ''
+        if: env.ENABLE_S3 == 'true' && env.S3_DEV_BUCKET != '' && env.CLOUDFRONT_DISTRIBUTION_ID != ''
         run: |
           aws cloudfront create-invalidation \
             --distribution-id "${CLOUDFRONT_DISTRIBUTION_ID}" \
