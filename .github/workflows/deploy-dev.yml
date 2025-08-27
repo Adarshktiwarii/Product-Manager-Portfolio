@@ -1,0 +1,110 @@
+name: Deploy to S3 (dev)
+
+on:
+  push:
+    branches:
+      - dev
+      - feat/**
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+env:
+  AWS_REGION: ${{ secrets.AWS_REGION }}
+  S3_DEV_BUCKET: ${{ secrets.S3_DEV_BUCKET }}
+  CLOUDFRONT_DISTRIBUTION_ID: ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }}
+  AMPLIFY_WEBHOOK_URL: ${{ secrets.AMPLIFY_WEBHOOK_URL }}
+  AMPLIFY_APP_ID: ${{ secrets.AMPLIFY_APP_ID }}
+  AMPLIFY_BRANCH: ${{ secrets.AMPLIFY_BRANCH }}
+  ENABLE_S3: ${{ secrets.ENABLE_S3 }}
+
+jobs:
+  deploy:
+    name: Sync to S3 (dev)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Install AWS CLI (if needed)
+        run: |
+          if ! command -v aws >/dev/null 2>&1; then
+            sudo apt-get update -y
+            sudo apt-get install -y awscli
+          fi
+
+      - name: Sync static assets to S3 (optional)
+        if: env.ENABLE_S3 == 'true' && env.S3_DEV_BUCKET != ''
+        run: |
+          aws s3 sync . "s3://${S3_DEV_BUCKET}" \
+            --delete \
+            --exclude ".git/*" \
+            --exclude ".github/*" \
+            --exclude "README.md" \
+            --exclude "index - Copy.html" \
+            --exclude "*.html"
+
+      - name: Upload HTML with no-cache headers to S3 (optional)
+        if: env.ENABLE_S3 == 'true' && env.S3_DEV_BUCKET != ''
+        run: |
+          find . -type f -name "*.html" \
+            -not -path "./.git/*" \
+            -not -path "./.github/*" \
+            -not -name "index - Copy.html" \
+            -print0 | xargs -0 -I{} aws s3 cp "{}" "s3://${S3_DEV_BUCKET}/{}" \
+              --cache-control "no-cache, no-store, must-revalidate" \
+              --content-type "text/html"
+
+      - name: Invalidate CloudFront (optional)
+        if: env.ENABLE_S3 == 'true' && env.S3_DEV_BUCKET != '' && env.CLOUDFRONT_DISTRIBUTION_ID != ''
+        run: |
+          aws cloudfront create-invalidation \
+            --distribution-id "${CLOUDFRONT_DISTRIBUTION_ID}" \
+            --paths "/*"
+
+      - name: Trigger Amplify (optional via webhook)
+        if: env.AMPLIFY_WEBHOOK_URL != ''
+        run: |
+          curl -sS -X POST -H "Content-Type: application/json" -d '{}' "${AMPLIFY_WEBHOOK_URL}" || curl -sS -X POST "${AMPLIFY_WEBHOOK_URL}"
+
+      - name: Trigger Amplify (CreateDeployment/StartDeployment)
+        if: env.AMPLIFY_WEBHOOK_URL == '' && env.AMPLIFY_APP_ID != '' && env.AMPLIFY_BRANCH != ''
+        run: |
+          sudo apt-get update -y && sudo apt-get install -y jq zip
+          
+          echo "Zipping site files..."
+          zip -r artifact.zip . \
+            -x ".git/*" \
+            -x ".github/*" \
+            -x "index - Copy.html"
+          
+          echo "Creating Amplify deployment..."
+          DEPLOY_JSON=$(aws amplify create-deployment \
+            --app-id "${AMPLIFY_APP_ID}" \
+            --branch-name "${AMPLIFY_BRANCH}" \
+            --output json)
+          echo "$DEPLOY_JSON" | jq '.'
+          JOB_ID=$(echo "$DEPLOY_JSON" | jq -r '.jobId')
+          UPLOAD_URL=$(echo "$DEPLOY_JSON" | jq -r '.zipUploadUrl')
+          
+          if [ -z "$JOB_ID" ] || [ -z "$UPLOAD_URL" ] || [ "$JOB_ID" = "null" ] || [ "$UPLOAD_URL" = "null" ]; then
+            echo "Failed to obtain Amplify deployment upload URL/jobId" >&2
+            exit 1
+          fi
+          
+          echo "Uploading artifact to pre-signed URL..."
+          curl -sS -X PUT -T artifact.zip -H "Content-Type: application/zip" "$UPLOAD_URL"
+          
+          echo "Starting Amplify deployment..."
+          aws amplify start-deployment \
+            --app-id "${AMPLIFY_APP_ID}" \
+            --branch-name "${AMPLIFY_BRANCH}" \
+            --job-id "$JOB_ID"
