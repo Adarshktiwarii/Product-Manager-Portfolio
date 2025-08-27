@@ -381,10 +381,18 @@ function initHireModal() {
         document.body.style.overflow = '';
     }
 
-    hireButton?.addEventListener('click', (e) => {
-        e.preventDefault();
-        openHireModal();
-    });
+    if (hireButton) {
+        const href = hireButton.getAttribute('href') || '';
+        const isExternal = /^https?:\/\//.test(href);
+        if (!isExternal) {
+            hireButton.addEventListener('click', (e) => {
+                e.preventDefault();
+                openHireModal();
+            });
+        } else {
+            hireButton.setAttribute('target', '_blank');
+        }
+    }
 
     modalClose?.addEventListener('click', closeHireModal);
 
