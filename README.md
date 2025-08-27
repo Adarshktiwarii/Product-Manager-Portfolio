@@ -19,6 +19,22 @@ This repo includes a workflow to deploy to an AWS S3 dev bucket on pushes to `de
 Notes:
 - HTML files upload with `no-cache` headers for instant refresh; assets sync with standard caching.
 - Excludes `index - Copy.html` and CI files from upload.
+
+
+Promote to Production (Amplify)
+-------------------------------
+
+Use the `Promote to Production (Amplify)` workflow (manual dispatch). Two options:
+
+- Webhook (recommended if prod app is connected to repo):
+  - Add secrets: `AMPLIFY_PROD_WEBHOOK_URL`
+
+- Direct deployment (for prod app not connected to repo):
+  - Add secrets: `AMPLIFY_PROD_APP_ID`, `AMPLIFY_PROD_BRANCH`, and reuse `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`, `AWS_REGION`
+  - IAM user needs:
+    - `amplify:CreateDeployment` and `amplify:StartDeployment` on `arn:aws:amplify:REGION:ACCOUNT:apps/APP_ID/branches/BRANCH/deployments/*`
+
+Run: GitHub → Actions → Promote to Production (Amplify) → Run workflow.
 A modern, responsive consulting website showcasing strategic consulting services, case studies, and professional experience. Built with clean design principles and optimized for performance.
 
 ## 🚀 Features
