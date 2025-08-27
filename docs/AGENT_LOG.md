@@ -7,17 +7,18 @@ Usage rules:
 - Keep notes concise; link Issues/PRs/Commits for details.
 - When handing off, ensure In Progress items reflect reality and include Next Actions.
 
-## Today (YYYY-MM-DD)
-- Owner: <agent or human>
-- Context: <current branch, env, ticket refs>
+## Today (2025-08-27)
+- Owner: @cursorcursor[bot]
+- Context: Branch chore/persistent-tracking; dev at 586c8e4
 - Summary:
-  - What changed:
-  - Why it changed:
-  - Impact:
+  - What changed: Added persistent tracking (AGENT_LOG, TODO, Issue/PR templates, CONTRIBUTING)
+  - Why it changed: Ensure seamless cross-agent handoff and traceability
+  - Impact: Future agents can resume with clear log, tasks, and templates
 - In Progress:
-  - [ ] <task> (link to Issue/PR)
+  - [ ] Open PR to merge persistent tracking into dev
 - Next Actions:
-  - <ordered list of next concrete steps>
+  - Open PR for branch chore/persistent-tracking into dev
+  - After merge, require new tasks to use Issue template
 
 ## Decisions Registry
 - YYYY-MM-DD: <decision> — Rationale: <why> — Link: <Issue/PR>
