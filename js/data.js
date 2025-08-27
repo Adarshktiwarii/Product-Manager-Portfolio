@@ -1,5 +1,5 @@
 // Typing animation words
-const typingWords = ['Consultant', 'Strategist', 'Advisor', 'Innovator'];
+const typingWords = ['Consultant', 'Innovator', 'Advisor'];
 
 // Services data
 const services = [
@@ -12,7 +12,8 @@ const services = [
             'Technology assessment & gap analysis',
             'Change management strategies',
             'ROI optimization frameworks',
-            'Implementation roadmaps'
+            'Implementation roadmaps',
+            'AI-assisted efficiency improvements'
         ],
         color: 'linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%)'
     },
@@ -25,7 +26,8 @@ const services = [
             'EHR/EMR system optimization',
             'Healthcare compliance frameworks',
             'Patient experience enhancement',
-            'Interoperability solutions'
+            'Interoperability solutions',
+            'AI for triage, routing, and documentation'
         ],
         color: 'linear-gradient(135deg, #ec4899 0%, #8b5cf6 100%)'
     },
@@ -38,7 +40,8 @@ const services = [
             'Market research & validation',
             'User experience design',
             'Product roadmap development',
-            'Go-to-market strategies'
+            'Go-to-market strategies',
+            'AI-powered research synthesis and insights'
         ],
         color: 'linear-gradient(135deg, #10b981 0%, #6366f1 100%)'
     },
@@ -51,7 +54,8 @@ const services = [
             'Process mapping & analysis',
             'Automation opportunities',
             'Performance metrics & KPIs',
-            'Continuous improvement frameworks'
+            'Continuous improvement frameworks',
+            'AI copilots to reduce manual work'
         ],
         color: 'linear-gradient(135deg, #f59e0b 0%, #ec4899 100%)'
     },
@@ -64,7 +68,8 @@ const services = [
             'Strategic planning workshops',
             'Competitive analysis',
             'Risk assessment & mitigation',
-            'Growth strategy development'
+            'Growth strategy development',
+            'AI leverage for scale with guardrails'
         ],
         color: 'linear-gradient(135deg, #8b5cf6 0%, #10b981 100%)'
     },
@@ -77,9 +82,22 @@ const services = [
             'Data strategy development',
             'Analytics implementation',
             'Performance dashboards',
-            'Predictive modeling'
+            'Predictive modeling',
+            'AI/ML models for forecasting'
         ],
         color: 'linear-gradient(135deg, #6366f1 0%, #f59e0b 100%)'
+    },
+    {
+        id: 7,
+        title: 'AI Adoption',
+        description: 'Integrate AI to make work faster, cheaper, and more consistent—safely.',
+        icon: 'fas fa-brain',
+        features: [
+            'Workflow automation and copilots',
+            'Data readiness, privacy, and guardrails',
+            'Change management and team enablement'
+        ],
+        color: 'linear-gradient(135deg, #7c3aed 0%, #ec4899 100%)'
     }
 ];
 
@@ -104,37 +122,35 @@ const caseStudies = [
     },
     {
         id: 2,
-        title: 'E-commerce Platform Optimization',
-        client: 'Retail Technology Company',
-        industry: 'E-commerce',
-        challenge: 'Declining conversion rates and poor user experience on mobile platforms',
-        solution: 'Conducted comprehensive UX audit and implemented data-driven optimization strategies across the entire customer journey.',
+        title: 'Telemedicine Throughput Uplift',
+        client: 'Virtual Care Platform',
+        industry: 'Healthcare',
+        challenge: 'High wait times and session reliability issues across clinics',
+        solution: 'Introduced AI triage and routing, streamlined provider workflows, and improved session resilience.',
         results: [
-            '35% increase in mobile conversion rates',
-            '50% reduction in cart abandonment',
-            '20% improvement in page load speeds',
-            'Enhanced customer lifetime value'
+            '28% reduction in average wait time',
+            '22% increase in visit completion rate',
+            'Improved clinician satisfaction and throughput'
         ],
-        technologies: ['React', 'Node.js', 'Analytics', 'A/B Testing'],
-        duration: '8 months',
-        image: 'ecommerce-optimization.jpg'
+        technologies: ['AI Triage', 'RTC Optimization', 'Analytics', 'Queueing'],
+        duration: '6 months',
+        image: 'telemedicine-throughput.jpg'
     },
     {
         id: 3,
-        title: 'Enterprise Process Automation',
-        client: 'Financial Services Firm',
-        industry: 'Financial Services',
-        challenge: 'Manual processes causing delays and errors in client onboarding',
-        solution: 'Designed and implemented automated workflow systems with intelligent document processing and compliance checks.',
+        title: 'RPM Workflow Automation',
+        client: 'Chronic Care Program',
+        industry: 'Healthcare',
+        challenge: 'Manual alert review overwhelming clinical teams',
+        solution: 'Automated alert prioritization with risk scoring and created escalation playbooks integrated with EHR.',
         results: [
-            '70% reduction in onboarding time',
-            '90% decrease in processing errors',
-            'Improved regulatory compliance',
-            'Enhanced client satisfaction'
+            '35% reduction in manual review time',
+            '30% increase in patient adherence',
+            'Lower false-positive escalations'
         ],
-        technologies: ['RPA', 'Machine Learning', 'API Integration', 'Cloud Services'],
-        duration: '10 months',
-        image: 'process-automation.jpg'
+        technologies: ['Risk Scoring', 'EHR Integration', 'Automation', 'Dashboards'],
+        duration: '5 months',
+        image: 'rpm-automation.jpg'
     },
     {
         id: 4,
