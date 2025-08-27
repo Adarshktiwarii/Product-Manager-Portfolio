@@ -1,511 +1,106 @@
-// Main JavaScript for Consulting Website
-document.addEventListener('DOMContentLoaded', function() {
-    // Initialize all functionality
-    initTypingAnimation();
-    initServices();
-    initCaseStudies();
-    initExperience();
-    initScrollAnimations();
-    initNavigation();
-    initThemeToggle();
-    initMobileMenu();
-    initContactForm();
-    initNewsletterForm();
-    initHireModal();
-    initCustomCursor();
-    initFloatingShapes();
-    initScrollProgress();
-    initCountUpAnimations();
-    initLoader();
-});
+// Minimal interactions: loader, typing, theme + mobile menu toggles, scroll progress
 
-// Typing Animation
-function initTypingAnimation() {
-    const typedText = document.getElementById('typed-text');
-    const cursor = document.querySelector('.typing-cursor');
-    let wordIndex = 0;
-    let charIndex = 0;
-    let isDeleting = false;
-    let currentWord = '';
+(function () {
+	// Loader hide
+	window.addEventListener('load', function () {
+		var loader = document.querySelector('.loader');
+		if (loader) loader.classList.add('hidden');
+	});
 
-    function type() {
-        const words = window.websiteData.typingWords;
-        currentWord = words[wordIndex];
+	// Typing effect for hero: Strategic [Consultant, Innovator, Advisor]
+	document.addEventListener('DOMContentLoaded', function () {
+		var typedNode = document.getElementById('typed-text');
+		if (!typedNode) return;
+		var words = ['Consultant', 'Innovator', 'Advisor'];
+		var index = 0;
+		var mode = 'type';
+		var display = '';
+		var target = words[index];
 
-        if (isDeleting) {
-            typedText.textContent = currentWord.substring(0, charIndex - 1);
-            charIndex--;
-        } else {
-            typedText.textContent = currentWord.substring(0, charIndex + 1);
-            charIndex++;
-        }
+		function step() {
+			if (mode === 'type') {
+				display = target.slice(0, display.length + 1);
+				if (display.length === target.length) {
+					mode = 'hold';
+					setTimeout(step, 1200);
+					typedNode.textContent = display;
+					return;
+				}
+			} else if (mode === 'delete') {
+				display = display.slice(0, -1);
+				if (display.length === 0) {
+					index = (index + 1) % words.length;
+					target = words[index];
+					mode = 'type';
+				}
+			} else if (mode === 'hold') {
+				mode = 'delete';
+			}
+			typedNode.textContent = display;
+			setTimeout(step, mode === 'type' ? 80 : 40);
+		}
 
-        let typeSpeed = isDeleting ? 100 : 150;
+		step();
+	});
 
-        if (!isDeleting && charIndex === currentWord.length) {
-            typeSpeed = 2000; // Pause at end
-            isDeleting = true;
-        } else if (isDeleting && charIndex === 0) {
-            isDeleting = false;
-            wordIndex = (wordIndex + 1) % words.length;
-            typeSpeed = 500; // Pause before next word
-        }
+	// Theme toggle (persist to localStorage)
+	(function initTheme() {
+		var root = document.documentElement;
+		var saved = localStorage.getItem('theme');
+		if (saved === 'dark' || saved === 'light') {
+			root.setAttribute('data-theme', saved);
+		}
+		function toggleTheme() {
+			var current = root.getAttribute('data-theme') || 'light';
+			var next = current === 'light' ? 'dark' : 'light';
+			root.setAttribute('data-theme', next);
+			localStorage.setItem('theme', next);
+		}
+		var themeToggle = document.getElementById('themeToggle');
+		var mobileThemeToggle = document.getElementById('mobileThemeToggle');
+		if (themeToggle) themeToggle.addEventListener('click', toggleTheme);
+		if (mobileThemeToggle) mobileThemeToggle.addEventListener('click', toggleTheme);
+	})();
 
-        setTimeout(type, typeSpeed);
-    }
+	// Mobile menu toggle
+	(function initMobileMenu() {
+		var toggle = document.getElementById('mobileMenuToggle');
+		var closeBtn = document.getElementById('mobileMenuClose');
+		var overlay = document.getElementById('mobileMenuOverlay');
+		var panel = document.getElementById('mobileMenu');
+		function open() {
+			panel && panel.classList.add('active');
+			overlay && overlay.classList.add('active');
+			toggle && toggle.classList.add('active');
+		}
+		function close() {
+			panel && panel.classList.remove('active');
+			overlay && overlay.classList.remove('active');
+			toggle && toggle.classList.remove('active');
+		}
+		if (toggle) toggle.addEventListener('click', open);
+		if (closeBtn) closeBtn.addEventListener('click', close);
+		if (overlay) overlay.addEventListener('click', close);
+		document.addEventListener('keydown', function (e) { if (e.key === 'Escape') close(); });
+		// Close on nav link click
+		Array.prototype.forEach.call(document.querySelectorAll('.mobile-nav-link'), function (a) {
+			a.addEventListener('click', close);
+		});
+	})();
 
-    if (typedText) {
-        setTimeout(type, 1000);
-    }
-}
+	// Scroll progress bar
+	(function initScrollProgress() {
+		var bar = document.getElementById('scroll-progress');
+		if (!bar) return;
+		function update() {
+			var scrollTop = window.scrollY || document.documentElement.scrollTop;
+			var height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+			var progress = height > 0 ? (scrollTop / height) * 100 : 0;
+			bar.style.width = progress + '%';
+		}
+		update();
+		window.addEventListener('scroll', update, { passive: true });
+		window.addEventListener('resize', update);
+	})();
+})();
 
-// Services Section
-function initServices() {
-    const servicesGrid = document.getElementById('servicesGrid');
-    if (!servicesGrid) return;
-
-    const services = window.websiteData.services;
-    
-    services.forEach(service => {
-        const serviceCard = document.createElement('div');
-        serviceCard.className = 'service-card reveal';
-        serviceCard.style.setProperty('--service-color', service.color);
-        
-        serviceCard.innerHTML = `
-            <div class="service-icon" style="background: ${service.color}">
-                <i class="${service.icon}"></i>
-            </div>
-            <h3 class="service-title">${service.title}</h3>
-            <p class="service-description">${service.description}</p>
-            <ul class="service-features">
-                ${service.features.map(feature => `<li><i class="fas fa-check"></i>${feature}</li>`).join('')}
-            </ul>
-        `;
-        
-        servicesGrid.appendChild(serviceCard);
-    });
-}
-
-// Case Studies Section
-function initCaseStudies() {
-    const caseStudyGrid = document.getElementById('caseStudyGrid');
-    if (!caseStudyGrid) return;
-
-    const caseStudies = window.websiteData.caseStudies;
-    
-    caseStudies.forEach(study => {
-        const caseStudyCard = document.createElement('div');
-        caseStudyCard.className = 'case-study-card reveal';
-        
-        caseStudyCard.innerHTML = `
-            <div class="case-study-header">
-                <div class="case-study-meta">
-                    <span class="case-study-industry">${study.industry}</span>
-                    <span class="case-study-duration">${study.duration}</span>
-                </div>
-                <h3 class="case-study-title">${study.title}</h3>
-                <p class="case-study-client">${study.client}</p>
-            </div>
-            
-            <div class="case-study-content">
-                <div class="case-study-section">
-                    <h4>Challenge</h4>
-                    <p>${study.challenge}</p>
-                </div>
-                
-                <div class="case-study-section">
-                    <h4>Solution</h4>
-                    <p>${study.solution}</p>
-                </div>
-                
-                <div class="case-study-section">
-                    <h4>Results</h4>
-                    <ul class="case-study-results">
-                        ${study.results.map(result => `<li>${result}</li>`).join('')}
-                    </ul>
-                </div>
-                
-                <div class="case-study-technologies">
-                    ${study.technologies.map(tech => `<span class="tech-tag">${tech}</span>`).join('')}
-                </div>
-            </div>
-        `;
-        
-        caseStudyGrid.appendChild(caseStudyCard);
-    });
-}
-
-// Experience Timeline
-function initExperience() {
-    const experienceTimeline = document.getElementById('experienceTimeline');
-    if (!experienceTimeline) return;
-
-    const experience = window.websiteData.experience;
-    
-    experience.forEach(exp => {
-        const timelineItem = document.createElement('div');
-        timelineItem.className = `timeline-item reveal ${exp.type}`;
-        
-        timelineItem.innerHTML = `
-            <div class="timeline-marker">
-                <div class="timeline-dot"></div>
-                <div class="timeline-line"></div>
-            </div>
-            
-            <div class="timeline-content">
-                <div class="timeline-header">
-                    <h3 class="timeline-title">${exp.title}</h3>
-                    <div class="timeline-company">${exp.company}</div>
-                    <div class="timeline-period">${exp.period}</div>
-                    <div class="timeline-location">${exp.location}</div>
-                </div>
-                
-                <p class="timeline-description">${exp.description}</p>
-                
-                <div class="timeline-achievements">
-                    <h4>Key Achievements:</h4>
-                    <ul>
-                        ${exp.achievements.map(achievement => `<li>${achievement}</li>`).join('')}
-                    </ul>
-                </div>
-                
-                <div class="timeline-technologies">
-                    ${exp.technologies.map(tech => `<span class="tech-tag">${tech}</span>`).join('')}
-                </div>
-            </div>
-        `;
-        
-        experienceTimeline.appendChild(timelineItem);
-    });
-}
-
-// Scroll Animations
-function initScrollAnimations() {
-    const observerOptions = {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
-    };
-
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('visible');
-            }
-        });
-    }, observerOptions);
-
-    document.querySelectorAll('.reveal').forEach(el => {
-        observer.observe(el);
-    });
-}
-
-// Navigation
-function initNavigation() {
-    const navLinks = document.querySelectorAll('.nav-link');
-    const sections = document.querySelectorAll('section[id]');
-
-    function updateActiveNav() {
-        const scrollPos = window.scrollY + 100;
-
-        sections.forEach(section => {
-            const sectionTop = section.offsetTop;
-            const sectionHeight = section.offsetHeight;
-            const sectionId = section.getAttribute('id');
-            const navLink = document.querySelector(`.nav-link[href="#${sectionId}"]`);
-
-            if (scrollPos >= sectionTop && scrollPos < sectionTop + sectionHeight) {
-                navLinks.forEach(link => link.classList.remove('active'));
-                if (navLink) navLink.classList.add('active');
-            }
-        });
-    }
-
-    window.addEventListener('scroll', updateActiveNav);
-    
-    // Smooth scrolling for nav links
-    navLinks.forEach(link => {
-        link.addEventListener('click', (e) => {
-            e.preventDefault();
-            const targetId = link.getAttribute('href');
-            const targetSection = document.querySelector(targetId);
-            
-            if (targetSection) {
-                targetSection.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
-                });
-            }
-        });
-    });
-}
-
-// Theme Toggle
-function initThemeToggle() {
-    const themeToggles = document.querySelectorAll('.theme-toggle');
-    const currentTheme = localStorage.getItem('theme') || 'light';
-    
-    document.documentElement.setAttribute('data-theme', currentTheme);
-    
-    themeToggles.forEach(toggle => {
-        toggle.addEventListener('click', () => {
-            const currentTheme = document.documentElement.getAttribute('data-theme');
-            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-            
-            document.documentElement.setAttribute('data-theme', newTheme);
-            localStorage.setItem('theme', newTheme);
-        });
-    });
-}
-
-// Mobile Menu
-function initMobileMenu() {
-    const mobileMenuToggle = document.getElementById('mobileMenuToggle');
-    const mobileMenu = document.getElementById('mobileMenu');
-    const mobileMenuOverlay = document.getElementById('mobileMenuOverlay');
-    const mobileMenuClose = document.getElementById('mobileMenuClose');
-    const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
-
-    function openMobileMenu() {
-        mobileMenu.classList.add('active');
-        mobileMenuOverlay.classList.add('active');
-        document.body.style.overflow = 'hidden';
-    }
-
-    function closeMobileMenu() {
-        mobileMenu.classList.remove('active');
-        mobileMenuOverlay.classList.remove('active');
-        document.body.style.overflow = '';
-    }
-
-    mobileMenuToggle?.addEventListener('click', openMobileMenu);
-    mobileMenuClose?.addEventListener('click', closeMobileMenu);
-    mobileMenuOverlay?.addEventListener('click', closeMobileMenu);
-
-    mobileNavLinks.forEach(link => {
-        link.addEventListener('click', closeMobileMenu);
-    });
-}
-
-// Contact Form
-function initContactForm() {
-    const hireForm = document.getElementById('hireForm');
-    if (!hireForm) return;
-
-    hireForm.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        
-        const submitBtn = document.getElementById('formSubmit');
-        const originalText = submitBtn.textContent;
-        
-        submitBtn.textContent = 'Sending...';
-        submitBtn.disabled = true;
-
-        try {
-            const formData = new FormData(hireForm);
-            const response = await fetch(hireForm.action, {
-                method: 'POST',
-                body: formData,
-                headers: {
-                    'Accept': 'application/json'
-                }
-            });
-
-            if (response.ok) {
-                alert('Thank you! I\'ll get back to you within 24 hours.');
-                hireForm.reset();
-                closeHireModal();
-            } else {
-                throw new Error('Form submission failed');
-            }
-        } catch (error) {
-            alert('Sorry, there was an error. Please try again or contact me directly.');
-        } finally {
-            submitBtn.textContent = originalText;
-            submitBtn.disabled = false;
-        }
-    });
-}
-
-// Newsletter Form
-function initNewsletterForm() {
-    const newsletterForm = document.getElementById('newsletterForm');
-    if (!newsletterForm) return;
-
-    newsletterForm.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        
-        const submitBtn = document.getElementById('newsletterSubmit');
-        const originalText = submitBtn.innerHTML;
-        
-        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i><span>Subscribing...</span>';
-        submitBtn.disabled = true;
-
-        try {
-            const formData = new FormData(newsletterForm);
-            const response = await fetch(newsletterForm.action, {
-                method: 'POST',
-                body: formData,
-                headers: {
-                    'Accept': 'application/json'
-                }
-            });
-
-            if (response.ok) {
-                alert('Thank you for subscribing! You\'ll receive my insights soon.');
-                newsletterForm.reset();
-            } else {
-                throw new Error('Subscription failed');
-            }
-        } catch (error) {
-            alert('Sorry, there was an error. Please try again.');
-        } finally {
-            submitBtn.innerHTML = originalText;
-            submitBtn.disabled = false;
-        }
-    });
-}
-
-// Hire Modal
-function initHireModal() {
-    const hireButton = document.getElementById('hireButton');
-    const hireModal = document.getElementById('hireModal');
-    const modalClose = document.getElementById('modalClose');
-
-    function openHireModal() {
-        hireModal.classList.add('active');
-        document.body.style.overflow = 'hidden';
-    }
-
-    function closeHireModal() {
-        hireModal.classList.remove('active');
-        document.body.style.overflow = '';
-    }
-
-    hireButton?.addEventListener('click', (e) => {
-        e.preventDefault();
-        openHireModal();
-    });
-
-    modalClose?.addEventListener('click', closeHireModal);
-
-    hireModal?.addEventListener('click', (e) => {
-        if (e.target === hireModal) {
-            closeHireModal();
-        }
-    });
-
-    // Close modal on escape key
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && hireModal.classList.contains('active')) {
-            closeHireModal();
-        }
-    });
-}
-
-// Custom Cursor
-function initCustomCursor() {
-    const cursor = document.querySelector('.cursor');
-    if (!cursor) return;
-
-    document.addEventListener('mousemove', (e) => {
-        cursor.style.left = e.clientX + 'px';
-        cursor.style.top = e.clientY + 'px';
-    });
-
-    // Add hover effect for interactive elements
-    const interactiveElements = document.querySelectorAll('a, button, .service-card, .case-study-card, .timeline-item');
-    
-    interactiveElements.forEach(el => {
-        el.addEventListener('mouseenter', () => {
-            cursor.classList.add('hover');
-        });
-        
-        el.addEventListener('mouseleave', () => {
-            cursor.classList.remove('hover');
-        });
-    });
-}
-
-// Floating Shapes Animation
-function initFloatingShapes() {
-    const shapes = document.querySelectorAll('.shape');
-    
-    shapes.forEach((shape, index) => {
-        const animationDuration = 20 + index * 5;
-        const animationDelay = index * 2;
-        
-        shape.style.animation = `float ${animationDuration}s ease-in-out ${animationDelay}s infinite`;
-    });
-}
-
-// Scroll Progress Bar
-function initScrollProgress() {
-    const progressBar = document.getElementById('scroll-progress');
-    if (!progressBar) return;
-
-    window.addEventListener('scroll', () => {
-        const scrollTop = document.documentElement.scrollTop;
-        const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-        const scrollPercent = (scrollTop / scrollHeight) * 100;
-        
-        progressBar.style.width = scrollPercent + '%';
-    });
-}
-
-// Count Up Animations
-function initCountUpAnimations() {
-    const countUpElements = document.querySelectorAll('.count-up');
-    
-    const countUpObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const element = entry.target;
-                const target = parseInt(element.getAttribute('data-target'));
-                const duration = 2000;
-                const increment = target / (duration / 16);
-                let current = 0;
-                
-                const timer = setInterval(() => {
-                    current += increment;
-                    if (current >= target) {
-                        current = target;
-                        clearInterval(timer);
-                    }
-                    element.textContent = Math.floor(current);
-                }, 16);
-                
-                countUpObserver.unobserve(element);
-            }
-        });
-    }, { threshold: 0.5 });
-
-    countUpElements.forEach(el => countUpObserver.observe(el));
-}
-
-// Loader
-function initLoader() {
-    const loader = document.querySelector('.loader');
-    if (!loader) return;
-
-    window.addEventListener('load', () => {
-        setTimeout(() => {
-            loader.style.opacity = '0';
-            setTimeout(() => {
-                loader.style.display = 'none';
-            }, 300);
-        }, 1000);
-    });
-}
-
-// Phone number click handler
-document.addEventListener('DOMContentLoaded', function() {
-    const callMeBtn = document.getElementById('callMeBtn');
-    if (callMeBtn) {
-        callMeBtn.addEventListener('click', function(e) {
-            e.preventDefault();
-            if (confirm('Would you like to call me?')) {
-                window.location.href = 'tel:+919131620063';
-            }
-        });
-    }
-});
