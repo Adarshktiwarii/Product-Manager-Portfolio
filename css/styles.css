@@ -564,6 +564,10 @@ body {
     color: var(--text-secondary);
     margin-bottom: 3rem;
     line-height: 1.7;
+    text-align: left;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .approach-grid {
