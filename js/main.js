@@ -448,42 +448,52 @@ document.querySelectorAll('img').forEach(img => {
     });
 });
 
-// Advanced 2025 Visual Effects
+// Healthcare Tech Visual Effects
 function initAdvancedEffects() {
-    // Parallax effect for cosmos elements
+    // Parallax effect for healthcare elements
     window.addEventListener('scroll', () => {
         const scrolled = window.pageYOffset;
-        const cosmosDots = document.querySelectorAll('.cosmos-dot');
+        const healthcareElements = document.querySelectorAll('.dna-helix, .neural-network, .heartbeat-monitor, .data-flow');
         
-        cosmosDots.forEach((dot, index) => {
-            const speed = 0.3 + (index * 0.05);
-            dot.style.transform += ` translateY(${scrolled * speed}px)`;
+        healthcareElements.forEach((element, index) => {
+            const speed = 0.2 + (index * 0.1);
+            element.style.transform += ` translateY(${scrolled * speed}px)`;
         });
     });
     
-    // Mouse tracking for holographic elements
-    document.addEventListener('mousemove', (e) => {
-        const holoRings = document.querySelectorAll('.holo-ring');
-        const mouseX = e.clientX / window.innerWidth;
-        const mouseY = e.clientY / window.innerHeight;
+    // Interactive DNA helix
+    const dnaHelix = document.querySelector('.dna-helix');
+    if (dnaHelix) {
+        dnaHelix.addEventListener('mouseenter', () => {
+            dnaHelix.style.animationPlayState = 'paused';
+        });
         
-        holoRings.forEach((ring, index) => {
-            const offsetX = (mouseX - 0.5) * 20 * (index + 1);
-            const offsetY = (mouseY - 0.5) * 20 * (index + 1);
-            ring.style.transform = `translate(${offsetX}px, ${offsetY}px)`;
+        dnaHelix.addEventListener('mouseleave', () => {
+            dnaHelix.style.animationPlayState = 'running';
+        });
+    }
+    
+    // Neural network interaction
+    const neurons = document.querySelectorAll('.neuron');
+    neurons.forEach(neuron => {
+        neuron.addEventListener('mouseenter', () => {
+            neuron.style.animationDuration = '0.5s';
+        });
+        
+        neuron.addEventListener('mouseleave', () => {
+            neuron.style.animationDuration = '3s';
         });
     });
     
-    // Interactive 3D elements
-    const rotatingElements = document.querySelectorAll('.rotating-cube, .rotating-sphere, .rotating-torus');
-    
-    rotatingElements.forEach(element => {
-        element.addEventListener('mouseenter', () => {
-            element.style.animationPlayState = 'paused';
+    // ECG pulse interaction
+    const ecgPulses = document.querySelectorAll('.ecg-pulse');
+    ecgPulses.forEach(pulse => {
+        pulse.addEventListener('mouseenter', () => {
+            pulse.style.animationDuration = '0.5s';
         });
         
-        element.addEventListener('mouseleave', () => {
-            element.style.animationPlayState = 'running';
+        pulse.addEventListener('mouseleave', () => {
+            pulse.style.animationDuration = '2s';
         });
     });
 }
