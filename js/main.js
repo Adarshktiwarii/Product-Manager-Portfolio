@@ -110,7 +110,7 @@ function initTypewriter() {
     const typewriterElement = document.getElementById('typewriter');
     if (!typewriterElement) return;
     
-    const words = ['AI Strategy', 'Data Analytics', 'Digital Innovation', 'Team Transformation'];
+    const words = ['Strategic Planning', 'Data Analytics', 'Digital Innovation', 'Team Transformation'];
     let wordIndex = 0;
     let charIndex = 0;
     let isDeleting = false;
