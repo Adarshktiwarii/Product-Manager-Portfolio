@@ -28,6 +28,7 @@ Usage rules:
 - YYYY-MM-DD: <decision> — Rationale: <why> — Link: <Issue/PR>
 
 ## Recent Activity
+- 2025-08-29 20:57 UTC — Cursor Agent: fix(modal): add pointer-events and force visibility for debugging — https://github.com/Adarshktiwarii/Product-Manager-Portfolio/commit/a3102de1388542753e1c21f69aeac4d3409ea216
 - 2025-08-29 20:55 UTC — Cursor Agent: fix(modal): increase z-index and add debugging for modal visibility issue — https://github.com/Adarshktiwarii/Product-Manager-Portfolio/commit/cf4c1355a84480f564d831587c83e3563c807a8b
 - 2025-08-29 20:52 UTC — Cursor Agent: feat(modal): implement consultation form modal for floating CTA with Formspree integration and toast notifications — https://github.com/Adarshktiwarii/Product-Manager-Portfolio/commit/55c7d0f6d346c954f611d07e7144156f321034e3
 - 2025-08-29 20:48 UTC — Cursor Agent: fix(newsletter): ensure subscribe CTA is visible in both light and dark modes — https://github.com/Adarshktiwarii/Product-Manager-Portfolio/commit/d1561c82fc04050fcaa85364d4294c53eab523f2
