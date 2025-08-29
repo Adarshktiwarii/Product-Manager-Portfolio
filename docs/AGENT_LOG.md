@@ -28,6 +28,7 @@ Usage rules:
 - YYYY-MM-DD: <decision> — Rationale: <why> — Link: <Issue/PR>
 
 ## Recent Activity
+- 2025-08-29 23:11 UTC — Cursor Agent: feat: add question mark to title 'Why Choose Strategic Consulting?' — https://github.com/Adarshktiwarii/Product-Manager-Portfolio/commit/e4c1d052d1a751300124cfb3bb1d6e73f212f79f
 - 2025-08-29 23:10 UTC — Cursor Agent: fix: improve subtitle alignment - left-align text to match card content for better visual consistency — https://github.com/Adarshktiwarii/Product-Manager-Portfolio/commit/72a669019e61a8f6af2a2eac5cd3afd6ffd34bed
 - 2025-08-29 23:08 UTC — Cursor Agent: fix: improve title to 'Why Choose Strategic Consulting' and make subtitle more compelling and grammatically correct — https://github.com/Adarshktiwarii/Product-Manager-Portfolio/commit/4b7b25b2a9b006c14dc207d75f52fcd7b1940e15
 - 2025-08-29 23:07 UTC — Cursor Agent: fix: change unified section title back to 'Why Choose Consulting' — https://github.com/Adarshktiwarii/Product-Manager-Portfolio/commit/3e10a948fda7ec9283c5d380bae36ec77d29e590
