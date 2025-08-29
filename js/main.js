@@ -372,8 +372,11 @@ function initHireModal() {
     const modalClose = document.getElementById('modalClose');
 
     function openHireModal() {
+        console.log('Opening hire modal...');
         hireModal.classList.add('active');
         document.body.style.overflow = 'hidden';
+        console.log('Modal classes:', hireModal.className);
+        console.log('Modal display:', window.getComputedStyle(hireModal).display);
     }
 
     function closeHireModal() {
@@ -382,10 +385,14 @@ function initHireModal() {
     }
 
     if (hireButton) {
+        console.log('Hire button found:', hireButton);
         hireButton.addEventListener('click', (e) => {
+            console.log('Hire button clicked');
             e.preventDefault();
             openHireModal();
         });
+    } else {
+        console.error('Hire button not found!');
     }
 
     modalClose?.addEventListener('click', closeHireModal);
