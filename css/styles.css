@@ -228,6 +228,259 @@ body {
     border-color: var(--accent-primary);
 }
 
+/* 2025 Advanced Visual Elements */
+.floating-shapes {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: -3;
+}
+
+.shape {
+    position: absolute;
+    border-radius: 50%;
+    background: var(--gradient-primary);
+    opacity: 0.1;
+    animation: float 20s infinite linear;
+}
+
+.shape-1 {
+    width: 100px;
+    height: 100px;
+    top: 10%;
+    left: 10%;
+    animation-delay: 0s;
+    animation-duration: 25s;
+}
+
+.shape-2 {
+    width: 150px;
+    height: 150px;
+    top: 60%;
+    right: 15%;
+    animation-delay: 5s;
+    animation-duration: 30s;
+}
+
+.shape-3 {
+    width: 80px;
+    height: 80px;
+    top: 30%;
+    right: 30%;
+    animation-delay: 10s;
+    animation-duration: 20s;
+}
+
+.shape-4 {
+    width: 120px;
+    height: 120px;
+    bottom: 20%;
+    left: 20%;
+    animation-delay: 15s;
+    animation-duration: 35s;
+}
+
+.shape-5 {
+    width: 90px;
+    height: 90px;
+    top: 80%;
+    left: 60%;
+    animation-delay: 20s;
+    animation-duration: 28s;
+}
+
+/* Rotating 3D Elements */
+.rotating-elements {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: -2;
+}
+
+.rotating-cube {
+    position: absolute;
+    top: 20%;
+    right: 10%;
+    width: 60px;
+    height: 60px;
+    transform-style: preserve-3d;
+    animation: rotateCube 20s infinite linear;
+}
+
+.cube-face {
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    background: var(--glass-bg);
+    border: 2px solid var(--accent-primary);
+    backdrop-filter: var(--backdrop-blur);
+}
+
+.cube-face.front { transform: rotateY(0deg) translateZ(30px); }
+.cube-face.back { transform: rotateY(180deg) translateZ(30px); }
+.cube-face.right { transform: rotateY(90deg) translateZ(30px); }
+.cube-face.left { transform: rotateY(-90deg) translateZ(30px); }
+.cube-face.top { transform: rotateX(90deg) translateZ(30px); }
+.cube-face.bottom { transform: rotateX(-90deg) translateZ(30px); }
+
+.rotating-sphere {
+    position: absolute;
+    top: 70%;
+    left: 15%;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--gradient-primary);
+    box-shadow: var(--glow-primary);
+    animation: rotateSphere 15s infinite linear;
+}
+
+.rotating-torus {
+    position: absolute;
+    top: 40%;
+    left: 80%;
+    width: 50px;
+    height: 50px;
+    border: 3px solid var(--accent-primary);
+    border-radius: 50%;
+    animation: rotateTorus 25s infinite linear;
+}
+
+@keyframes rotateCube {
+    0% { transform: rotateX(0deg) rotateY(0deg); }
+    100% { transform: rotateX(360deg) rotateY(360deg); }
+}
+
+@keyframes rotateSphere {
+    0% { transform: rotate(0deg) scale(1); }
+    50% { transform: rotate(180deg) scale(1.2); }
+    100% { transform: rotate(360deg) scale(1); }
+}
+
+@keyframes rotateTorus {
+    0% { transform: rotate(0deg) scale(1); }
+    100% { transform: rotate(360deg) scale(1.1); }
+}
+
+/* Data Visualization Elements */
+.data-viz {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: -1;
+}
+
+.chart-line {
+    position: absolute;
+    top: 25%;
+    left: 5%;
+    width: 100px;
+    height: 2px;
+    background: var(--accent-primary);
+    animation: chartLine 8s infinite ease-in-out;
+}
+
+.chart-bar {
+    position: absolute;
+    bottom: 30%;
+    right: 8%;
+    width: 4px;
+    height: 60px;
+    background: var(--gradient-primary);
+    animation: chartBar 6s infinite ease-in-out;
+}
+
+.chart-pie {
+    position: absolute;
+    top: 60%;
+    left: 70%;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: conic-gradient(var(--accent-primary) 0deg 120deg, transparent 120deg 360deg);
+    animation: chartPie 10s infinite linear;
+}
+
+@keyframes chartLine {
+    0%, 100% { transform: scaleX(0.5); opacity: 0.5; }
+    50% { transform: scaleX(1); opacity: 1; }
+}
+
+@keyframes chartBar {
+    0%, 100% { height: 30px; }
+    50% { height: 80px; }
+}
+
+@keyframes chartPie {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Holographic Effects */
+.holographic-elements {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: -1;
+}
+
+.holo-ring {
+    position: absolute;
+    border-radius: 50%;
+    border: 2px solid var(--accent-primary);
+    opacity: 0.3;
+    animation: holoPulse 4s infinite ease-in-out;
+}
+
+.holo-ring-1 {
+    top: 15%;
+    left: 50%;
+    width: 200px;
+    height: 200px;
+    animation-delay: 0s;
+}
+
+.holo-ring-2 {
+    top: 45%;
+    right: 20%;
+    width: 150px;
+    height: 150px;
+    animation-delay: 1s;
+}
+
+.holo-ring-3 {
+    bottom: 25%;
+    left: 30%;
+    width: 180px;
+    height: 180px;
+    animation-delay: 2s;
+}
+
+@keyframes holoPulse {
+    0%, 100% { 
+        transform: scale(1); 
+        opacity: 0.3;
+        box-shadow: 0 0 20px var(--accent-primary);
+    }
+    50% { 
+        transform: scale(1.2); 
+        opacity: 0.6;
+        box-shadow: 0 0 40px var(--accent-primary);
+    }
+}
+
 /* Theme Toggle */
 .theme-toggle {
     position: fixed;
@@ -574,6 +827,135 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    position: relative;
+}
+
+.hero-image-container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+}
+
+.hero-orbit {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 400px;
+    height: 400px;
+}
+
+.orbit-ring {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    border-radius: 50%;
+    border: 1px solid var(--accent-primary);
+    opacity: 0.3;
+    animation: orbitRotate 20s infinite linear;
+}
+
+.orbit-ring-1 {
+    width: 300px;
+    height: 300px;
+    margin: -150px 0 0 -150px;
+    animation-duration: 20s;
+}
+
+.orbit-ring-2 {
+    width: 350px;
+    height: 350px;
+    margin: -175px 0 0 -175px;
+    animation-duration: 25s;
+    animation-direction: reverse;
+}
+
+.orbit-ring-3 {
+    width: 400px;
+    height: 400px;
+    margin: -200px 0 0 -200px;
+    animation-duration: 30s;
+}
+
+.orbit-dot {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    background: var(--accent-primary);
+    border-radius: 50%;
+    box-shadow: var(--glow-primary);
+    animation: orbitDot 15s infinite linear;
+}
+
+.orbit-dot-1 {
+    top: 0;
+    left: 50%;
+    margin-left: -4px;
+    animation-duration: 15s;
+}
+
+.orbit-dot-2 {
+    top: 50%;
+    right: 0;
+    margin-top: -4px;
+    animation-duration: 20s;
+    animation-delay: 5s;
+}
+
+.orbit-dot-3 {
+    bottom: 0;
+    left: 50%;
+    margin-left: -4px;
+    animation-duration: 25s;
+    animation-delay: 10s;
+}
+
+@keyframes orbitRotate {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+@keyframes orbitDot {
+    0% { transform: rotate(0deg) translateX(150px) rotate(0deg); }
+    100% { transform: rotate(360deg) translateX(150px) rotate(-360deg); }
+}
+
+.hero-stats {
+    display: flex;
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.stat-item {
+    text-align: center;
+    padding: 1rem;
+    background: var(--glass-bg);
+    backdrop-filter: var(--backdrop-blur);
+    border: 1px solid var(--glass-border);
+    border-radius: 12px;
+    transition: all 0.3s ease;
+    animation: slideInUp 1s ease-out 1s both;
+}
+
+.stat-item:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-lg), var(--glow-primary);
+    border-color: var(--accent-primary);
+}
+
+.stat-number {
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--accent-primary);
+    margin-bottom: 0.5rem;
+}
+
+.stat-label {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    font-weight: 500;
 }
 
 .hero-image {
