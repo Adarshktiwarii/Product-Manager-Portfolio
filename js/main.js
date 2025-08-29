@@ -450,14 +450,14 @@ document.querySelectorAll('img').forEach(img => {
 
 // Advanced 2025 Visual Effects
 function initAdvancedEffects() {
-    // Parallax effect for floating shapes
+    // Parallax effect for cosmos elements
     window.addEventListener('scroll', () => {
         const scrolled = window.pageYOffset;
-        const shapes = document.querySelectorAll('.shape');
+        const cosmosDots = document.querySelectorAll('.cosmos-dot');
         
-        shapes.forEach((shape, index) => {
-            const speed = 0.5 + (index * 0.1);
-            shape.style.transform = `translateY(${scrolled * speed}px)`;
+        cosmosDots.forEach((dot, index) => {
+            const speed = 0.3 + (index * 0.05);
+            dot.style.transform += ` translateY(${scrolled * speed}px)`;
         });
     });
     
