@@ -377,6 +377,13 @@ function initHireModal() {
         document.body.style.overflow = 'hidden';
         console.log('Modal classes:', hireModal.className);
         console.log('Modal display:', window.getComputedStyle(hireModal).display);
+        console.log('Modal opacity:', window.getComputedStyle(hireModal).opacity);
+        console.log('Modal visibility:', window.getComputedStyle(hireModal).visibility);
+        
+        // Force modal to be visible for debugging
+        hireModal.style.opacity = '1';
+        hireModal.style.visibility = 'visible';
+        hireModal.style.pointerEvents = 'auto';
     }
 
     function closeHireModal() {
