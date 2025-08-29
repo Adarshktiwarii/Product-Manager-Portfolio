@@ -11,6 +11,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initModal();
     initFormSubmission();
     initSmoothScrolling();
+    initLearnMoreButton();
 });
 
 // Theme Toggle
@@ -362,6 +363,24 @@ function initSmoothScrolling() {
             }
         });
     });
+}
+
+// Learn More Button
+function initLearnMoreButton() {
+    const learnMoreBtn = document.getElementById('learnMoreBtn');
+    
+    if (learnMoreBtn) {
+        learnMoreBtn.addEventListener('click', () => {
+            const aboutSection = document.querySelector('#about');
+            if (aboutSection) {
+                const offsetTop = aboutSection.offsetTop - 80; // Account for fixed navbar
+                window.scrollTo({
+                    top: offsetTop,
+                    behavior: 'smooth'
+                });
+            }
+        });
+    }
 }
 
 // Utility function for scrolling to sections
