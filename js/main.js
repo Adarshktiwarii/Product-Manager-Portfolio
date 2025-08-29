@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initMobileMenu();
     initContactForm();
     initNewsletterForm();
-    initHireModal();
+    initConsultationModal();
     initCustomCursor();
     initFloatingShapes();
     initScrollProgress();
@@ -288,21 +288,21 @@ function initMobileMenu() {
 
 // Contact Form
 function initContactForm() {
-    const hireForm = document.getElementById('hireForm');
-    if (!hireForm) return;
+    const consultationForm = document.getElementById('consultationForm');
+    if (!consultationForm) return;
 
-    hireForm.addEventListener('submit', async (e) => {
+    consultationForm.addEventListener('submit', async (e) => {
         e.preventDefault();
         
-        const submitBtn = document.getElementById('formSubmit');
+        const submitBtn = consultationForm.querySelector('.submit-btn');
         const originalText = submitBtn.textContent;
         
         submitBtn.textContent = 'Sending...';
         submitBtn.disabled = true;
 
         try {
-            const formData = new FormData(hireForm);
-            const response = await fetch(hireForm.action, {
+            const formData = new FormData(consultationForm);
+            const response = await fetch(consultationForm.action, {
                 method: 'POST',
                 body: formData,
                 headers: {
@@ -312,8 +312,13 @@ function initContactForm() {
 
             if (response.ok) {
                 showToast('Thank you! I\'ll get back to you within 24 hours.');
-                hireForm.reset();
-                closeHireModal();
+                consultationForm.reset();
+                // Close the modal
+                const consultationModal = document.getElementById('consultationModal');
+                if (consultationModal) {
+                    consultationModal.classList.remove('show');
+                    document.body.style.overflow = '';
+                }
             } else {
                 throw new Error('Form submission failed');
             }
@@ -365,41 +370,45 @@ function initNewsletterForm() {
     });
 }
 
-// Hire Modal
-function initHireModal() {
-    const hireButton = document.getElementById('hireButton');
-    const hireModal = document.getElementById('hireModal');
-    const modalClose = document.getElementById('modalClose');
+// Consultation Modal
+function initConsultationModal() {
+    const consultationButton = document.getElementById('hireButton');
+    const consultationModal = document.getElementById('consultationModal');
+    const modalClose = document.getElementById('consultationModalClose');
 
-    function openHireModal() {
-        hireModal.classList.add('active');
+    function openConsultationModal() {
+        consultationModal.classList.add('show');
         document.body.style.overflow = 'hidden';
     }
 
-    function closeHireModal() {
-        hireModal.classList.remove('active');
+    function closeConsultationModal() {
+        consultationModal.classList.remove('show');
         document.body.style.overflow = '';
     }
 
-    if (hireButton) {
-        hireButton.addEventListener('click', (e) => {
+    if (consultationButton) {
+        consultationButton.addEventListener('click', (e) => {
             e.preventDefault();
-            openHireModal();
+            openConsultationModal();
         });
     }
 
-    modalClose?.addEventListener('click', closeHireModal);
+    if (modalClose) {
+        modalClose.addEventListener('click', closeConsultationModal);
+    }
 
-    hireModal?.addEventListener('click', (e) => {
-        if (e.target === hireModal) {
-            closeHireModal();
-        }
-    });
+    if (consultationModal) {
+        consultationModal.addEventListener('click', (e) => {
+            if (e.target === consultationModal) {
+                closeConsultationModal();
+            }
+        });
+    }
 
     // Close modal on escape key
     document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && hireModal.classList.contains('active')) {
-            closeHireModal();
+        if (e.key === 'Escape' && consultationModal.classList.contains('show')) {
+            closeConsultationModal();
         }
     });
 }

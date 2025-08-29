@@ -348,45 +348,38 @@
         </div>
     </section>
 
-    <!-- Hire Modal -->
-    <div class="modal-overlay" id="hireModal">
-        <div class="modal">
-            <button class="modal-close" id="modalClose">&times;</button>
-            <h3>Let's Start Your Transformation!</h3>
-            <p>I'm excited to hear about your business challenges. Please share your details and I'll get back to you within 24 hours.</p>
+    <!-- Consultation Form Modal -->
+    <div id="consultationModal" class="consultation-modal">
+        <div class="consultation-modal-content">
+            <span class="consultation-modal-close" id="consultationModalClose">&times;</span>
+            <h2>Start Your Consultation</h2>
+            <p>Tell me about your business challenge and I'll get back to you within 24 hours.</p>
             
-            <form id="hireForm" action="https://formspree.io/f/xrbkkjzg" method="POST" novalidate>
-                <input type="hidden" name="_subject" value="New Consulting Request from Website - Adarsh Kumar Tiwari">
-                <input type="hidden" name="_replyto" value="">
-                <input type="hidden" name="source" value="Consulting Website - Hire Modal">
-                <input type="hidden" name="_next" value="https://adarshktiwari.co.in/?success=1">
-                <input type="hidden" name="_captcha" value="false">
-                <input type="hidden" name="_format" value="plain">
+            <form id="consultationForm" action="https://formspree.io/f/xrbkkjzg" method="POST">
+                <input type="hidden" name="_subject" value="New Consulting Request - Adarsh Kumar Tiwari">
+                <input type="hidden" name="source" value="Consultation Form">
                 
-                <div class="form-group">
-                    <label for="userName">Your Name *</label>
-                    <input type="text" id="userName" name="name" required tabindex="1" autocomplete="name">
-                    <div class="form-error">Please enter your name</div>
+                <div class="form-field">
+                    <label for="name">Name *</label>
+                    <input type="text" id="name" name="name" required>
                 </div>
                 
-                <div class="form-group">
-                    <label for="userEmail">Email Address *</label>
-                    <input type="email" id="userEmail" name="email" required tabindex="2" autocomplete="email">
-                    <div class="form-error">Please enter a valid email address</div>
+                <div class="form-field">
+                    <label for="email">Email *</label>
+                    <input type="email" id="email" name="email" required>
                 </div>
                 
-                <div class="form-group">
-                    <label for="userPhone">Phone Number *</label>
-                    <input type="tel" id="userPhone" name="phone" required tabindex="3" autocomplete="tel">
-                    <div class="form-error">Please enter your phone number</div>
+                <div class="form-field">
+                    <label for="phone">Phone *</label>
+                    <input type="tel" id="phone" name="phone" required>
                 </div>
                 
-                <div class="form-group">
-                    <label for="userMessage">Tell me about your business challenge</label>
-                    <textarea id="userMessage" name="message" placeholder="Brief description of your business challenge, goals, timeline, etc..." tabindex="4" rows="4"></textarea>
+                <div class="form-field">
+                    <label for="message">Message</label>
+                    <textarea id="message" name="message" rows="4" placeholder="Describe your business challenge..."></textarea>
                 </div>
                 
-                <button type="submit" class="form-submit" id="formSubmit" tabindex="5">Send Message</button>
+                <button type="submit" class="submit-btn">Send Message</button>
             </form>
         </div>
     </div>
