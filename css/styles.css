@@ -1277,6 +1277,42 @@ section {
     box-shadow: 0 10px 25px rgba(99, 102, 241, 0.3);
 }
 
+/* Toast Notification */
+.toast-notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: var(--success);
+    color: white;
+    padding: 16px 24px;
+    border-radius: 12px;
+    box-shadow: var(--shadow-lg);
+    z-index: 10000;
+    transform: translateX(400px);
+    transition: transform 0.3s ease;
+    max-width: 400px;
+}
+
+.toast-notification.show {
+    transform: translateX(0);
+}
+
+.toast-content {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.toast-icon {
+    font-size: 1.25rem;
+    color: white;
+}
+
+.toast-message {
+    font-weight: 500;
+    line-height: 1.4;
+}
+
 /* Floating Hire Button */
 .hire-button {
     position: fixed;

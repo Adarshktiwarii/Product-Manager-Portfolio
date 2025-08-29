@@ -311,14 +311,14 @@ function initContactForm() {
             });
 
             if (response.ok) {
-                alert('Thank you! I\'ll get back to you within 24 hours.');
+                showToast('Thank you! I\'ll get back to you within 24 hours.');
                 hireForm.reset();
                 closeHireModal();
             } else {
                 throw new Error('Form submission failed');
             }
         } catch (error) {
-            alert('Sorry, there was an error. Please try again or contact me directly.');
+            showToast('Sorry, there was an error. Please try again or contact me directly.', 'error');
         } finally {
             submitBtn.textContent = originalText;
             submitBtn.disabled = false;
@@ -382,16 +382,10 @@ function initHireModal() {
     }
 
     if (hireButton) {
-        const href = hireButton.getAttribute('href') || '';
-        const isExternal = /^https?:\/\//.test(href);
-        if (!isExternal) {
-            hireButton.addEventListener('click', (e) => {
-                e.preventDefault();
-                openHireModal();
-            });
-        } else {
-            hireButton.setAttribute('target', '_blank');
-        }
+        hireButton.addEventListener('click', (e) => {
+            e.preventDefault();
+            openHireModal();
+        });
     }
 
     modalClose?.addEventListener('click', closeHireModal);
@@ -503,6 +497,34 @@ function initLoader() {
             }, 300);
         }, 1000);
     });
+}
+
+// Toast Notification
+function showToast(message, type = 'success') {
+    const toast = document.getElementById('toastNotification');
+    const toastMessage = document.getElementById('toastMessage');
+    const toastIcon = toast.querySelector('.toast-icon');
+    
+    if (!toast || !toastMessage) return;
+    
+    // Update message and icon
+    toastMessage.textContent = message;
+    
+    if (type === 'error') {
+        toast.style.background = 'var(--error)';
+        toastIcon.className = 'fas fa-exclamation-circle toast-icon';
+    } else {
+        toast.style.background = 'var(--success)';
+        toastIcon.className = 'fas fa-check-circle toast-icon';
+    }
+    
+    // Show toast
+    toast.classList.add('show');
+    
+    // Hide after 4 seconds
+    setTimeout(() => {
+        toast.classList.remove('show');
+    }, 4000);
 }
 
 // Phone number click handler
