@@ -28,6 +28,7 @@ Usage rules:
 - YYYY-MM-DD: <decision> — Rationale: <why> — Link: <Issue/PR>
 
 ## Recent Activity
+- 2025-08-29 22:19 UTC — Cursor Agent: fix: make Learn More button functional with smooth scroll to About section — https://github.com/Adarshktiwarii/Product-Manager-Portfolio/commit/7086340aaf8702ce6d51fbc4dc06b7371a57d019
 - 2025-08-29 22:16 UTC — Cursor Agent: fix: replace brain icon with crown icon in header and footer for better professional appearance — https://github.com/Adarshktiwarii/Product-Manager-Portfolio/commit/d5a23980540342ab2341ebd52adfb1d92b86e454
 - 2025-08-29 22:12 UTC — Cursor Agent: fix: update hero typewriter text and description - add AI Adoption and Agile Management, focus on healthcare startups — https://github.com/Adarshktiwarii/Product-Manager-Portfolio/commit/9faf566ffd62d64e422deb14f4b894a65b8b8f81
 - 2025-08-29 22:08 UTC — Cursor Agent: fix: restore two-column about layout with expertise card instead of duplicate image — https://github.com/Adarshktiwarii/Product-Manager-Portfolio/commit/2476939c1d1c3b9cb9eba5d8e04af788008b22ae
