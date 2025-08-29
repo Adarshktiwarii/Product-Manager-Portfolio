@@ -28,6 +28,7 @@ Usage rules:
 - YYYY-MM-DD: <decision> — Rationale: <why> — Link: <Issue/PR>
 
 ## Recent Activity
+- 2025-08-29 23:24 UTC — Cursor Agent: fix: replace 'Team optimization' with 'Process optimization' in Team Transformation card — https://github.com/Adarshktiwarii/Product-Manager-Portfolio/commit/b5c603a598d0bb149497282ff5f9145913b52014
 - 2025-08-29 23:20 UTC — Cursor Agent: fix: aggressively remove all repetitive content and replace Process Optimization with Product Management - ensure each service has unique value proposition — https://github.com/Adarshktiwarii/Product-Manager-Portfolio/commit/2f5db1525ea98f633f88408eaf44284fadf37acf
 - 2025-08-29 23:18 UTC — Cursor Agent: fix: shorten services subtitle to fit one line and remove repetitive 'Change management' from AI Adoption card — https://github.com/Adarshktiwarii/Product-Manager-Portfolio/commit/d322e5b718ca52a6b37829120a5549d87ea65880
 - 2025-08-29 23:15 UTC — Cursor Agent: refactor: change services title from 'Strategic Consulting Services' to 'Professional Consulting Services' to avoid repetitive use of 'Strategic' — https://github.com/Adarshktiwarii/Product-Manager-Portfolio/commit/c47e33e0e4a18554b4498bbb4abeae0503e452b9
