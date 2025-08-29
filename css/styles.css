@@ -1174,6 +1174,16 @@ section {
     opacity: 1 !important;
     visibility: visible !important;
     pointer-events: auto !important;
+    background: red !important;
+}
+
+/* Temporary debugging - make modal extremely visible */
+.modal-overlay.active .modal {
+    background: yellow !important;
+    border: 5px solid red !important;
+    color: black !important;
+    font-size: 20px !important;
+    transform: scale(1) !important;
 }
 
 .modal {
