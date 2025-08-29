@@ -28,6 +28,7 @@ Usage rules:
 - YYYY-MM-DD: <decision> — Rationale: <why> — Link: <Issue/PR>
 
 ## Recent Activity
+- 2025-08-29 23:18 UTC — Cursor Agent: fix: shorten services subtitle to fit one line and remove repetitive 'Change management' from AI Adoption card — https://github.com/Adarshktiwarii/Product-Manager-Portfolio/commit/d322e5b718ca52a6b37829120a5549d87ea65880
 - 2025-08-29 23:15 UTC — Cursor Agent: refactor: change services title from 'Strategic Consulting Services' to 'Professional Consulting Services' to avoid repetitive use of 'Strategic' — https://github.com/Adarshktiwarii/Product-Manager-Portfolio/commit/c47e33e0e4a18554b4498bbb4abeae0503e452b9
 - 2025-08-29 23:14 UTC — Cursor Agent: feat: refine services title to 'Strategic Consulting Services' and add two new service cards - AI Adoption & Integration and Process Optimization — https://github.com/Adarshktiwarii/Product-Manager-Portfolio/commit/6f57e447272813d17dadf2754b04eae27dc8af0f
 - 2025-08-29 23:11 UTC — Cursor Agent: feat: add question mark to title 'Why Choose Strategic Consulting?' — https://github.com/Adarshktiwarii/Product-Manager-Portfolio/commit/e4c1d052d1a751300124cfb3bb1d6e73f212f79f
