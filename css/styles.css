@@ -1,4 +1,4 @@
-/* Modern AI-Themed Website CSS */
+/* Modern AI-Themed Website CSS - 2025 Edition */
 :root {
     /* Light Theme */
     --bg-primary: #ffffff;
@@ -21,6 +21,13 @@
     --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
     --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
     --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+    
+    /* 2025 Modern Effects */
+    --glass-bg: rgba(255, 255, 255, 0.1);
+    --glass-border: rgba(255, 255, 255, 0.2);
+    --backdrop-blur: blur(20px);
+    --glow-primary: 0 0 20px rgba(15, 118, 110, 0.3);
+    --glow-secondary: 0 0 40px rgba(17, 94, 89, 0.2);
 }
 
 [data-theme="dark"] {
@@ -45,6 +52,13 @@
     --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4);
     --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.4);
     --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
+    
+    /* 2025 Modern Effects - Dark */
+    --glass-bg: rgba(0, 0, 0, 0.2);
+    --glass-border: rgba(255, 255, 255, 0.1);
+    --backdrop-blur: blur(20px);
+    --glow-primary: 0 0 20px rgba(20, 184, 166, 0.4);
+    --glow-secondary: 0 0 40px rgba(13, 148, 136, 0.3);
 }
 
 * {
@@ -130,6 +144,90 @@ body {
     }
 }
 
+/* 2025 Modern Animations */
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-20px);
+    }
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    50% {
+        transform: scale(1.05);
+        opacity: 0.8;
+    }
+}
+
+@keyframes shimmer {
+    0% {
+        background-position: -200% 0;
+    }
+    100% {
+        background-position: 200% 0;
+    }
+}
+
+@keyframes slideInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInScale {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes glowPulse {
+    0%, 100% {
+        box-shadow: var(--glow-primary);
+    }
+    50% {
+        box-shadow: var(--glow-secondary);
+    }
+}
+
+/* Modern Glassmorphism Effects */
+.glass-effect {
+    background: var(--glass-bg);
+    backdrop-filter: var(--backdrop-blur);
+    border: 1px solid var(--glass-border);
+    border-radius: 16px;
+}
+
+.glass-card {
+    background: var(--glass-bg);
+    backdrop-filter: var(--backdrop-blur);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    box-shadow: var(--shadow-lg);
+    transition: all 0.3s ease;
+}
+
+.glass-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-xl), var(--glow-primary);
+    border-color: var(--accent-primary);
+}
+
 /* Theme Toggle */
 .theme-toggle {
     position: fixed;
@@ -165,21 +263,23 @@ body {
     display: block;
 }
 
-/* Navigation */
+/* Navigation - 2025 Modern */
 .navbar {
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(20px);
-    border-bottom: 1px solid var(--border);
+    background: var(--glass-bg);
+    backdrop-filter: var(--backdrop-blur);
+    border-bottom: 1px solid var(--glass-border);
     z-index: 100;
     transition: all 0.3s ease;
+    box-shadow: var(--shadow-lg);
 }
 
 [data-theme="dark"] .navbar {
-    background: rgba(15, 23, 42, 0.95);
+    background: var(--glass-bg);
+    border-bottom: 1px solid var(--glass-border);
 }
 
 .nav-container {
@@ -200,6 +300,13 @@ body {
     font-size: 1.25rem;
     color: var(--text-primary);
     text-decoration: none;
+    transition: all 0.3s ease;
+    animation: fadeInScale 0.6s ease-out;
+}
+
+.logo:hover {
+    transform: scale(1.05);
+    filter: drop-shadow(0 0 10px var(--accent-primary));
 }
 
 .logo-icon {
@@ -212,7 +319,14 @@ body {
     justify-content: center;
     color: white;
     font-size: 1.2rem;
+    transition: all 0.3s ease;
     animation: pulse 2s infinite;
+    box-shadow: var(--glow-primary);
+}
+
+.logo-icon:hover {
+    transform: rotate(360deg) scale(1.1);
+    box-shadow: var(--glow-secondary);
 }
 
 @keyframes pulse {
@@ -236,10 +350,18 @@ body {
     font-weight: 500;
     transition: all 0.3s ease;
     position: relative;
+    padding: 8px 16px;
+    border-radius: 8px;
+    background: transparent;
 }
 
 .nav-link:hover,
 .nav-link.active {
+    color: var(--accent-primary);
+    background: var(--glass-bg);
+    backdrop-filter: var(--backdrop-blur);
+    box-shadow: var(--glow-primary);
+}
     color: var(--accent-primary);
 }
 
@@ -307,13 +429,16 @@ body {
     border-bottom: 1px solid var(--border-light);
 }
 
-/* Hero Section */
+/* Hero Section - 2025 Modern */
 .hero {
     min-height: 100vh;
     display: flex;
     align-items: center;
     position: relative;
     padding: 120px 2rem 2rem;
+    background: radial-gradient(circle at 20% 80%, rgba(15, 118, 110, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(17, 94, 89, 0.1) 0%, transparent 50%);
+    animation: fadeInScale 1s ease-out;
 }
 
 .hero-content {
@@ -329,14 +454,24 @@ body {
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    padding: 8px 16px;
-    background: rgba(99, 102, 241, 0.1);
-    border: 1px solid rgba(99, 102, 241, 0.2);
+    padding: 12px 20px;
+    background: var(--glass-bg);
+    backdrop-filter: var(--backdrop-blur);
+    border: 1px solid var(--glass-border);
     border-radius: 50px;
     font-size: 0.875rem;
     font-weight: 500;
     color: var(--accent-primary);
     margin-bottom: 2rem;
+    transition: all 0.3s ease;
+    animation: slideInUp 0.8s ease-out;
+    box-shadow: var(--shadow-md);
+}
+
+.hero-badge:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg), var(--glow-primary);
+    border-color: var(--accent-primary);
 }
 
 .pulse-dot {
@@ -353,6 +488,8 @@ body {
     line-height: 1.1;
     margin-bottom: 1.5rem;
     color: var(--text-primary);
+    animation: slideInUp 1s ease-out 0.2s both;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .gradient-text {
@@ -405,23 +542,32 @@ body {
 
 .btn-primary {
     background: var(--gradient-primary);
+    box-shadow: var(--shadow-md), var(--glow-primary);
+    animation: slideInUp 1s ease-out 0.4s both;
+}
     color: white;
 }
 
 .btn-primary:hover {
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-xl);
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: var(--shadow-xl), var(--glow-secondary);
+    filter: brightness(1.1);
 }
 
 .btn-secondary {
-    background: transparent;
+    background: var(--glass-bg);
+    backdrop-filter: var(--backdrop-blur);
     color: var(--text-primary);
-    border: 2px solid var(--border);
+    border: 2px solid var(--glass-border);
+    animation: slideInUp 1s ease-out 0.6s both;
 }
 
 .btn-secondary:hover {
-    background: var(--bg-secondary);
+    background: var(--accent-primary);
+    color: white;
     border-color: var(--accent-primary);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg), var(--glow-primary);
 }
 
 .hero-visual {
@@ -436,14 +582,16 @@ body {
     height: 300px;
     border-radius: 20px;
     overflow: hidden;
-    box-shadow: var(--shadow-xl);
-    border: 4px solid var(--border);
+    box-shadow: var(--shadow-xl), var(--glow-primary);
+    border: 4px solid var(--glass-border);
     transition: all 0.3s ease;
+    animation: fadeInScale 1s ease-out 0.8s both;
 }
 
 .hero-image:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: var(--shadow-xl), var(--glow-secondary);
+    border-color: var(--accent-primary);
 }
 
 .hero-image img {
