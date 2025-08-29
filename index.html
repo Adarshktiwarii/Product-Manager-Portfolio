@@ -3,411 +3,396 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Adarsh Kumar Tiwari — Consultant at WiseRx</title>
+    <title>Adarsh Kumar Tiwari — AI-Powered Strategic Consultant</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-    <!-- Floating Shapes -->
-    <div class="floating-shapes">
-        <div class="shape">
-            <svg width="100" height="100" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <circle cx="50" cy="50" r="50" fill="url(#gradient1)"/>
-                <defs>
-                    <linearGradient id="gradient1" x1="0%" y1="0%" x2="100%" y2="100%">
-                        <stop offset="0%" style="stop-color:#6366f1;stop-opacity:1" />
-                        <stop offset="100%" style="stop-color:#8b5cf6;stop-opacity:1" />
-                    </linearGradient>
-                </defs>
-            </svg>
-        </div>
-        <div class="shape">
-            <svg width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <rect width="80" height="80" rx="20" fill="url(#gradient2)"/>
-                <defs>
-                    <linearGradient id="gradient2" x1="0%" y1="0%" x2="100%" y2="100%">
-                        <stop offset="0%" style="stop-color:#ec4899;stop-opacity:1" />
-                        <stop offset="100%" style="stop-color:#8b5cf6;stop-opacity:1" />
-                    </linearGradient>
-                </defs>
-            </svg>
-        </div>
-        <div class="shape">
-            <svg width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <polygon points="30,5 55,50 5,50" fill="url(#gradient3)"/>
-                <defs>
-                    <linearGradient id="gradient3" x1="0%" y1="0%" x2="100%" y2="100%">
-                        <stop offset="0%" style="stop-color:#6366f1;stop-opacity:1" />
-                        <stop offset="100%" style="stop-color:#ec4899;stop-opacity:1" />
-                    </linearGradient>
-                </defs>
-            </svg>
-        </div>
-    </div>
-
-    <!-- Custom Cursor -->
-    <div class="cursor">
-        <div class="cursor-dot"></div>
-    </div>
-
-    <!-- Loading Screen -->
-    <div class="loader">
-        <div class="loader-content">
-            <div class="loader-text">AKT</div>
-        </div>
-    </div>
-
-    <!-- Progress Bar -->
-    <div id="scroll-progress"></div>
-
+    <!-- AI Particles Background -->
+    <div class="ai-particles" id="aiParticles"></div>
+    
+    <!-- Neural Network Grid -->
+    <div class="neural-grid" id="neuralGrid"></div>
+    
+    <!-- Theme Toggle -->
+    <button class="theme-toggle" id="themeToggle">
+        <i class="fas fa-sun"></i>
+        <i class="fas fa-moon"></i>
+    </button>
+    
     <!-- Navigation -->
-    <nav id="navbar">
+    <nav class="navbar">
         <div class="nav-container">
-            <a href="#home" class="logo">
-                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3ClinearGradient id='grad' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%236366f1;stop-opacity:1' /%3E%3Cstop offset='100%25' style='stop-color:%23ec4899;stop-opacity:1' /%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='100' height='100' fill='url(%23grad)' rx='20'/%3E%3Cpath d='M25 75 L50 25 L75 75 M35 55 L65 55' stroke='white' stroke-width='6' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E" alt="Adarsh Kumar Tiwari" class="logo-img">
+            <div class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-brain"></i>
+                </div>
                 <span>Adarsh Kumar Tiwari</span>
-            </a>
-            <div class="nav-right">
-                <ul class="nav-menu" id="navMenu">
-                    <li><a href="#home" class="nav-link active">Home</a></li>
-                    <li><a href="#about" class="nav-link">About</a></li>
-                    <li><a href="#services" class="nav-link">Services</a></li>
-                    <li><a href="#case-studies" class="nav-link">Case Studies</a></li>
-                    <li><a href="#experience" class="nav-link">Experience</a></li>
-                    <li><a href="#contact" class="nav-link">Contact</a></li>
-                </ul>
-                
-                <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle mobile menu">
-                    <i class="fas fa-bars"></i>
-                </button>
-                
-                <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
-                    <div class="theme-toggle-slider">
-                        <i class="fas fa-sun theme-toggle-icon"></i>
-                        <i class="fas fa-moon theme-toggle-icon" style="position: absolute;"></i>
-                    </div>
-                </button>
             </div>
+            <ul class="nav-menu">
+                <li><a href="#home" class="nav-link active">Home</a></li>
+                <li><a href="#about" class="nav-link">About</a></li>
+                <li><a href="#services" class="nav-link">Services</a></li>
+                <li><a href="#work" class="nav-link">Work</a></li>
+                <li><a href="#contact" class="nav-link">Contact</a></li>
+            </ul>
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
         </div>
     </nav>
-
-    <!-- Mobile Menu Overlay -->
-    <div class="mobile-menu-overlay" id="mobileMenuOverlay"></div>
-
+    
     <!-- Mobile Menu -->
     <div class="mobile-menu" id="mobileMenu">
-        <div class="mobile-menu-header">
-            <span style="font-weight: 600; color: var(--text);">Menu</span>
-            <button class="mobile-menu-close" id="mobileMenuClose">
-                <i class="fas fa-times"></i>
-            </button>
-        </div>
-        
-        <ul class="mobile-nav-links">
-            <li><a href="#home" class="nav-link mobile-nav-link active">Home</a></li>
-            <li><a href="#about" class="nav-link mobile-nav-link">About</a></li>
-            <li><a href="#services" class="nav-link mobile-nav-link">Services</a></li>
-            <li><a href="#case-studies" class="nav-link mobile-nav-link">Case Studies</a></li>
-            <li><a href="#experience" class="nav-link mobile-nav-link">Experience</a></li>
-            <li><a href="#contact" class="nav-link mobile-nav-link">Contact</a></li>
+        <ul class="mobile-nav-menu">
+            <li><a href="#home" class="mobile-nav-link">Home</a></li>
+            <li><a href="#about" class="mobile-nav-link">About</a></li>
+            <li><a href="#services" class="mobile-nav-link">Services</a></li>
+            <li><a href="#work" class="mobile-nav-link">Work</a></li>
+            <li><a href="#contact" class="mobile-nav-link">Contact</a></li>
         </ul>
-        
-        <div class="mobile-theme-toggle">
-            <span class="mobile-theme-label">Dark Mode</span>
-            <button class="theme-toggle" id="mobileThemeToggle" aria-label="Toggle theme">
-                <div class="theme-toggle-slider">
-                    <i class="fas fa-sun theme-toggle-icon"></i>
-                    <i class="fas fa-moon theme-toggle-icon" style="position: absolute;"></i>
-                </div>
-            </button>
-        </div>
     </div>
-
+    
     <!-- Hero Section -->
     <section class="hero" id="home">
-        <div class="hero-bg"></div>
         <div class="hero-content">
-            <div class="hero-photo">
-                <img src="images/profile.jpg" alt="Adarsh Kumar Tiwari" class="profile-photo" loading="eager" decoding="async" onerror="this.onerror=null; this.src='https://ui-avatars.com/api/?name=Adarsh+Kumar+Tiwari&background=6366f1&color=fff&size=256';">
+            <div class="hero-text">
+                <div class="hero-badge">
+                    <span class="pulse-dot"></span>
+                    AI-Powered Strategic Consultant
+                </div>
+                <h1 class="hero-title">
+                    Transforming Business Through
+                    <span class="gradient-text typewriter" id="typewriter"></span>
+                </h1>
+                <p class="hero-description">
+                    Leveraging AI and strategic insights to help healthcare startups and SaaS teams achieve exponential growth through data-driven decisions and innovative solutions.
+                </p>
+                <div class="hero-actions">
+                    <button class="btn btn-primary" id="consultationBtn">
+                        <i class="fas fa-rocket"></i>
+                        Start Consultation
+                    </button>
+                    <button class="btn btn-secondary" onclick="scrollToSection('about')">
+                        <i class="fas fa-arrow-down"></i>
+                        Learn More
+                    </button>
+                </div>
             </div>
-            <span class="hero-badge">
-                <div class="status-dot"></div>
-                Consultant at WiseRx
-            </span>
-            <h1 class="hero-title">
-                I'm <span class="gradient-text">Adarsh</span>,<br>
-                <span class="gradient-text">Strategic <span id="typed-text"></span><span class="typing-cursor">|</span></span>
-            </h1>
-            <p class="hero-subtitle">
-                I help healthcare startups scale and SaaS teams unlock measurable growth through clear strategy, focused execution, and user-first outcomes.
-            </p>
-            <div class="hero-cta">
-                <a href="#services" class="btn btn-primary">
-                    <i class="fas fa-briefcase"></i>
-                    <span>View Services</span>
-                </a>
-                <a href="#contact" class="btn btn-secondary">
-                    <i class="fas fa-calendar-check"></i>
-                    <span>Start Consultation</span>
-                </a>
+            <div class="hero-visual">
+                <div class="ai-brain">
+                    <div class="brain-core"></div>
+                    <div class="neural-connections"></div>
+                </div>
             </div>
         </div>
+        <div class="scroll-indicator">
+            <div class="scroll-dot"></div>
+        </div>
     </section>
-
+    
     <!-- About Section -->
     <section class="about" id="about">
-        <div class="section-header reveal">
-            <h2 class="section-title">About Me</h2>
-            <p class="section-description">
-                A strategic consultant who bridges business strategy and technical execution. With a unique pharmacy background and deep expertise in healthcare technology, 
-                I bring scientific rigor and industry insights to help organizations achieve their digital transformation goals.
-            </p>
-        </div>
-        
-        <div class="stats-container">
-            <div class="stat-card reveal">
-                <div class="stat-icon"><i class="fas fa-chart-line"></i></div>
-                <div class="stat-number count-up" data-target="25">0</div>%
-                <div class="stat-label">Cost Reduction</div>
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">About Me</h2>
+                <p class="section-subtitle">Bridging AI Innovation with Strategic Execution</p>
             </div>
-            <div class="stat-card reveal">
-                <div class="stat-icon"><i class="fas fa-users"></i></div>
-                <div class="stat-number count-up" data-target="17">0</div>
-                <div class="stat-label">Teams Transformed</div>
-            </div>
-            <div class="stat-card reveal">
-                <div class="stat-icon"><i class="fas fa-rocket"></i></div>
-                <div class="stat-number count-up" data-target="30">0</div>%
-                <div class="stat-label">Efficiency Gains</div>
-            </div>
-            <div class="stat-card reveal">
-                <div class="stat-icon"><i class="fas fa-mouse-pointer"></i></div>
-                <div class="stat-number count-up" data-target="35">0</div>%
-                <div class="stat-label">User Experience</div>
-            </div>
-        </div>
-
-        <div class="about-timeline reveal">
-            <div class="about-timeline-item">
-                <span class="about-timeline-icon"><i class="fas fa-graduation-cap"></i></span>
-                <div class="about-timeline-content">
-                    <h4>Education & Expertise</h4>
-                    <p>Bachelor of Pharmacy from Amity University, bringing scientific methodology and analytical thinking to strategic consulting and digital transformation</p>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>With a unique background in pharmacy and deep expertise in healthcare technology, I bring scientific rigor and industry insights to help organizations achieve their digital transformation goals.</p>
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <div class="stat-number" data-target="25">0</div>
+                            <div class="stat-label">% Cost Reduction</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number" data-target="17">0</div>
+                            <div class="stat-label">Teams Transformed</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number" data-target="30">0</div>
+                            <div class="stat-label">% Efficiency Gains</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number" data-target="35">0</div>
+                            <div class="stat-label">% UX Improvement</div>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div class="about-timeline-item">
-                <span class="about-timeline-icon"><i class="fas fa-route"></i></span>
-                <div class="about-timeline-content">
-                    <h4>Professional Journey</h4>
-                    <p>From Gwalior to Bangalore - India's Silicon Valley, now serving as Consultant at WiseRx, helping organizations navigate the complex healthcare technology landscape</p>
-                </div>
-            </div>
-            <div class="about-timeline-item">
-                <span class="about-timeline-icon"><i class="fas fa-bullseye"></i></span>
-                <div class="about-timeline-content">
-                    <h4>Mission & Vision</h4>
-                    <p>Leveraging technology and data-driven insights to create strategic solutions that solve real-world business challenges and drive sustainable growth</p>
+                <div class="about-visual">
+                    <div class="profile-card">
+                        <div class="profile-image">
+                            <img src="images/profile.jpg" alt="Adarsh Kumar Tiwari" onerror="this.style.display='none'">
+                            <div class="profile-fallback">
+                                <i class="fas fa-user"></i>
+                            </div>
+                        </div>
+                        <div class="profile-info">
+                            <h3>Adarsh Kumar Tiwari</h3>
+                            <p>Strategic Consultant at WiseRx</p>
+                            <div class="tech-stack">
+                                <span class="tech-tag">AI/ML</span>
+                                <span class="tech-tag">Healthcare Tech</span>
+                                <span class="tech-tag">Strategy</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
-
+    
     <!-- Services Section -->
     <section class="services" id="services">
-        <div class="section-header reveal">
-            <h2 class="section-title">Consulting Services</h2>
-            <p class="section-description">
-                Strategy to shipping. I partner with founders and teams to clarify priorities and execute with speed. AI included by default where it truly helps.
-            </p>
-        </div>
-
-        <div class="services-grid" id="servicesGrid">
-            <!-- Services will be loaded dynamically -->
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">AI-Powered Services</h2>
+                <p class="section-subtitle">Strategic solutions enhanced with cutting-edge AI</p>
+            </div>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <h3>AI Strategy Consulting</h3>
+                    <p>Develop AI roadmaps and implementation strategies for healthcare and SaaS organizations.</p>
+                    <ul class="service-features">
+                        <li>AI readiness assessment</li>
+                        <li>Technology stack optimization</li>
+                        <li>ROI-driven implementation</li>
+                    </ul>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>Data-Driven Growth</h3>
+                    <p>Leverage analytics and AI to identify growth opportunities and optimize performance.</p>
+                    <ul class="service-features">
+                        <li>Predictive analytics</li>
+                        <li>Performance optimization</li>
+                        <li>Market intelligence</li>
+                    </ul>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3>Team Transformation</h3>
+                    <p>Build high-performing teams with AI-enhanced workflows and processes.</p>
+                    <ul class="service-features">
+                        <li>Process automation</li>
+                        <li>Team optimization</li>
+                        <li>Change management</li>
+                    </ul>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-rocket"></i>
+                    </div>
+                    <h3>Digital Innovation</h3>
+                    <p>Drive digital transformation with AI-powered solutions and modern technologies.</p>
+                    <ul class="service-features">
+                        <li>Digital strategy</li>
+                        <li>Technology integration</li>
+                        <li>Innovation consulting</li>
+                    </ul>
+                </div>
+            </div>
         </div>
     </section>
-
-    <!-- Case Studies Section -->
-    <section class="case-studies" id="case-studies">
-        <div class="section-header reveal">
-            <h2 class="section-title">Case Studies</h2>
-            <p class="section-description">
-                Real challenges, measurable solutions. Explore how I've helped organizations achieve strategic success across healthcare and enterprise domains.
-            </p>
-        </div>
-
-        <div class="case-study-grid" id="caseStudyGrid">
-            <!-- Case studies will be loaded dynamically -->
+    
+    <!-- Work Section -->
+    <section class="work" id="work">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Featured Work</h2>
+                <p class="section-subtitle">AI-powered transformations that drive results</p>
+            </div>
+            <div class="work-grid">
+                <div class="work-card">
+                    <div class="work-image">
+                        <div class="work-overlay">
+                            <i class="fas fa-plus"></i>
+                        </div>
+                    </div>
+                    <div class="work-content">
+                        <h3>Healthcare AI Platform</h3>
+                        <p>Developed AI-powered diagnostic tools reducing diagnosis time by 40%.</p>
+                        <div class="work-tech">
+                            <span>Python</span>
+                            <span>TensorFlow</span>
+                            <span>Healthcare API</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="work-card">
+                    <div class="work-image">
+                        <div class="work-overlay">
+                            <i class="fas fa-plus"></i>
+                        </div>
+                    </div>
+                    <div class="work-content">
+                        <h3>SaaS Growth Optimization</h3>
+                        <p>Implemented AI-driven analytics increasing user engagement by 35%.</p>
+                        <div class="work-tech">
+                            <span>Machine Learning</span>
+                            <span>Analytics</span>
+                            <span>Growth Hacking</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="work-card">
+                    <div class="work-image">
+                        <div class="work-overlay">
+                            <i class="fas fa-plus"></i>
+                        </div>
+                    </div>
+                    <div class="work-content">
+                        <h3>Process Automation</h3>
+                        <p>Automated 60% of manual processes using AI and RPA solutions.</p>
+                        <div class="work-tech">
+                            <span>RPA</span>
+                            <span>AI</span>
+                            <span>Automation</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
-
-    <!-- Experience Timeline -->
-    <section class="experience" id="experience">
-        <div class="section-header reveal">
-            <h2 class="section-title">Professional Experience</h2>
-            <p class="section-description">
-                From pharmacy to strategic consulting - leveraging domain expertise to help organizations navigate digital transformation
-            </p>
-        </div>
-
-        <div class="timeline" id="experienceTimeline">
-            <!-- Experience items will be loaded dynamically -->
-        </div>
-    </section>
-
+    
     <!-- Contact Section -->
     <section class="contact" id="contact">
-        <div class="section-header reveal">
-            <h2 class="section-title">Ready to Transform Your Business?</h2>
-            <p class="section-description">
-                I'm passionate about helping organizations achieve their strategic goals. Let's discuss how we can drive impact together.
-            </p>
-        </div>
-
-        <div class="contact-content reveal">
-            <p class="contact-cta">
-                Currently serving as Consultant at WiseRx, helping organizations navigate complex healthcare technology challenges. Available for strategic consulting engagements 
-                where I can drive meaningful impact through innovative solutions and proven methodologies.
-            </p>
-
-            <div class="contact-links">
-                <a href="mailto:consult@adarshktiwari.co.in" class="contact-link" target="_blank">
-                    <i class="fas fa-envelope"></i>
-                    <span>consult@adarshktiwari.co.in</span>
-                </a>
-                <a href="#" class="contact-link" id="callMeBtn">
-                    <i class="fas fa-phone-alt"></i>
-                    <span>+91 91316 20063</span>
-                </a>
-                <a href="https://www.linkedin.com/in/adarsh-kumar-tiwari-34aa63152/" target="_blank" class="contact-link">
-                    <i class="fab fa-linkedin"></i>
-                    <span>LinkedIn Profile</span>
-                </a>
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Ready to Transform?</h2>
+                <p class="section-subtitle">Let's discuss how AI can accelerate your business growth</p>
             </div>
-
-            <div style="margin-top: 40px;">
-                <a href="mailto:consult@adarshktiwari.co.in?subject=Request%20for%20Resume" class="download-resume">
-                    <i class="fas fa-file-alt"></i>
-                    <span>Request Resume</span>
-                </a>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <div>
+                            <h4>Email</h4>
+                            <p>consult@adarshktiwari.co.in</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-phone"></i>
+                        <div>
+                            <h4>Phone</h4>
+                            <p>+91 91316 20063</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fab fa-linkedin"></i>
+                        <div>
+                            <h4>LinkedIn</h4>
+                            <p>Adarsh Kumar Tiwari</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-cta">
+                    <h3>Start Your AI Journey</h3>
+                    <p>Book a consultation to explore how AI can transform your business.</p>
+                    <button class="btn btn-primary" id="contactConsultationBtn">
+                        <i class="fas fa-calendar"></i>
+                        Schedule Consultation
+                    </button>
+                </div>
             </div>
         </div>
     </section>
-
-    <!-- Newsletter Section -->
-    <section class="newsletter" id="newsletter">
-        <div class="newsletter-content reveal">
-            <div class="newsletter-icon">
-                <i class="fas fa-paper-plane"></i>
-            </div>
-            <h2 class="newsletter-title">Insights for Operators</h2>
-            <p class="newsletter-description">
-                Practical notes on product strategy, healthcare tech, and execution. No fluff—actionable ideas, occasionally.
-            </p>
-            
-            <form class="newsletter-form" id="newsletterForm" action="https://formspree.io/f/mnnvbakd" method="POST" novalidate>
-                <input type="hidden" name="_subject" value="New Subscription — Consulting Newsletter (Adarsh KT)">
-                <input type="hidden" name="source" value="Portfolio Website - Newsletter">
-                <input type="hidden" name="_next" value="https://adarshktiwari.co.in/?newsletter=success">
-                <input type="hidden" name="_captcha" value="false">
-                <input type="hidden" name="_format" value="plain">
-                
-                <input 
-                    type="email" 
-                    name="email" 
-                    class="newsletter-input" 
-                    placeholder="Enter your email address" 
-                    required 
-                    aria-label="Email address for newsletter subscription"
-                    id="newsletterEmail"
-                >
-                <button type="submit" class="newsletter-submit" id="newsletterSubmit">
-                    <i class="fas fa-paper-plane"></i>
-                    <span>Subscribe</span>
+    
+    <!-- Consultation Modal -->
+    <div class="modal" id="consultationModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Start Your AI Transformation</h2>
+                <button class="modal-close" id="modalClose">
+                    <i class="fas fa-times"></i>
                 </button>
-            </form>
-            
-            <div class="newsletter-benefits">
-                <div class="newsletter-benefit">
-                    <i class="fas fa-lightbulb newsletter-benefit-icon"></i>
-                    <span class="newsletter-benefit-text">Strategic insights & case studies</span>
-                </div>
-                <div class="newsletter-benefit">
-                    <i class="fas fa-chart-line newsletter-benefit-icon"></i>
-                    <span class="newsletter-benefit-text">Healthcare tech trends</span>
-                </div>
-                <div class="newsletter-benefit">
-                    <i class="fas fa-tools newsletter-benefit-icon"></i>
-                    <span class="newsletter-benefit-text">Consulting frameworks I use</span>
-                </div>
-                <div class="newsletter-benefit">
-                    <i class="fas fa-rocket newsletter-benefit-icon"></i>
-                    <span class="newsletter-benefit-text">Business transformation tips</span>
-                </div>
+            </div>
+            <div class="modal-body">
+                <p>Tell me about your business challenge and I'll get back to you within 24 hours with an AI-powered solution.</p>
+                <form id="consultationForm" action="https://formspree.io/f/xrbkkjzg" method="POST">
+                    <input type="hidden" name="_subject" value="AI Consultation Request - Adarsh Kumar Tiwari">
+                    <input type="hidden" name="source" value="AI Website">
+                    
+                    <div class="form-group">
+                        <label for="name">Full Name *</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">Email Address *</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="phone">Phone Number *</label>
+                        <input type="tel" id="phone" name="phone" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="company">Company</label>
+                        <input type="text" id="company" name="company">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="message">Business Challenge *</label>
+                        <textarea id="message" name="message" rows="4" placeholder="Describe your business challenge and goals..." required></textarea>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary btn-full">
+                        <i class="fas fa-paper-plane"></i>
+                        Send Message
+                    </button>
+                </form>
             </div>
         </div>
-    </section>
-
-    <!-- Consultation Form Modal -->
-    <div id="consultationModal" class="consultation-modal">
-        <div class="consultation-modal-content">
-            <span class="consultation-modal-close" id="consultationModalClose">&times;</span>
-            <h2>Start Your Consultation</h2>
-            <p>Tell me about your business challenge and I'll get back to you within 24 hours.</p>
-            
-            <form id="consultationForm" action="https://formspree.io/f/xrbkkjzg" method="POST">
-                <input type="hidden" name="_subject" value="New Consulting Request - Adarsh Kumar Tiwari">
-                <input type="hidden" name="source" value="Consultation Form">
-                
-                <div class="form-field">
-                    <label for="name">Name *</label>
-                    <input type="text" id="name" name="name" required>
-                </div>
-                
-                <div class="form-field">
-                    <label for="email">Email *</label>
-                    <input type="email" id="email" name="email" required>
-                </div>
-                
-                <div class="form-field">
-                    <label for="phone">Phone *</label>
-                    <input type="tel" id="phone" name="phone" required>
-                </div>
-                
-                <div class="form-field">
-                    <label for="message">Message</label>
-                    <textarea id="message" name="message" rows="4" placeholder="Describe your business challenge..."></textarea>
-                </div>
-                
-                <button type="submit" class="submit-btn">Send Message</button>
-            </form>
-        </div>
     </div>
-
-    <!-- Floating Hire Button -->
-    <button class="hire-button" id="hireButton">
-        <i class="fas fa-user-plus"></i>
-        <span>Start Consultation</span>
-    </button>
-
-    <!-- Success Toast Notification -->
-    <div class="toast-notification" id="toastNotification">
+    
+    <!-- Success Toast -->
+    <div class="toast" id="toast">
         <div class="toast-content">
-            <i class="fas fa-check-circle toast-icon"></i>
-            <span class="toast-message" id="toastMessage">Message sent successfully!</span>
+            <i class="fas fa-check-circle"></i>
+            <span id="toastMessage">Message sent successfully!</span>
         </div>
     </div>
-
+    
     <!-- Footer -->
-    <footer>
-        <p class="footer-text">
-            Designed by Adarsh Kumar Tiwari and built by AI agents in Bangalore, India © 2025
-        </p>
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <div class="logo">
+                        <div class="logo-icon">
+                            <i class="fas fa-brain"></i>
+                        </div>
+                        <span>Adarsh Kumar Tiwari</span>
+                    </div>
+                    <p>AI-Powered Strategic Consultant</p>
+                </div>
+                <div class="footer-links">
+                    <a href="#home">Home</a>
+                    <a href="#about">About</a>
+                    <a href="#services">Services</a>
+                    <a href="#work">Work</a>
+                    <a href="#contact">Contact</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Adarsh Kumar Tiwari. Designed by Adarsh and built by AI agents in Bangalore, India.</p>
+            </div>
+        </div>
     </footer>
-
-    <!-- Scripts -->
-    <script src="js/data.js"></script>
+    
     <script src="js/main.js"></script>
-    <script src="js/analytics.js"></script>
 </body>
 </html>
