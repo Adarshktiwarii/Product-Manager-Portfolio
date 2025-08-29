@@ -543,10 +543,19 @@ body {
     line-height: 1.7;
 }
 
+.about-text {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    justify-content: flex-start;
+}
+
 .about-timeline {
     display: flex;
     flex-direction: column;
     gap: 2rem;
+    flex: 1;
+    justify-content: flex-end;
 }
 
 .timeline-item {
@@ -595,7 +604,7 @@ body {
     flex-direction: column;
     gap: 2rem;
     height: 100%;
-    justify-content: space-between;
+    justify-content: flex-end;
 }
 
 .about-additional-content {
