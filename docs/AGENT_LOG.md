@@ -28,6 +28,7 @@ Usage rules:
 - YYYY-MM-DD: <decision> — Rationale: <why> — Link: <Issue/PR>
 
 ## Recent Activity
+- 2025-08-29 20:41 UTC — Cursor Agent: feat(footer): merge updated credit to 'Designed by Adarsh and built by AI agents' — https://github.com/Adarshktiwarii/Product-Manager-Portfolio/commit/36041a298c6087d62ba9eb575e9aef84b4b59efe
 - 2025-08-27 15:54 UTC — Cursor Agent: chore(assets): add profile photo for hero image — b14ffca
 - 2025-08-27 15:47 UTC — Cursor Agent: fix(hero): merge photo fallback for hero image — 19544cd
 - 2025-08-27 15:40 UTC — Cursor Agent: chore(ci): auto-append AGENT_LOG entries on push — 6270997
