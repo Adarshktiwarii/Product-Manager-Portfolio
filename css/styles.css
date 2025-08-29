@@ -539,7 +539,7 @@ body {
 .about-text p {
     font-size: 1.125rem;
     color: var(--text-secondary);
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem;
     line-height: 1.7;
 }
 
@@ -688,7 +688,6 @@ body {
     padding: 2rem;
     box-shadow: var(--shadow-lg);
     width: 100%;
-    max-width: 400px;
 }
 
 .expertise-header {
