@@ -1171,9 +1171,9 @@ section {
 }
 
 .modal-overlay.active {
-    opacity: 1;
-    visibility: visible;
-    pointer-events: auto;
+    opacity: 1 !important;
+    visibility: visible !important;
+    pointer-events: auto !important;
 }
 
 .modal {
@@ -1192,7 +1192,7 @@ section {
 }
 
 .modal-overlay.active .modal {
-    transform: scale(1);
+    transform: scale(1) !important;
 }
 
 .modal-close {
