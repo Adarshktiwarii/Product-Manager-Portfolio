@@ -28,6 +28,7 @@ Usage rules:
 - YYYY-MM-DD: <decision> — Rationale: <why> — Link: <Issue/PR>
 
 ## Recent Activity
+- 2025-08-29 22:25 UTC — Cursor Agent: fix: improve about section alignment and stats grid layout - ensure proper card alignment and single row stats display — https://github.com/Adarshktiwarii/Product-Manager-Portfolio/commit/00bf16d537143ac70fc4b5696115d79f8e0f2c24
 - 2025-08-29 22:22 UTC — Cursor Agent: feat: enhance about section - add more content, fix alignment, add principles section above expertise card — https://github.com/Adarshktiwarii/Product-Manager-Portfolio/commit/8cc4959bf02e83ec5ba2376f22172f5ca3f75c70
 - 2025-08-29 22:19 UTC — Cursor Agent: fix: make Learn More button functional with smooth scroll to About section — https://github.com/Adarshktiwarii/Product-Manager-Portfolio/commit/7086340aaf8702ce6d51fbc4dc06b7371a57d019
 - 2025-08-29 22:16 UTC — Cursor Agent: fix: replace brain icon with crown icon in header and footer for better professional appearance — https://github.com/Adarshktiwarii/Product-Manager-Portfolio/commit/d5a23980540342ab2341ebd52adfb1d92b86e454
