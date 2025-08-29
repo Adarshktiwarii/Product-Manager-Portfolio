@@ -28,6 +28,7 @@ Usage rules:
 - YYYY-MM-DD: <decision> — Rationale: <why> — Link: <Issue/PR>
 
 ## Recent Activity
+- 2025-08-29 22:02 UTC — Cursor Agent: fix: improve hero section - fix typewriter positioning, reduce AI branding, replace animated circle with profile image — https://github.com/Adarshktiwarii/Product-Manager-Portfolio/commit/17ef63fb49cace9c8eed9236d833c255a794cb2e
 - 2025-08-29 21:53 UTC — Cursor Agent: feat: completely rebuild website with modern AI-themed design, animations, and working modal — https://github.com/Adarshktiwarii/Product-Manager-Portfolio/commit/c90fc051a5badb6a214b3a39a9823ff11b2813f1
 - 2025-08-29 21:47 UTC — Cursor Agent: feat: rebuild consultation modal from scratch with fresh HTML, CSS, and JS — https://github.com/Adarshktiwarii/Product-Manager-Portfolio/commit/366266a9b57343828082392b705aafb61d1978f4
 - 2025-08-29 21:45 UTC — Cursor Agent: debug: make modal content bright yellow to test visibility — https://github.com/Adarshktiwarii/Product-Manager-Portfolio/commit/e53a631ecfea9474c0db78c76d294342f7f4d7fd
