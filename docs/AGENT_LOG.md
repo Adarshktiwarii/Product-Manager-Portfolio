@@ -28,6 +28,7 @@ Usage rules:
 - YYYY-MM-DD: <decision> — Rationale: <why> — Link: <Issue/PR>
 
 ## Recent Activity
+- 2025-08-29 23:05 UTC — Cursor Agent: feat: create unified 'Strategic Approach & Core Expertise' section - merging principles and expertise in creative card-based layout with tags — https://github.com/Adarshktiwarii/Product-Manager-Portfolio/commit/9f391e57e4f81c4c4adfb4dcb66540e486edd802
 - 2025-08-29 23:02 UTC — Cursor Agent: fix: improve alignment and spacing in 'Why Choose Consulting' cards - better icon positioning and consistent title alignment — https://github.com/Adarshktiwarii/Product-Manager-Portfolio/commit/de6259e1421f7cf73e91c3619698e99de7f6831d
 - 2025-08-29 23:00 UTC — Cursor Agent: feat: remove 'What Sets Me Apart' card and make expertise section fully horizontal like principles section — https://github.com/Adarshktiwarii/Product-Manager-Portfolio/commit/59441487ca08e2211a2e94eef07aefd8f884eb3d
 - 2025-08-29 22:57 UTC — Cursor Agent: feat: refocus about section content on results and achievements, reduce pharmacy focus, make content more concise and impactful — https://github.com/Adarshktiwarii/Product-Manager-Portfolio/commit/cc16b2867228b15932dd9ace2f2142f87bfdd4ed
