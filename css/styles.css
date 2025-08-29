@@ -592,8 +592,84 @@ body {
 
 .about-visual {
     display: flex;
-    justify-content: center;
-    align-items: flex-start;
+    flex-direction: column;
+    gap: 2rem;
+    height: 100%;
+}
+
+.about-additional-content {
+    background: var(--bg-primary);
+    border-radius: 20px;
+    padding: 2rem;
+    box-shadow: var(--shadow-md);
+    border: 1px solid var(--border);
+}
+
+.about-additional-content h3 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: var(--text-primary);
+}
+
+.about-additional-content > p {
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+}
+
+.principles-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.principle-item {
+    display: flex;
+    gap: 1rem;
+    padding: 1rem;
+    background: var(--bg-secondary);
+    border-radius: 12px;
+    transition: all 0.3s ease;
+}
+
+.principle-item:hover {
+    background: var(--accent-primary);
+    color: white;
+    transform: translateX(5px);
+}
+
+.principle-item i {
+    width: 20px;
+    color: var(--accent-primary);
+    transition: color 0.3s ease;
+    margin-top: 0.25rem;
+}
+
+.principle-item:hover i {
+    color: white;
+}
+
+.principle-item h4 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: var(--text-primary);
+}
+
+.principle-item:hover h4 {
+    color: white;
+}
+
+.principle-item p {
+    font-size: 0.9rem;
+    line-height: 1.5;
+    color: var(--text-secondary);
+    margin: 0;
+}
+
+.principle-item:hover p {
+    color: white;
 }
 
 .expertise-card {
