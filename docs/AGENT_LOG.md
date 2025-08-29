@@ -28,6 +28,7 @@ Usage rules:
 - YYYY-MM-DD: <decision> — Rationale: <why> — Link: <Issue/PR>
 
 ## Recent Activity
+- 2025-08-29 22:12 UTC — Cursor Agent: fix: update hero typewriter text and description - add AI Adoption and Agile Management, focus on healthcare startups — https://github.com/Adarshktiwarii/Product-Manager-Portfolio/commit/9faf566ffd62d64e422deb14f4b894a65b8b8f81
 - 2025-08-29 22:08 UTC — Cursor Agent: fix: restore two-column about layout with expertise card instead of duplicate image — https://github.com/Adarshktiwarii/Product-Manager-Portfolio/commit/2476939c1d1c3b9cb9eba5d8e04af788008b22ae
 - 2025-08-29 22:05 UTC — Cursor Agent: fix: remove duplicate profile image from about section, replace with content-focused highlights — https://github.com/Adarshktiwarii/Product-Manager-Portfolio/commit/ad06018f8176ceb10f3f0904c8c54d2b2e5a30b0
 - 2025-08-29 22:02 UTC — Cursor Agent: fix: improve hero section - fix typewriter positioning, reduce AI branding, replace animated circle with profile image — https://github.com/Adarshktiwarii/Product-Manager-Portfolio/commit/17ef63fb49cace9c8eed9236d833c255a794cb2e
