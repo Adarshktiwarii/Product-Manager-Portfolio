@@ -28,6 +28,7 @@ Usage rules:
 - YYYY-MM-DD: <decision> — Rationale: <why> — Link: <Issue/PR>
 
 ## Recent Activity
+- 2025-08-29 21:43 UTC — Cursor Agent: fix(modal): clean up debugging and restore proper modal styling — https://github.com/Adarshktiwarii/Product-Manager-Portfolio/commit/86303703c4fc94f475dfade9e344a07d4fbb97d2
 - 2025-08-29 21:40 UTC — Cursor Agent: debug: add bright colors to force modal visibility — https://github.com/Adarshktiwarii/Product-Manager-Portfolio/commit/5b0bf074bc707ab23e8ca52a443ca0ca9de873bf
 - 2025-08-29 21:38 UTC — Cursor Agent: chore: trigger dev deployment — https://github.com/Adarshktiwarii/Product-Manager-Portfolio/commit/5b10fdc2b47781c8481429f30f88c85382b3162c
 - 2025-08-29 21:34 UTC — Cursor Agent: Checkpoint before follow-up message — https://github.com/Adarshktiwarii/Product-Manager-Portfolio/commit/03379837e21e95c8c82c1f07e7397a61d60a5836
