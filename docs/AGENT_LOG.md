@@ -28,6 +28,7 @@ Usage rules:
 - YYYY-MM-DD: <decision> — Rationale: <why> — Link: <Issue/PR>
 
 ## Recent Activity
+- 2025-08-29 20:52 UTC — Cursor Agent: feat(modal): implement consultation form modal for floating CTA with Formspree integration and toast notifications — https://github.com/Adarshktiwarii/Product-Manager-Portfolio/commit/55c7d0f6d346c954f611d07e7144156f321034e3
 - 2025-08-29 20:48 UTC — Cursor Agent: fix(newsletter): ensure subscribe CTA is visible in both light and dark modes — https://github.com/Adarshktiwarii/Product-Manager-Portfolio/commit/d1561c82fc04050fcaa85364d4294c53eab523f2
 - 2025-08-29 20:45 UTC — Cursor Agent: feat(footer): update to full name 'Adarsh Kumar Tiwari and built by AI agents' — https://github.com/Adarshktiwarii/Product-Manager-Portfolio/commit/2c6391ffa3de9ff2195740ad5842ba4e7268d15c
 - 2025-08-29 20:41 UTC — Cursor Agent: feat(footer): merge updated credit to 'Designed by Adarsh and built by AI agents' — https://github.com/Adarshktiwarii/Product-Manager-Portfolio/commit/36041a298c6087d62ba9eb575e9aef84b4b59efe
