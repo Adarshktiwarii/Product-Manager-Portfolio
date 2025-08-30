@@ -1,0 +1,78 @@
+name: 🌐 Webhook Deploy to Production
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  AMPLIFY_PROD_WEBHOOK_URL: ${{ secrets.AMPLIFY_PROD_WEBHOOK_URL }}
+
+jobs:
+  deploy:
+    name: Deploy Dev to Production via Webhook
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout dev branch
+        uses: actions/checkout@v4
+        with:
+          ref: dev
+
+      - name: Display deployment info
+        run: |
+          echo "🌐 DEPLOYING DEV TO PRODUCTION VIA WEBHOOK"
+          echo "=========================================="
+          echo "Source Branch: dev"
+          echo "Target: Production Environment"
+          echo "Latest Commit: $(git log -1 --oneline)"
+          echo "Commit Hash: $(git rev-parse HEAD)"
+          echo "Files to deploy:"
+          ls -la
+
+      - name: Deploy via Webhook
+        run: |
+          if [ -z "$AMPLIFY_PROD_WEBHOOK_URL" ]; then
+            echo "❌ AMPLIFY_PROD_WEBHOOK_URL secret is not configured"
+            echo "Please add your Amplify webhook URL to repository secrets"
+            exit 1
+          fi
+          
+          echo "🚀 Triggering production deployment via webhook..."
+          echo "Webhook URL: $AMPLIFY_PROD_WEBHOOK_URL"
+          
+          # Trigger deployment
+          curl -X POST "$AMPLIFY_PROD_WEBHOOK_URL"
+          
+          if [ $? -eq 0 ]; then
+            echo "✅ Webhook triggered successfully!"
+            echo "Production deployment initiated"
+          else
+            echo "❌ Webhook failed"
+            exit 1
+          fi
+
+      - name: Deployment Summary
+        run: |
+          echo "## 🎉 Production Deployment Triggered!" > $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Status:** ✅ Webhook triggered successfully" >> $GITHUB_STEP_SUMMARY
+          echo "**Deployed by:** $GITHUB_ACTOR" >> $GITHUB_STEP_SUMMARY
+          echo "**Source:** dev branch" >> $GITHUB_STEP_SUMMARY
+          echo "**Target:** Production environment" >> $GITHUB_STEP_SUMMARY
+          echo "**Latest commit:** $(git log -1 --oneline)" >> $GITHUB_STEP_SUMMARY
+          echo "**Commit hash:** $(git rev-parse HEAD)" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### 🚀 What will be deployed:" >> $GITHUB_STEP_SUMMARY
+          echo "- ✅ Complete SEO optimization for target keywords" >> $GITHUB_STEP_SUMMARY
+          echo "- ✅ WiseRx branding corrections" >> $GITHUB_STEP_SUMMARY
+          echo "- ✅ Simplified hero badge ('Consultant at WiseRx')" >> $GITHUB_STEP_SUMMARY
+          echo "- ✅ Enhanced meta tags and structured data" >> $GITHUB_STEP_SUMMARY
+          echo "- ✅ Technical SEO (sitemap.xml, robots.txt)" >> $GITHUB_STEP_SUMMARY
+          echo "- ✅ Professional presentation throughout" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### 🌐 Next Steps:" >> $GITHUB_STEP_SUMMARY
+          echo "1. Check your production URL in a few minutes" >> $GITHUB_STEP_SUMMARY
+          echo "2. Verify all changes are live" >> $GITHUB_STEP_SUMMARY
+          echo "3. Monitor search rankings improvement" >> $GITHUB_STEP_SUMMARY
