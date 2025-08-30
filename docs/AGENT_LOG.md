@@ -28,6 +28,7 @@ Usage rules:
 - YYYY-MM-DD: <decision> — Rationale: <why> — Link: <Issue/PR>
 
 ## Recent Activity
+- 2025-08-30 00:08 UTC — Cursor Agent: fix: update experience label to '4+ Years Experience' for more accurate representation — https://github.com/Adarshktiwarii/Product-Manager-Portfolio/commit/99634330418aa9d7fd31b5a207da4a597f397b5d
 - 2025-08-30 00:07 UTC — Cursor Agent: fix: update hero stats to reflect accurate experience - 4+ years experience, 5 major projects, 17 team members led — https://github.com/Adarshktiwarii/Product-Manager-Portfolio/commit/6fd3a243528ab9e274b8051fe6b9ebd39b920153
 - 2025-08-30 00:01 UTC — Cursor Agent: feat: replace generic work cards with real experience from data.js - Healthcare Platform Transformation, Telemedicine Optimization, RPM Automation, Startup Strategy, Team Leadership, and Healthcare Compliance projects with detailed results — https://github.com/Adarshktiwarii/Product-Manager-Portfolio/commit/b012c8efa8be422c3f08da88e727d4508fca42ef
 - 2025-08-29 23:57 UTC — Cursor Agent: feat: aggressively replace all animations with unique healthcare tech system - DNA helix, neural networks, ECG monitor, and medical data flow animations — https://github.com/Adarshktiwarii/Product-Manager-Portfolio/commit/8ae9f0bfd80da1c680fc4b13105071993d6bce76
