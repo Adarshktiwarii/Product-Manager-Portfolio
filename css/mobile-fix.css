@@ -1,13 +1,27 @@
-/* ===== MOBILE RESPONSIVENESS FIXES ===== */
+/* ===== COMPLETE MOBILE RESPONSIVENESS OVERHAUL ===== */
 
-/* Force mobile-first approach */
-* {
-    box-sizing: border-box !important;
-}
-
-/* Mobile Navigation Fixes */
+/* Reset and force mobile-first approach */
 @media (max-width: 768px) {
-    /* Force mobile menu to work */
+    /* Force all elements to use border-box */
+    *, *::before, *::after {
+        box-sizing: border-box !important;
+    }
+    
+    /* Force container to be mobile-friendly */
+    .container {
+        padding: 0 1rem !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+    }
+    
+    /* ===== NAVIGATION MOBILE FIXES ===== */
+    
+    /* Hide the separate mobile menu div completely */
+    #mobileMenu {
+        display: none !important;
+    }
+    
+    /* Make main nav-menu work on mobile */
     .nav-menu {
         position: fixed !important;
         top: 70px !important;
@@ -22,6 +36,8 @@
         transition: left 0.3s ease !important;
         box-shadow: var(--shadow-lg) !important;
         z-index: 1000 !important;
+        margin: 0 !important;
+        list-style: none !important;
     }
     
     .nav-menu.active {
@@ -32,6 +48,7 @@
         margin: 1rem 0 !important;
         width: 100% !important;
         text-align: center !important;
+        list-style: none !important;
     }
     
     .nav-link {
@@ -39,26 +56,116 @@
         padding: 1rem 2rem !important;
         display: block !important;
         width: 100% !important;
+        text-decoration: none !important;
+        color: var(--text-primary) !important;
+        transition: all 0.3s ease !important;
     }
     
+    .nav-link:hover {
+        background: var(--bg-secondary) !important;
+        color: var(--accent-primary) !important;
+    }
+    
+    /* Show mobile menu button */
     .mobile-menu-btn {
-        display: block !important;
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 4px !important;
+        background: none !important;
+        border: none !important;
+        cursor: pointer !important;
+        padding: 8px !important;
+        border-radius: 8px !important;
+        transition: all 0.3s ease !important;
+        z-index: 1001 !important;
     }
     
-    /* Hide desktop nav */
-    .nav-menu:not(.active) {
-        display: none !important;
+    .mobile-menu-btn span {
+        width: 25px !important;
+        height: 3px !important;
+        background: var(--text-primary) !important;
+        border-radius: 2px !important;
+        transition: all 0.3s ease !important;
     }
-}
-
-/* Mobile Layout Fixes */
-@media (max-width: 768px) {
-    /* Force single column layouts */
+    
+    .mobile-menu-btn.active span:nth-child(1) {
+        transform: rotate(45deg) translate(5px, 5px) !important;
+    }
+    
+    .mobile-menu-btn.active span:nth-child(2) {
+        opacity: 0 !important;
+    }
+    
+    .mobile-menu-btn.active span:nth-child(3) {
+        transform: rotate(-45deg) translate(7px, -6px) !important;
+    }
+    
+    /* ===== HERO SECTION MOBILE FIXES ===== */
+    
+    .hero {
+        padding: 6rem 1rem 3rem !important;
+        min-height: 100vh !important;
+    }
+    
     .hero-content {
         grid-template-columns: 1fr !important;
         text-align: center !important;
-        padding: 0 1rem !important;
+        padding: 0 !important;
         gap: 2rem !important;
+        max-width: 100% !important;
+    }
+    
+    .hero-text {
+        order: 1 !important;
+    }
+    
+    .hero-visual {
+        order: 2 !important;
+        display: flex !important;
+        justify-content: center !important;
+        align-items: center !important;
+    }
+    
+    .hero-badge {
+        font-size: 0.875rem !important;
+        padding: 0.5rem 1rem !important;
+        margin-bottom: 1.5rem !important;
+        display: inline-flex !important;
+    }
+    
+    .hero-title {
+        font-size: 2.5rem !important;
+        line-height: 1.2 !important;
+        margin-bottom: 1.5rem !important;
+        word-wrap: break-word !important;
+    }
+    
+    .hero-description {
+        font-size: 1rem !important;
+        margin-bottom: 2rem !important;
+        padding: 0 !important;
+        line-height: 1.6 !important;
+    }
+    
+    .hero-actions {
+        flex-direction: column !important;
+        gap: 1rem !important;
+        align-items: center !important;
+        width: 100% !important;
+    }
+    
+    .btn {
+        width: 100% !important;
+        max-width: 300px !important;
+        padding: 1rem 2rem !important;
+        font-size: 1rem !important;
+        margin: 0 !important;
+    }
+    
+    /* ===== ABOUT SECTION MOBILE FIXES ===== */
+    
+    .about {
+        padding: 4rem 1rem !important;
     }
     
     .about-content {
@@ -67,9 +174,65 @@
         text-align: center !important;
     }
     
+    .about-text h2 {
+        font-size: 2.5rem !important;
+        margin-bottom: 1.5rem !important;
+    }
+    
+    .about-text p {
+        font-size: 1rem !important;
+        margin-bottom: 2rem !important;
+        line-height: 1.6 !important;
+    }
+    
+    .about-cards {
+        grid-template-columns: 1fr !important;
+        gap: 1.5rem !important;
+    }
+    
+    .about-card {
+        padding: 1.5rem !important;
+        margin: 0 !important;
+    }
+    
+    .about-card h3 {
+        font-size: 1.25rem !important;
+    }
+    
+    /* ===== SERVICES SECTION MOBILE FIXES ===== */
+    
+    .services {
+        padding: 4rem 1rem !important;
+    }
+    
+    .services-content h2 {
+        font-size: 2.5rem !important;
+        margin-bottom: 1.5rem !important;
+    }
+    
     .services-grid {
         grid-template-columns: 1fr !important;
         gap: 1.5rem !important;
+    }
+    
+    .service-card {
+        padding: 1.5rem !important;
+        margin: 0 !important;
+    }
+    
+    .service-card h3 {
+        font-size: 1.25rem !important;
+    }
+    
+    /* ===== WORK SECTION MOBILE FIXES ===== */
+    
+    .work {
+        padding: 4rem 1rem !important;
+    }
+    
+    .work-content h2 {
+        font-size: 2.5rem !important;
+        margin-bottom: 1.5rem !important;
     }
     
     .work-grid {
@@ -77,81 +240,30 @@
         gap: 1.5rem !important;
     }
     
-    .contact-content {
-        grid-template-columns: 1fr !important;
-        gap: 2rem !important;
-    }
-    
-    .footer-content {
-        grid-template-columns: 1fr !important;
-        gap: 2rem !important;
-        text-align: center !important;
-    }
-    
-    .newsletter-content {
-        grid-template-columns: 1fr !important;
-        gap: 2rem !important;
-        text-align: center !important;
-    }
-    
-    /* Force proper spacing */
-    .container {
-        padding: 0 1rem !important;
-        max-width: 100% !important;
-    }
-    
-    /* Force proper text sizes */
-    .hero-title {
-        font-size: 2.5rem !important;
-        line-height: 1.2 !important;
-        margin-bottom: 1.5rem !important;
-    }
-    
-    .hero-description {
-        font-size: 1rem !important;
-        margin-bottom: 2rem !important;
-        padding: 0 1rem !important;
-    }
-    
-    .about-text h2,
-    .services-content h2,
-    .work-content h2 {
-        font-size: 2.5rem !important;
-        margin-bottom: 1.5rem !important;
-    }
-    
-    /* Force proper button sizes */
-    .btn {
-        width: 100% !important;
-        max-width: 300px !important;
-        padding: 1rem 2rem !important;
-        font-size: 1rem !important;
-    }
-    
-    .hero-actions {
-        flex-direction: column !important;
-        gap: 1rem !important;
-        align-items: center !important;
-    }
-    
-    /* Force proper card layouts */
-    .about-card,
-    .service-card,
     .work-card {
         padding: 1.5rem !important;
         margin: 0 !important;
     }
     
-    .about-card h3,
-    .service-card h3,
     .work-card h3 {
         font-size: 1.25rem !important;
     }
     
-    /* Force proper contact layout */
+    /* ===== CONTACT SECTION MOBILE FIXES ===== */
+    
+    .contact {
+        padding: 4rem 1rem !important;
+    }
+    
+    .contact-content {
+        grid-template-columns: 1fr !important;
+        gap: 2rem !important;
+    }
+    
     .contact-item {
         padding: 1rem !important;
         margin-bottom: 1rem !important;
+        width: 100% !important;
     }
     
     .contact-item i {
@@ -160,30 +272,47 @@
         font-size: 1rem !important;
     }
     
-    /* Force proper floating button */
-    .floating-consultation {
-        top: auto !important;
-        bottom: 2rem !important;
-        right: 1rem !important;
-        left: 1rem !important;
-        width: auto !important;
+    .contact-cta {
+        padding: 2rem 1rem !important;
+        text-align: center !important;
     }
     
-    .floating-btn {
-        width: 100% !important;
-        justify-content: center !important;
-        padding: 1rem !important;
+    .contact-cta h3 {
+        font-size: 1.75rem !important;
     }
     
-    .floating-btn span {
-        display: none !important;
+    /* ===== FOOTER MOBILE FIXES ===== */
+    
+    .footer {
+        padding: 3rem 1rem 2rem !important;
     }
     
-    .floating-btn i {
-        font-size: 1.2rem !important;
+    .footer-content {
+        grid-template-columns: 1fr !important;
+        gap: 2rem !important;
+        text-align: center !important;
     }
     
-    /* Force proper form layout */
+    .footer-section h3 {
+        font-size: 1.25rem !important;
+    }
+    
+    /* ===== NEWSLETTER MOBILE FIXES ===== */
+    
+    .newsletter {
+        padding: 3rem 1rem !important;
+    }
+    
+    .newsletter-content {
+        grid-template-columns: 1fr !important;
+        gap: 2rem !important;
+        text-align: center !important;
+    }
+    
+    .newsletter-text h2 {
+        font-size: 2rem !important;
+    }
+    
     .newsletter-form .form-group {
         flex-direction: column !important;
         gap: 1rem !important;
@@ -196,9 +325,36 @@
     .newsletter-form button {
         width: 100% !important;
     }
+    
+    /* ===== FLOATING CONSULTATION MOBILE FIXES ===== */
+    
+    .floating-consultation {
+        top: auto !important;
+        bottom: 2rem !important;
+        right: 1rem !important;
+        left: 1rem !important;
+        width: auto !important;
+        position: fixed !important;
+        z-index: 999 !important;
+    }
+    
+    .floating-btn {
+        width: 100% !important;
+        justify-content: center !important;
+        padding: 1rem !important;
+        border-radius: 12px !important;
+    }
+    
+    .floating-btn span {
+        display: none !important;
+    }
+    
+    .floating-btn i {
+        font-size: 1.2rem !important;
+    }
 }
 
-/* Small Mobile Fixes */
+/* ===== SMALL MOBILE FIXES ===== */
 @media (max-width: 480px) {
     .container {
         padding: 0 0.75rem !important;
@@ -224,6 +380,10 @@
         height: calc(100vh - 60px) !important;
     }
     
+    .hero {
+        padding: 5rem 0.75rem 2rem !important;
+    }
+    
     .hero-title {
         font-size: 2rem !important;
         line-height: 1.3 !important;
@@ -231,7 +391,7 @@
     
     .hero-description {
         font-size: 0.9rem !important;
-        padding: 0 0.5rem !important;
+        padding: 0 !important;
     }
     
     .btn {
@@ -282,7 +442,7 @@
     }
 }
 
-/* Extra Small Mobile Fixes */
+/* ===== EXTRA SMALL MOBILE FIXES ===== */
 @media (max-width: 360px) {
     .container {
         padding: 0 0.5rem !important;
@@ -334,10 +494,10 @@
     }
 }
 
-/* Landscape Mobile Fixes */
+/* ===== LANDSCAPE MOBILE FIXES ===== */
 @media (max-width: 768px) and (orientation: landscape) {
     .hero {
-        padding: 6rem 0 2rem !important;
+        padding: 4rem 1rem 1rem !important;
         min-height: 100vh !important;
     }
     
@@ -354,42 +514,29 @@
     }
 }
 
-/* Ensure mobile menu button works */
-.mobile-menu-btn {
-    display: none;
-}
-
+/* ===== FORCE MOBILE STYLES ===== */
 @media (max-width: 768px) {
-    .mobile-menu-btn {
-        display: flex !important;
-        flex-direction: column !important;
-        gap: 4px !important;
-        background: none !important;
-        border: none !important;
-        cursor: pointer !important;
-        padding: 8px !important;
-        border-radius: 8px !important;
-        transition: all 0.3s ease !important;
-        z-index: 1001 !important;
+    /* Force all sections to be mobile-friendly */
+    section {
+        padding-left: 1rem !important;
+        padding-right: 1rem !important;
     }
     
-    .mobile-menu-btn span {
-        width: 25px !important;
-        height: 3px !important;
-        background: var(--text-primary) !important;
-        border-radius: 2px !important;
-        transition: all 0.3s ease !important;
+    /* Force all headings to be mobile-sized */
+    h1, h2, h3, h4, h5, h6 {
+        word-wrap: break-word !important;
+        overflow-wrap: break-word !important;
     }
     
-    .mobile-menu-btn.active span:nth-child(1) {
-        transform: rotate(45deg) translate(5px, 5px) !important;
+    /* Force all images to be responsive */
+    img {
+        max-width: 100% !important;
+        height: auto !important;
     }
     
-    .mobile-menu-btn.active span:nth-child(2) {
-        opacity: 0 !important;
-    }
-    
-    .mobile-menu-btn.active span:nth-child(3) {
-        transform: rotate(-45deg) translate(7px, -6px) !important;
+    /* Force all buttons to be touch-friendly */
+    button, .btn {
+        min-height: 44px !important;
+        touch-action: manipulation !important;
     }
 }
