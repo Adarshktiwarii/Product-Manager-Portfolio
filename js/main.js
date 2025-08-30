@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initNavigation();
     initMobileMenu();
     initTypewriter();
-    initParticles();
+    initBackgroundVideo();
     initScrollAnimations();
     initStatsCounter();
     initModal();
@@ -150,34 +150,23 @@ function initTypewriter() {
     type();
 }
 
-// AI Particles Background
-function initParticles() {
-    const particlesContainer = document.getElementById('aiParticles');
-    if (!particlesContainer) return;
+// Background Video Fallback
+function initBackgroundVideo() {
+    const video = document.querySelector('.background-video video');
+    if (!video) return;
     
-    const particleCount = 50;
+    // Fallback for video loading issues
+    video.addEventListener('error', function() {
+        console.log('Video failed to load, using fallback background');
+        document.querySelector('.background-video').style.display = 'none';
+    });
     
-    for (let i = 0; i < particleCount; i++) {
-        createParticle(particlesContainer);
-    }
-    
-    function createParticle(container) {
-        const particle = document.createElement('div');
-        particle.className = 'particle';
-        
-        // Random position and animation delay
-        particle.style.left = Math.random() * 100 + '%';
-        particle.style.animationDelay = Math.random() * 20 + 's';
-        particle.style.animationDuration = (Math.random() * 10 + 15) + 's';
-        
-        container.appendChild(particle);
-        
-        // Remove and recreate particle when animation ends
-        particle.addEventListener('animationend', () => {
-            particle.remove();
-            setTimeout(() => createParticle(container), Math.random() * 5000);
+    // Ensure video plays on mobile
+    video.addEventListener('canplay', function() {
+        video.play().catch(function(error) {
+            console.log('Video autoplay failed:', error);
         });
-    }
+    });
 }
 
 // Scroll Animations
