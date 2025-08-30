@@ -11,7 +11,6 @@ document.addEventListener('DOMContentLoaded', function() {
     initModal();
     initFormSubmission();
     initNewsletterForm();
-    initFooterNewsletterForm();
     initFloatingConsultation();
     initSmoothScrolling();
     initLearnMoreButton();
@@ -386,46 +385,7 @@ function initNewsletterForm() {
     });
 }
 
-// Footer Newsletter Form Handling
-function initFooterNewsletterForm() {
-    const footerNewsletterForm = document.getElementById('footerNewsletterForm');
-    if (!footerNewsletterForm) return;
-    
-    footerNewsletterForm.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        
-        const submitBtn = footerNewsletterForm.querySelector('button[type="submit"]');
-        const originalText = submitBtn.innerHTML;
-        
-        // Show loading state
-        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
-        submitBtn.disabled = true;
-        
-        try {
-            const formData = new FormData(footerNewsletterForm);
-            const response = await fetch(footerNewsletterForm.action, {
-                method: 'POST',
-                body: formData,
-                headers: {
-                    'Accept': 'application/json'
-                }
-            });
-            
-            if (response.ok) {
-                showToast('Thank you for subscribing! You\'ll receive our first newsletter soon.', 'success');
-                footerNewsletterForm.reset();
-            } else {
-                throw new Error('Newsletter subscription failed');
-            }
-        } catch (error) {
-            console.error('Newsletter subscription error:', error);
-            showToast('Sorry, there was an error. Please try again.', 'error');
-        } finally {
-            submitBtn.innerHTML = originalText;
-            submitBtn.disabled = false;
-        }
-    });
-}
+
 
 // Toast Notifications
 function showToast(message, type = 'success') {
