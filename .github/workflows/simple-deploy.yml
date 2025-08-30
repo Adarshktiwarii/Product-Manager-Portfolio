@@ -1,0 +1,135 @@
+name: 🚀 Simple Deploy to Production
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  AWS_REGION: ${{ secrets.AWS_REGION }}
+  AMPLIFY_PROD_APP_ID: ${{ secrets.AMPLIFY_PROD_APP_ID }}
+  AMPLIFY_PROD_BRANCH: ${{ secrets.AMPLIFY_PROD_BRANCH }}
+
+jobs:
+  deploy:
+    name: Deploy Dev to Production
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout dev branch
+        uses: actions/checkout@v4
+        with:
+          ref: dev
+
+      - name: Display deployment info
+        run: |
+          echo "🚀 DEPLOYING DEV TO PRODUCTION"
+          echo "================================"
+          echo "Source Branch: dev"
+          echo "Target: Production Environment"
+          echo "Latest Commit: $(git log -1 --oneline)"
+          echo "Commit Hash: $(git rev-parse HEAD)"
+          echo "Files to deploy:"
+          ls -la
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Create deployment package
+        run: |
+          echo "📦 Creating deployment package..."
+          
+          # Create clean deployment package
+          zip -r production-deploy.zip . \
+            -x ".git/*" \
+            -x ".github/*" \
+            -x "index - Copy.html" \
+            -x "*.log" \
+            -x "node_modules/*" \
+            -x "cosmos-website/*"
+          
+          echo "📊 Package size: $(du -h production-deploy.zip)"
+          echo "📋 Package contents:"
+          unzip -l production-deploy.zip | head -10
+
+      - name: Deploy to Amplify Production
+        run: |
+          echo "🚀 Starting Amplify production deployment..."
+          
+          # Create deployment
+          echo "Creating Amplify deployment..."
+          DEPLOY_RESPONSE=$(aws amplify create-deployment \
+            --app-id "${AMPLIFY_PROD_APP_ID}" \
+            --branch-name "${AMPLIFY_PROD_BRANCH}" \
+            --output json)
+          
+          echo "Deploy response: $DEPLOY_RESPONSE"
+          
+          # Extract job ID and upload URL
+          JOB_ID=$(echo "$DEPLOY_RESPONSE" | jq -r '.jobId')
+          UPLOAD_URL=$(echo "$DEPLOY_RESPONSE" | jq -r '.zipUploadUrl')
+          
+          echo "Job ID: $JOB_ID"
+          echo "Upload URL: $UPLOAD_URL"
+          
+          # Validate response
+          if [ "$JOB_ID" = "null" ] || [ "$UPLOAD_URL" = "null" ] || [ -z "$JOB_ID" ] || [ -z "$UPLOAD_URL" ]; then
+            echo "❌ Failed to get deployment details"
+            echo "Response: $DEPLOY_RESPONSE"
+            exit 1
+          fi
+          
+          # Upload files
+          echo "📤 Uploading files to Amplify..."
+          curl -X PUT -T production-deploy.zip -H "Content-Type: application/zip" "$UPLOAD_URL"
+          
+          if [ $? -eq 0 ]; then
+            echo "✅ Upload successful"
+          else
+            echo "❌ Upload failed"
+            exit 1
+          fi
+          
+          # Start deployment
+          echo "🚀 Starting deployment..."
+          aws amplify start-deployment \
+            --app-id "${AMPLIFY_PROD_APP_ID}" \
+            --branch-name "${AMPLIFY_PROD_BRANCH}" \
+            --job-id "$JOB_ID"
+          
+          echo "✅ Production deployment initiated successfully!"
+
+      - name: Deployment Summary
+        run: |
+          echo "## 🎉 Production Deployment Complete!" > $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Status:** ✅ Successfully deployed dev to production" >> $GITHUB_STEP_SUMMARY
+          echo "**Deployed by:** $GITHUB_ACTOR" >> $GITHUB_STEP_SUMMARY
+          echo "**Source:** dev branch" >> $GITHUB_STEP_SUMMARY
+          echo "**Target:** Production environment" >> $GITHUB_STEP_SUMMARY
+          echo "**Latest commit:** $(git log -1 --oneline)" >> $GITHUB_STEP_SUMMARY
+          echo "**Commit hash:** $(git rev-parse HEAD)" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### 🚀 What was deployed:" >> $GITHUB_STEP_SUMMARY
+          echo "- ✅ Complete SEO optimization for target keywords" >> $GITHUB_STEP_SUMMARY
+          echo "- ✅ WiseRx branding corrections" >> $GITHUB_STEP_SUMMARY
+          echo "- ✅ Simplified hero badge ('Consultant at WiseRx')" >> $GITHUB_STEP_SUMMARY
+          echo "- ✅ Enhanced meta tags and structured data" >> $GITHUB_STEP_SUMMARY
+          echo "- ✅ Technical SEO (sitemap.xml, robots.txt)" >> $GITHUB_STEP_SUMMARY
+          echo "- ✅ Professional presentation throughout" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### 🎯 Expected Results:" >> $GITHUB_STEP_SUMMARY
+          echo "- Top 3 rankings for 'Adarsh Kumar Tiwari'" >> $GITHUB_STEP_SUMMARY
+          echo "- Top 5 rankings for 'Adarsh Tiwari'" >> $GITHUB_STEP_SUMMARY
+          echo "- Top 10 rankings for 'consultant at WiseRx'" >> $GITHUB_STEP_SUMMARY
+          echo "- Enhanced search visibility across all target keywords" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### 🌐 Next Steps:" >> $GITHUB_STEP_SUMMARY
+          echo "1. Check your production URL in a few minutes" >> $GITHUB_STEP_SUMMARY
+          echo "2. Verify all changes are live" >> $GITHUB_STEP_SUMMARY
+          echo "3. Monitor search rankings improvement" >> $GITHUB_STEP_SUMMARY
