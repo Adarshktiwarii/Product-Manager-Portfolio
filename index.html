@@ -1036,21 +1036,46 @@
         const visitorId = getVisitorId();
         const deviceInfo = getDeviceInfo();
         
+        const pageViewData = {
+          trackingId: TRACKING_ID,
+          visitorId: visitorId,
+          pageUrl: window.location.pathname,
+          timestamp: new Date().toISOString(),
+          ...deviceInfo
+        };
+        
+        // Store data locally
+        storeAnalyticsData(pageViewData);
+        
+        // Also try to send to endpoint if it exists
         fetch(TRACKING_ENDPOINT, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({
-            trackingId: TRACKING_ID,
-            visitorId: visitorId,
-            pageUrl: window.location.pathname,
-            timestamp: new Date().toISOString(),
-            ...deviceInfo
-          }),
-          // Use sendBeacon for more reliable tracking when available
+          body: JSON.stringify(pageViewData),
           keepalive: true
-        }).catch(err => console.error('Analytics tracking error:', err));
+        }).catch(err => {
+          // Silently fail if endpoint doesn't exist
+          console.log('Analytics endpoint not available, data stored locally');
+        });
+      }
+      
+      // Store analytics data locally
+      function storeAnalyticsData(data) {
+        try {
+          let analyticsData = JSON.parse(localStorage.getItem('analyticsData') || '[]');
+          analyticsData.push(data);
+          
+          // Keep only last 1000 records to prevent storage overflow
+          if (analyticsData.length > 1000) {
+            analyticsData = analyticsData.slice(-1000);
+          }
+          
+          localStorage.setItem('analyticsData', JSON.stringify(analyticsData));
+        } catch (error) {
+          console.error('Error storing analytics data:', error);
+        }
       }
       
       // Track when the page loads
@@ -1137,22 +1162,31 @@
       function trackEvent(eventName, eventData = {}) {
         const visitorId = getVisitorId();
         
+        const eventTrackingData = {
+          trackingId: TRACKING_ID,
+          visitorId: visitorId,
+          pageUrl: window.location.pathname,
+          timestamp: new Date().toISOString(),
+          event: eventName,
+          eventData: eventData,
+          ...getDeviceInfo()
+        };
+        
+        // Store event data locally
+        storeAnalyticsData(eventTrackingData);
+        
+        // Also try to send to endpoint if it exists
         fetch(TRACKING_ENDPOINT, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({
-            trackingId: TRACKING_ID,
-            visitorId: visitorId,
-            pageUrl: window.location.pathname,
-            timestamp: new Date().toISOString(),
-            event: eventName,
-            eventData: eventData,
-            ...getDeviceInfo()
-          }),
+          body: JSON.stringify(eventTrackingData),
           keepalive: true
-        }).catch(err => console.error('Event tracking error:', err));
+        }).catch(err => {
+          // Silently fail if endpoint doesn't exist
+          console.log('Event tracking endpoint not available, data stored locally');
+        });
       }
       
       // Track when the user is about to leave
@@ -1160,16 +1194,23 @@
       window.addEventListener('beforeunload', function() {
         const timeSpent = Date.now() - startTime;
         
+        const exitData = {
+          trackingId: TRACKING_ID,
+          visitorId: getVisitorId(),
+          pageUrl: window.location.pathname,
+          timeOnPage: timeSpent,
+          event: 'exit',
+          interactionData: interactionData,
+          timestamp: new Date().toISOString(),
+          ...getDeviceInfo()
+        };
+        
+        // Store exit data locally
+        storeAnalyticsData(exitData);
+        
         // Use sendBeacon API for more reliable tracking when the page is unloading
         if (navigator.sendBeacon) {
-          const data = JSON.stringify({
-            trackingId: TRACKING_ID,
-            visitorId: getVisitorId(),
-            pageUrl: window.location.pathname,
-            timeOnPage: timeSpent,
-            event: 'exit',
-            interactionData: interactionData
-          });
+          const data = JSON.stringify(exitData);
           navigator.sendBeacon(TRACKING_ENDPOINT, data);
         }
       });

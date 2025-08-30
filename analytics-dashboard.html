@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analytics Dashboard - Adarsh Kumar Tiwari</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8fafc;
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --accent-primary: #2563eb;
+            --accent-secondary: #1d4ed8;
+            --border: #e2e8f0;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --error: #ef4444;
+        }
+
+        [data-theme="dark"] {
+            --bg-primary: #0f172a;
+            --bg-secondary: #1e293b;
+            --text-primary: #f8fafc;
+            --text-secondary: #cbd5e1;
+            --border: #334155;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        .dashboard {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .header h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .theme-toggle {
+            background: var(--accent-primary);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: var(--bg-primary);
+            padding: 1.5rem;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .stat-card h3 {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .stat-card .value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--accent-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-card .change {
+            font-size: 0.8rem;
+            color: var(--success);
+        }
+
+        .charts-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .chart-card {
+            background: var(--bg-primary);
+            padding: 1.5rem;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .chart-card h3 {
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        .data-table {
+            background: var(--bg-primary);
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .table-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .table-header h3 {
+            font-size: 1.1rem;
+            color: var(--text-primary);
+        }
+
+        .table-content {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+
+        th {
+            background: var(--bg-secondary);
+            font-weight: 600;
+            color: var(--text-primary);
+            position: sticky;
+            top: 0;
+        }
+
+        td {
+            color: var(--text-secondary);
+        }
+
+        .source-badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .source-search { background: #dbeafe; color: #1e40af; }
+        .source-social { background: #fef3c7; color: #d97706; }
+        .source-direct { background: #dcfce7; color: #166534; }
+        .source-email { background: #f3e8ff; color: #7c3aed; }
+        .source-referral { background: #fef2f2; color: #dc2626; }
+
+        .no-data {
+            text-align: center;
+            padding: 3rem;
+            color: var(--text-secondary);
+        }
+
+        @media (max-width: 768px) {
+            .charts-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .dashboard {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard">
+        <div class="header">
+            <h1>Analytics Dashboard</h1>
+            <button class="theme-toggle" onclick="toggleTheme()">
+                <i class="fas fa-moon"></i> Toggle Theme
+            </button>
+        </div>
+
+        <!-- Stats Overview -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <h3>Total Visitors</h3>
+                <div class="value" id="totalVisitors">0</div>
+                <div class="change">+12% from last week</div>
+            </div>
+            <div class="stat-card">
+                <h3>Page Views</h3>
+                <div class="value" id="totalPageViews">0</div>
+                <div class="change">+8% from last week</div>
+            </div>
+            <div class="stat-card">
+                <h3>Avg. Time on Site</h3>
+                <div class="value" id="avgTimeOnSite">0s</div>
+                <div class="change">+15% from last week</div>
+            </div>
+            <div class="stat-card">
+                <h3>Bounce Rate</h3>
+                <div class="value" id="bounceRate">0%</div>
+                <div class="change">-5% from last week</div>
+            </div>
+        </div>
+
+        <!-- Charts -->
+        <div class="charts-grid">
+            <div class="chart-card">
+                <h3>Traffic Sources</h3>
+                <canvas id="trafficSourcesChart"></canvas>
+            </div>
+            <div class="chart-card">
+                <h3>Device Types</h3>
+                <canvas id="deviceTypesChart"></canvas>
+            </div>
+        </div>
+
+        <!-- Recent Visitors Table -->
+        <div class="data-table">
+            <div class="table-header">
+                <h3>Recent Visitors</h3>
+            </div>
+            <div class="table-content">
+                <table id="visitorsTable">
+                    <thead>
+                        <tr>
+                            <th>Time</th>
+                            <th>Source</th>
+                            <th>Device</th>
+                            <th>Location</th>
+                            <th>Time on Site</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="visitorsTableBody">
+                        <tr>
+                            <td colspan="6" class="no-data">No visitor data available yet</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Theme toggle
+        function toggleTheme() {
+            const body = document.body;
+            const currentTheme = body.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            body.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+        }
+
+        // Load saved theme
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        document.body.setAttribute('data-theme', savedTheme);
+
+        // Analytics data storage
+        let analyticsData = JSON.parse(localStorage.getItem('analyticsData') || '[]');
+
+        // Initialize charts
+        function initCharts() {
+            // Traffic Sources Chart
+            const trafficCtx = document.getElementById('trafficSourcesChart').getContext('2d');
+            const trafficChart = new Chart(trafficCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Direct', 'Google', 'LinkedIn', 'Twitter', 'Other'],
+                    datasets: [{
+                        data: [30, 25, 20, 15, 10],
+                        backgroundColor: [
+                            '#10b981',
+                            '#3b82f6',
+                            '#0ea5e9',
+                            '#06b6d4',
+                            '#8b5cf6'
+                        ]
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'bottom'
+                        }
+                    }
+                }
+            });
+
+            // Device Types Chart
+            const deviceCtx = document.getElementById('deviceTypesChart').getContext('2d');
+            const deviceChart = new Chart(deviceCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['Desktop', 'Mobile', 'Tablet'],
+                    datasets: [{
+                        label: 'Visitors',
+                        data: [45, 40, 15],
+                        backgroundColor: [
+                            '#3b82f6',
+                            '#10b981',
+                            '#f59e0b'
+                        ]
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        }
+
+        // Update dashboard with real data
+        function updateDashboard() {
+            if (analyticsData.length === 0) return;
+
+            // Calculate stats
+            const totalVisitors = analyticsData.length;
+            const totalPageViews = analyticsData.reduce((sum, visit) => sum + (visit.pageViews || 1), 0);
+            const avgTimeOnSite = Math.round(analyticsData.reduce((sum, visit) => sum + (visit.timeOnPage || 0), 0) / totalVisitors / 1000);
+            const bounceRate = Math.round((analyticsData.filter(visit => visit.timeOnPage < 10000).length / totalVisitors) * 100);
+
+            // Update stats
+            document.getElementById('totalVisitors').textContent = totalVisitors.toLocaleString();
+            document.getElementById('totalPageViews').textContent = totalPageViews.toLocaleString();
+            document.getElementById('avgTimeOnSite').textContent = `${avgTimeOnSite}s`;
+            document.getElementById('bounceRate').textContent = `${bounceRate}%`;
+
+            // Update visitors table
+            updateVisitorsTable();
+        }
+
+        // Update visitors table
+        function updateVisitorsTable() {
+            const tbody = document.getElementById('visitorsTableBody');
+            const recentVisitors = analyticsData.slice(-10).reverse(); // Last 10 visitors
+
+            if (recentVisitors.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="6" class="no-data">No visitor data available yet</td></tr>';
+                return;
+            }
+
+            tbody.innerHTML = recentVisitors.map(visit => {
+                const time = new Date(visit.timestamp).toLocaleString();
+                const source = visit.referrerData?.source || 'direct';
+                const device = visit.deviceType || 'unknown';
+                const location = visit.timezone || 'unknown';
+                const timeOnSite = Math.round((visit.timeOnPage || 0) / 1000);
+                const sourceClass = getSourceClass(visit.referrerData?.type || 'direct');
+
+                return `
+                    <tr>
+                        <td>${time}</td>
+                        <td><span class="source-badge ${sourceClass}">${source}</span></td>
+                        <td>${device}</td>
+                        <td>${location}</td>
+                        <td>${timeOnSite}s</td>
+                        <td>${visit.interactionData?.clicks || 0} clicks</td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        // Get source badge class
+        function getSourceClass(type) {
+            const classes = {
+                'search': 'source-search',
+                'social': 'source-social',
+                'direct': 'source-direct',
+                'email': 'source-email',
+                'referral': 'source-referral'
+            };
+            return classes[type] || 'source-direct';
+        }
+
+        // Simulate receiving analytics data
+        function simulateAnalyticsData() {
+            const mockData = [
+                {
+                    timestamp: new Date(Date.now() - 1000 * 60 * 30).toISOString(),
+                    referrerData: { type: 'search', source: 'google' },
+                    deviceType: 'desktop',
+                    timezone: 'Asia/Kolkata',
+                    timeOnPage: 45000,
+                    interactionData: { clicks: 5 }
+                },
+                {
+                    timestamp: new Date(Date.now() - 1000 * 60 * 15).toISOString(),
+                    referrerData: { type: 'social', source: 'linkedin' },
+                    deviceType: 'mobile',
+                    timezone: 'America/New_York',
+                    timeOnPage: 120000,
+                    interactionData: { clicks: 8 }
+                }
+            ];
+
+            analyticsData = [...analyticsData, ...mockData];
+            localStorage.setItem('analyticsData', JSON.stringify(analyticsData));
+            updateDashboard();
+        }
+
+        // Initialize dashboard
+        document.addEventListener('DOMContentLoaded', function() {
+            initCharts();
+            updateDashboard();
+            
+            // Simulate some data for demo
+            if (analyticsData.length === 0) {
+                simulateAnalyticsData();
+            }
+        });
+    </script>
+</body>
+</html>
