@@ -1,0 +1,1502 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Analytics Dashboard - Adarsh Kumar Tiwari</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/date-fns@2.29.3/index.min.js"></script>
+    <style>
+        :root {
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8fafc;
+            --bg-tertiary: #f1f5f9;
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --text-muted: #64748b;
+            --accent-primary: #2563eb;
+            --accent-secondary: #1d4ed8;
+            --border: #e2e8f0;
+            --border-light: #f1f5f9;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --error: #ef4444;
+            --purple: #8b5cf6;
+            --pink: #ec4899;
+            --indigo: #6366f1;
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        [data-theme="dark"] {
+            --bg-primary: #0f172a;
+            --bg-secondary: #1e293b;
+            --bg-tertiary: #334155;
+            --text-primary: #f8fafc;
+            --text-secondary: #cbd5e1;
+            --text-muted: #94a3b8;
+            --border: #334155;
+            --border-light: #475569;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        .dashboard {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 1rem;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background: var(--bg-primary);
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .header h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .header-controls {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .btn {
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .btn-primary {
+            background: var(--accent-primary);
+            color: white;
+        }
+
+        .btn-secondary {
+            background: var(--bg-tertiary);
+            color: var(--text-primary);
+            border: 1px solid var(--border);
+        }
+
+        .btn-danger {
+            background: var(--error);
+            color: white;
+        }
+
+        .date-picker {
+            padding: 0.5rem;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: var(--bg-primary);
+            padding: 1.5rem;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .stat-card h3 {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .stat-card .value {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-card .change {
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        .change.positive { color: var(--success); }
+        .change.negative { color: var(--error); }
+        .change.neutral { color: var(--text-muted); }
+
+        .charts-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .chart-card {
+            background: var(--bg-primary);
+            padding: 1.5rem;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .chart-card h3 {
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .chart-card .chart-container {
+            position: relative;
+            height: 300px;
+        }
+
+        .data-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .data-card {
+            background: var(--bg-primary);
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow-sm);
+            overflow: hidden;
+        }
+
+        .data-card-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid var(--border);
+            background: var(--bg-secondary);
+        }
+
+        .data-card-header h3 {
+            font-size: 1.1rem;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .data-card-content {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .visitor-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid var(--border-light);
+            align-items: center;
+            font-size: 0.9rem;
+        }
+
+        .visitor-row:hover {
+            background: var(--bg-secondary);
+        }
+
+        .visitor-row.header {
+            font-weight: 600;
+            color: var(--text-primary);
+            background: var(--bg-secondary);
+            position: sticky;
+            top: 0;
+        }
+
+        .source-badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .source-search { background: #dbeafe; color: #1e40af; }
+        .source-social { background: #fef3c7; color: #d97706; }
+        .source-direct { background: #dcfce7; color: #166534; }
+        .source-email { background: #f3e8ff; color: #7c3aed; }
+        .source-referral { background: #fef2f2; color: #dc2626; }
+
+        .funnel-step {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .funnel-step:last-child {
+            border-bottom: none;
+        }
+
+        .funnel-step-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .funnel-step-number {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: var(--accent-primary);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .funnel-step-details h4 {
+            font-size: 1rem;
+            color: var(--text-primary);
+            margin-bottom: 0.25rem;
+        }
+
+        .funnel-step-details p {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .funnel-step-stats {
+            text-align: right;
+        }
+
+        .funnel-step-stats .value {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .funnel-step-stats .percentage {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .real-time-indicator {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background: var(--success);
+            border-radius: 50%;
+            margin-right: 0.5rem;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+
+        .no-data {
+            text-align: center;
+            padding: 3rem;
+            color: var(--text-muted);
+        }
+
+        .metric-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .metric-item {
+            text-align: center;
+            padding: 1rem;
+            background: var(--bg-tertiary);
+            border-radius: 8px;
+        }
+
+        .metric-item .label {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-bottom: 0.5rem;
+        }
+
+        .metric-item .value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .search-terms {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .search-term {
+            background: var(--bg-tertiary);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            color: var(--text-primary);
+        }
+
+        @media (max-width: 1200px) {
+            .charts-grid, .data-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .stats-grid {
+                grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            }
+            
+            .metric-grid {
+                grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            }
+        }
+
+        @media (max-width: 1024px) {
+            .dashboard {
+                padding: 0.75rem;
+            }
+            
+            .header {
+                flex-direction: column;
+                gap: 1rem;
+                align-items: stretch;
+            }
+            
+            .header-controls {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 0.75rem;
+            }
+            
+            .stats-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 0.75rem;
+            }
+            
+            .stat-card {
+                padding: 1.25rem 1rem;
+            }
+            
+            .stat-card .value {
+                font-size: 1.5rem;
+            }
+            
+            .chart-container {
+                height: 250px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .dashboard {
+                padding: 0.5rem;
+            }
+            
+            .header {
+                padding: 1rem;
+                margin-bottom: 1.5rem;
+            }
+            
+            .header h1 {
+                font-size: 1.5rem;
+                text-align: center;
+            }
+            
+            .header-controls {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+            
+            .btn {
+                padding: 0.75rem 1rem;
+                font-size: 0.85rem;
+            }
+            
+            .date-picker {
+                width: 100%;
+                text-align: center;
+            }
+            
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 0.75rem;
+                margin-bottom: 1.5rem;
+            }
+            
+            .stat-card {
+                padding: 1rem 0.75rem;
+            }
+            
+            .stat-card h3 {
+                font-size: 0.75rem;
+            }
+            
+            .stat-card .value {
+                font-size: 1.25rem;
+            }
+            
+            .stat-card .change {
+                font-size: 0.75rem;
+            }
+            
+            .charts-grid {
+                gap: 1.5rem;
+                margin-bottom: 1.5rem;
+            }
+            
+            .chart-card {
+                padding: 1rem;
+            }
+            
+            .chart-card h3 {
+                font-size: 1rem;
+                margin-bottom: 0.75rem;
+            }
+            
+            .chart-container {
+                height: 200px;
+            }
+            
+            .data-grid {
+                gap: 1.5rem;
+                margin-bottom: 1.5rem;
+            }
+            
+            .data-card-header {
+                padding: 1rem;
+            }
+            
+            .data-card-header h3 {
+                font-size: 1rem;
+            }
+            
+            .visitor-row {
+                grid-template-columns: 1fr;
+                gap: 0.5rem;
+                padding: 0.75rem 1rem;
+                font-size: 0.8rem;
+            }
+            
+            .visitor-row.header {
+                display: none;
+            }
+            
+            .visitor-row > div {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 0.25rem 0;
+                border-bottom: 1px solid var(--border-light);
+            }
+            
+            .visitor-row > div:last-child {
+                border-bottom: none;
+            }
+            
+            .visitor-row > div::before {
+                content: attr(data-label);
+                font-weight: 600;
+                color: var(--text-muted);
+                margin-right: 0.5rem;
+            }
+            
+            .funnel-step {
+                flex-direction: column;
+                gap: 0.75rem;
+                text-align: center;
+            }
+            
+            .funnel-step-info {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+            
+            .funnel-step-stats {
+                text-align: center;
+            }
+            
+            .metric-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 0.75rem;
+            }
+            
+            .metric-item {
+                padding: 0.75rem;
+            }
+            
+            .metric-item .label {
+                font-size: 0.75rem;
+            }
+            
+            .metric-item .value {
+                font-size: 1.25rem;
+            }
+            
+            .search-terms {
+                justify-content: center;
+            }
+            
+            .search-term {
+                font-size: 0.75rem;
+                padding: 0.375rem 0.75rem;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .dashboard {
+                padding: 0.25rem;
+            }
+            
+            .header {
+                padding: 0.75rem;
+                margin-bottom: 1rem;
+            }
+            
+            .header h1 {
+                font-size: 1.25rem;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+                gap: 0.5rem;
+            }
+            
+            .stat-card {
+                padding: 0.875rem 0.5rem;
+            }
+            
+            .stat-card .value {
+                font-size: 1.125rem;
+            }
+            
+            .charts-grid {
+                gap: 1rem;
+            }
+            
+            .chart-card {
+                padding: 0.75rem;
+            }
+            
+            .chart-container {
+                height: 180px;
+            }
+            
+            .data-grid {
+                gap: 1rem;
+            }
+            
+            .data-card-header {
+                padding: 0.75rem;
+            }
+            
+            .visitor-row {
+                padding: 0.5rem 0.75rem;
+                font-size: 0.75rem;
+            }
+            
+            .funnel-step {
+                padding: 0.75rem 1rem;
+            }
+            
+            .funnel-step-number {
+                width: 28px;
+                height: 28px;
+                font-size: 0.8rem;
+            }
+            
+            .funnel-step-details h4 {
+                font-size: 0.9rem;
+            }
+            
+            .funnel-step-details p {
+                font-size: 0.75rem;
+            }
+            
+            .funnel-step-stats .value {
+                font-size: 1rem;
+            }
+            
+            .metric-grid {
+                grid-template-columns: 1fr;
+                gap: 0.5rem;
+            }
+            
+            .metric-item {
+                padding: 0.5rem;
+            }
+            
+            .metric-item .value {
+                font-size: 1.125rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header-controls {
+                gap: 0.25rem;
+            }
+            
+            .btn {
+                padding: 0.625rem 0.875rem;
+                font-size: 0.8rem;
+            }
+            
+            .stat-card {
+                padding: 0.75rem 0.5rem;
+            }
+            
+            .stat-card .value {
+                font-size: 1rem;
+            }
+            
+            .chart-container {
+                height: 160px;
+            }
+            
+            .visitor-row {
+                padding: 0.375rem 0.5rem;
+                font-size: 0.7rem;
+            }
+            
+            .funnel-step {
+                padding: 0.5rem 0.75rem;
+            }
+            
+            .funnel-step-number {
+                width: 24px;
+                height: 24px;
+                font-size: 0.7rem;
+            }
+            
+            .metric-item {
+                padding: 0.375rem;
+            }
+            
+            .metric-item .value {
+                font-size: 1rem;
+            }
+        }
+
+        /* Landscape orientation for mobile */
+        @media (max-height: 600px) and (orientation: landscape) {
+            .dashboard {
+                padding: 0.25rem;
+            }
+            
+            .header {
+                padding: 0.5rem;
+                margin-bottom: 0.75rem;
+            }
+            
+            .header h1 {
+                font-size: 1.125rem;
+            }
+            
+            .stats-grid {
+                grid-template-columns: repeat(4, 1fr);
+                gap: 0.5rem;
+                margin-bottom: 1rem;
+            }
+            
+            .stat-card {
+                padding: 0.5rem 0.25rem;
+            }
+            
+            .stat-card .value {
+                font-size: 0.875rem;
+            }
+            
+            .chart-container {
+                height: 140px;
+            }
+            
+            .section {
+                padding: 1rem 0;
+            }
+        }
+
+        /* Touch-friendly interactions for mobile */
+        @media (max-width: 768px) {
+            .btn, .contact-item, .visitor-row, .funnel-step {
+                min-height: 44px;
+                touch-action: manipulation;
+            }
+            
+            .btn:active, .contact-item:active {
+                transform: scale(0.98);
+            }
+        }
+
+        /* High DPI displays */
+        @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+            .chart-container canvas {
+                image-rendering: -webkit-optimize-contrast;
+                image-rendering: crisp-edges;
+            }
+        }
+
+        /* Reduced motion for accessibility */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+            
+            .real-time-indicator {
+                animation: none !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard">
+        <div class="header">
+            <h1><i class="fas fa-chart-line"></i> Advanced Analytics Dashboard</h1>
+            <div class="header-controls">
+                <span class="real-time-indicator"></span>
+                <span style="color: var(--text-muted); font-size: 0.9rem;">Real-time</span>
+                <div style="display: flex; align-items: center; gap: 0.5rem; font-size: 0.8rem; color: var(--text-muted);">
+                    <i class="fas fa-database"></i>
+                    <span id="storageInfo">Loading...</span>
+                </div>
+                <input type="date" class="date-picker" id="datePicker">
+                <button class="btn btn-secondary" onclick="exportData()">
+                    <i class="fas fa-download"></i> Export
+                </button>
+                <button class="btn btn-secondary" onclick="toggleTheme()">
+                    <i class="fas fa-moon"></i> Theme
+                </button>
+                <button class="btn btn-danger" onclick="logout()">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </button>
+            </div>
+        </div>
+
+        <!-- Key Metrics -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <h3>Total Visitors</h3>
+                <div class="value" id="totalVisitors">0</div>
+                <div class="change positive" id="visitorsChange">
+                    <i class="fas fa-arrow-up"></i> 0%
+                </div>
+            </div>
+            <div class="stat-card">
+                <h3>Page Views</h3>
+                <div class="value" id="totalPageViews">0</div>
+                <div class="change positive" id="pageViewsChange">
+                    <i class="fas fa-arrow-up"></i> 0%
+                </div>
+            </div>
+            <div class="stat-card">
+                <h3>Avg. Session Duration</h3>
+                <div class="value" id="avgSessionDuration">0s</div>
+                <div class="change positive" id="sessionChange">
+                    <i class="fas fa-arrow-up"></i> 0%
+                </div>
+            </div>
+            <div class="stat-card">
+                <h3>Bounce Rate</h3>
+                <div class="value" id="bounceRate">0%</div>
+                <div class="change negative" id="bounceChange">
+                    <i class="fas fa-arrow-down"></i> 0%
+                </div>
+            </div>
+            <div class="stat-card">
+                <h3>Conversion Rate</h3>
+                <div class="value" id="conversionRate">0%</div>
+                <div class="change positive" id="conversionChange">
+                    <i class="fas fa-arrow-up"></i> 0%
+                </div>
+            </div>
+            <div class="stat-card">
+                <h3>Return Visitors</h3>
+                <div class="value" id="returnVisitors">0</div>
+                <div class="change positive" id="returnChange">
+                    <i class="fas fa-arrow-up"></i> 0%
+                </div>
+            </div>
+        </div>
+
+        <!-- Charts -->
+        <div class="charts-grid">
+            <div class="chart-card">
+                <h3><i class="fas fa-chart-area"></i> Visitor Trends (Last 30 Days)</h3>
+                <div class="chart-container">
+                    <canvas id="visitorTrendsChart"></canvas>
+                </div>
+            </div>
+            <div class="chart-card">
+                <h3><i class="fas fa-chart-pie"></i> Traffic Sources</h3>
+                <div class="chart-container">
+                    <canvas id="trafficSourcesChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Detailed Analytics -->
+        <div class="data-grid">
+            <div class="data-card">
+                <div class="data-card-header">
+                    <h3><i class="fas fa-users"></i> Recent Visitors</h3>
+                </div>
+                <div class="data-card-content">
+                    <div class="visitor-row header">
+                        <div>Time</div>
+                        <div>Source</div>
+                        <div>Device</div>
+                        <div>Location</div>
+                        <div>Duration</div>
+                        <div>Actions</div>
+                    </div>
+                    <div id="visitorsTableBody">
+                        <div class="no-data">No visitor data available yet</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="data-card">
+                <div class="data-card-header">
+                    <h3><i class="fas fa-filter"></i> Conversion Funnel</h3>
+                </div>
+                <div class="data-card-content">
+                    <div id="funnelSteps">
+                        <div class="no-data">No funnel data available yet</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Additional Metrics -->
+        <div class="charts-grid">
+            <div class="chart-card">
+                <h3><i class="fas fa-mobile-alt"></i> Device & Browser Analytics</h3>
+                <div class="chart-container">
+                    <canvas id="deviceBrowserChart"></canvas>
+                </div>
+            </div>
+            <div class="chart-card">
+                <h3><i class="fas fa-clock"></i> Peak Hours Analysis</h3>
+                <div class="chart-container">
+                    <canvas id="peakHoursChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Search Analytics -->
+        <div class="data-card">
+            <div class="data-card-header">
+                <h3><i class="fas fa-search"></i> Search Analytics</h3>
+            </div>
+            <div class="data-card-content" style="padding: 1.5rem;">
+                <div class="metric-grid">
+                    <div class="metric-item">
+                        <div class="label">Organic Searches</div>
+                        <div class="value" id="organicSearches">0</div>
+                    </div>
+                    <div class="metric-item">
+                        <div class="label">Search Terms</div>
+                        <div class="value" id="searchTermsCount">0</div>
+                    </div>
+                    <div class="metric-item">
+                        <div class="label">Avg. Position</div>
+                        <div class="value" id="avgPosition">-</div>
+                    </div>
+                    <div class="metric-item">
+                        <div class="label">CTR</div>
+                        <div class="value" id="searchCTR">0%</div>
+                    </div>
+                </div>
+                <div class="search-terms" id="searchTerms">
+                    <div class="no-data">No search terms available yet</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Basic Authentication
+        const AUTH_USERNAME = 'admin';
+        const AUTH_PASSWORD = 'adarsh2025';
+        
+        function checkAuth() {
+            const isAuthenticated = sessionStorage.getItem('analytics_authenticated');
+            if (!isAuthenticated) {
+                showLoginForm();
+                return false;
+            }
+            return true;
+        }
+        
+        function showLoginForm() {
+            document.body.innerHTML = `
+                <div style="
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    min-height: 100vh;
+                    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                    font-family: 'Inter', sans-serif;
+                ">
+                    <div style="
+                        background: white;
+                        padding: 2rem;
+                        border-radius: 12px;
+                        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+                        width: 100%;
+                        max-width: 400px;
+                    ">
+                        <h2 style="text-align: center; margin-bottom: 2rem; color: #1f2937;">Advanced Analytics Dashboard</h2>
+                        <form id="loginForm" onsubmit="handleLogin(event)">
+                            <div style="margin-bottom: 1rem;">
+                                <label style="display: block; margin-bottom: 0.5rem; color: #374151;">Username</label>
+                                <input type="text" id="username" required style="
+                                    width: 100%;
+                                    padding: 0.75rem;
+                                    border: 1px solid #d1d5db;
+                                    border-radius: 6px;
+                                    font-size: 1rem;
+                                ">
+                            </div>
+                            <div style="margin-bottom: 1.5rem;">
+                                <label style="display: block; margin-bottom: 0.5rem; color: #374151;">Password</label>
+                                <input type="password" id="password" required style="
+                                    width: 100%;
+                                    padding: 0.75rem;
+                                    border: 1px solid #d1d5db;
+                                    border-radius: 6px;
+                                    font-size: 1rem;
+                                ">
+                            </div>
+                            <button type="submit" style="
+                                width: 100%;
+                                padding: 0.75rem;
+                                background: #3b82f6;
+                                color: white;
+                                border: none;
+                                border-radius: 6px;
+                                font-size: 1rem;
+                                cursor: pointer;
+                            ">Login</button>
+                        </form>
+                        <div id="loginError" style="
+                            color: #dc2626;
+                            text-align: center;
+                            margin-top: 1rem;
+                            display: none;
+                        "></div>
+                    </div>
+                </div>
+            `;
+        }
+        
+        function handleLogin(event) {
+            event.preventDefault();
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            
+            if (username === AUTH_USERNAME && password === AUTH_PASSWORD) {
+                sessionStorage.setItem('analytics_authenticated', 'true');
+                location.reload();
+            } else {
+                document.getElementById('loginError').style.display = 'block';
+                document.getElementById('loginError').textContent = 'Invalid username or password';
+            }
+        }
+        
+        function logout() {
+            sessionStorage.removeItem('analytics_authenticated');
+            location.reload();
+        }
+
+        function toggleTheme() {
+            const body = document.body;
+            const currentTheme = body.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            body.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+        }
+
+        function exportData() {
+            const analyticsData = JSON.parse(localStorage.getItem('analyticsData') || '[]');
+            const dataStr = JSON.stringify(analyticsData, null, 2);
+            const dataBlob = new Blob([dataStr], {type: 'application/json'});
+            const url = URL.createObjectURL(dataBlob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = `analytics-data-${new Date().toISOString().split('T')[0]}.json`;
+            link.click();
+            URL.revokeObjectURL(url);
+        }
+
+        // Load saved theme
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        document.body.setAttribute('data-theme', savedTheme);
+
+        // Analytics data storage
+        let analyticsData = [];
+        let charts = {};
+
+        // Load analytics data with decompression
+        function loadAnalyticsData() {
+          try {
+            const compressedData = JSON.parse(localStorage.getItem('analyticsData') || '[]');
+            analyticsData = compressedData.map(compressed => {
+              try {
+                const decoded = atob(compressed);
+                const data = JSON.parse(decoded);
+                
+                // Expand compressed data back to full format
+                return {
+                  visitorId: data.v,
+                  pageUrl: data.p,
+                  timestamp: data.t,
+                  event: data.e,
+                  deviceType: data.d,
+                  browserName: data.b,
+                  referrerData: {
+                    source: data.r,
+                    type: data.r === 'direct' ? 'direct' : 'referral'
+                  },
+                  interactionData: data.i ? {
+                    scrollDepth: data.i.s,
+                    clicks: data.i.c,
+                    formInteractions: data.i.f,
+                    sectionsViewed: []
+                  } : null,
+                  eventData: data.ed,
+                  // Add default values for compatibility
+                  trackingId: 'default',
+                  browser: navigator.userAgent,
+                  screenWidth: window.screen.width,
+                  screenHeight: window.screen.height,
+                  viewportWidth: window.innerWidth,
+                  viewportHeight: window.innerHeight,
+                  language: navigator.language,
+                  timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+                  connectionType: navigator.connection ? navigator.connection.effectiveType : 'unknown',
+                  onlineStatus: navigator.onLine
+                };
+              } catch (error) {
+                console.error('Error decompressing record:', error);
+                return null;
+              }
+            }).filter(record => record !== null);
+          } catch (error) {
+            console.error('Error loading analytics data:', error);
+            analyticsData = [];
+          }
+        }
+
+        // Initialize all charts
+        function initCharts() {
+            initVisitorTrendsChart();
+            initTrafficSourcesChart();
+            initDeviceBrowserChart();
+            initPeakHoursChart();
+        }
+
+        function initVisitorTrendsChart() {
+            const ctx = document.getElementById('visitorTrendsChart').getContext('2d');
+            charts.visitorTrends = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: [],
+                    datasets: [{
+                        label: 'Visitors',
+                        data: [],
+                        borderColor: '#3b82f6',
+                        backgroundColor: 'rgba(59, 130, 246, 0.1)',
+                        tension: 0.4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        }
+
+        function initTrafficSourcesChart() {
+            const ctx = document.getElementById('trafficSourcesChart').getContext('2d');
+            charts.trafficSources = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: [],
+                    datasets: [{
+                        data: [],
+                        backgroundColor: [
+                            '#10b981', '#3b82f6', '#0ea5e9', '#06b6d4', '#8b5cf6',
+                            '#f59e0b', '#ef4444', '#ec4899', '#8b5cf6', '#06b6d4'
+                        ]
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom'
+                        }
+                    }
+                }
+            });
+        }
+
+        function initDeviceBrowserChart() {
+            const ctx = document.getElementById('deviceBrowserChart').getContext('2d');
+            charts.deviceBrowser = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: [],
+                    datasets: [{
+                        label: 'Visitors',
+                        data: [],
+                        backgroundColor: [
+                            '#3b82f6', '#10b981', '#f59e0b', '#ef4444', '#8b5cf6'
+                        ]
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        }
+
+        function initPeakHoursChart() {
+            const ctx = document.getElementById('peakHoursChart').getContext('2d');
+            charts.peakHours = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['00:00', '02:00', '04:00', '06:00', '08:00', '10:00', '12:00', '14:00', '16:00', '18:00', '20:00', '22:00'],
+                    datasets: [{
+                        label: 'Visitors',
+                        data: new Array(12).fill(0),
+                        backgroundColor: '#8b5cf6'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        }
+
+        // Update storage information
+        function updateStorageInfo() {
+            try {
+                const analyticsData = JSON.parse(localStorage.getItem('analyticsData') || '[]');
+                const storageSize = JSON.stringify(analyticsData).length;
+                const maxSize = 4 * 1024 * 1024; // 4MB
+                const usagePercent = Math.round((storageSize / maxSize) * 100);
+                
+                let statusColor = '#10b981'; // Green
+                if (usagePercent > 80) statusColor = '#f59e0b'; // Yellow
+                if (usagePercent > 95) statusColor = '#ef4444'; // Red
+                
+                document.getElementById('storageInfo').innerHTML = `
+                    <span style="color: ${statusColor};">${analyticsData.length} records</span> • 
+                    <span>${Math.round(storageSize / 1024)}KB</span> • 
+                    <span>${usagePercent}% used</span>
+                `;
+            } catch (error) {
+                document.getElementById('storageInfo').textContent = 'Error loading storage info';
+            }
+        }
+
+        // Update dashboard with comprehensive analytics
+        function updateDashboard() {
+            if (analyticsData.length === 0) return;
+
+            updateKeyMetrics();
+            updateCharts();
+            updateVisitorsTable();
+            updateFunnel();
+            updateSearchAnalytics();
+            updateStorageInfo();
+        }
+
+        function updateKeyMetrics() {
+            const totalVisitors = analyticsData.length;
+            const totalPageViews = analyticsData.reduce((sum, visit) => sum + (visit.pageViews || 1), 0);
+            const avgSessionDuration = Math.round(analyticsData.reduce((sum, visit) => sum + (visit.timeOnPage || 0), 0) / totalVisitors / 1000);
+            const bounceRate = Math.round((analyticsData.filter(visit => visit.timeOnPage < 10000).length / totalVisitors) * 100);
+            
+            // Calculate unique visitors (by visitor ID)
+            const uniqueVisitors = new Set(analyticsData.map(visit => visit.visitorId)).size;
+            const returnVisitors = totalVisitors - uniqueVisitors;
+            const conversionRate = Math.round((analyticsData.filter(visit => visit.event === 'form_submit').length / totalVisitors) * 100);
+
+            document.getElementById('totalVisitors').textContent = totalVisitors.toLocaleString();
+            document.getElementById('totalPageViews').textContent = totalPageViews.toLocaleString();
+            document.getElementById('avgSessionDuration').textContent = `${avgSessionDuration}s`;
+            document.getElementById('bounceRate').textContent = `${bounceRate}%`;
+            document.getElementById('returnVisitors').textContent = returnVisitors.toLocaleString();
+            document.getElementById('conversionRate').textContent = `${conversionRate}%`;
+        }
+
+        function updateCharts() {
+            updateVisitorTrendsChart();
+            updateTrafficSourcesChart();
+            updateDeviceBrowserChart();
+            updatePeakHoursChart();
+        }
+
+        function updateVisitorTrendsChart() {
+            // Group visitors by date
+            const visitorsByDate = {};
+            analyticsData.forEach(visit => {
+                const date = new Date(visit.timestamp).toDateString();
+                visitorsByDate[date] = (visitorsByDate[date] || 0) + 1;
+            });
+
+            const labels = Object.keys(visitorsByDate).slice(-30); // Last 30 days
+            const data = labels.map(date => visitorsByDate[date] || 0);
+
+            charts.visitorTrends.data.labels = labels;
+            charts.visitorTrends.data.datasets[0].data = data;
+            charts.visitorTrends.update();
+        }
+
+        function updateTrafficSourcesChart() {
+            const trafficSources = {};
+            analyticsData.forEach(visit => {
+                const source = visit.referrerData?.source || 'direct';
+                trafficSources[source] = (trafficSources[source] || 0) + 1;
+            });
+
+            charts.trafficSources.data.labels = Object.keys(trafficSources);
+            charts.trafficSources.data.datasets[0].data = Object.values(trafficSources);
+            charts.trafficSources.update();
+        }
+
+        function updateDeviceBrowserChart() {
+            const deviceBrowser = {};
+            analyticsData.forEach(visit => {
+                const device = visit.deviceType || 'unknown';
+                const browser = visit.browserName || 'unknown';
+                const key = `${device} (${browser})`;
+                deviceBrowser[key] = (deviceBrowser[key] || 0) + 1;
+            });
+
+            charts.deviceBrowser.data.labels = Object.keys(deviceBrowser);
+            charts.deviceBrowser.data.datasets[0].data = Object.values(deviceBrowser);
+            charts.deviceBrowser.update();
+        }
+
+        function updatePeakHoursChart() {
+            const hourData = new Array(12).fill(0);
+            analyticsData.forEach(visit => {
+                const hour = new Date(visit.timestamp).getHours();
+                const hourIndex = Math.floor(hour / 2);
+                if (hourIndex < 12) {
+                    hourData[hourIndex]++;
+                }
+            });
+
+            charts.peakHours.data.datasets[0].data = hourData;
+            charts.peakHours.update();
+        }
+
+        function updateVisitorsTable() {
+            const tbody = document.getElementById('visitorsTableBody');
+            const recentVisitors = analyticsData.slice(-20).reverse(); // Last 20 visitors
+
+            if (recentVisitors.length === 0) {
+                tbody.innerHTML = '<div class="no-data">No visitor data available yet</div>';
+                return;
+            }
+
+            tbody.innerHTML = recentVisitors.map(visit => {
+                const time = new Date(visit.timestamp).toLocaleString();
+                const source = visit.referrerData?.source || 'direct';
+                const device = visit.deviceType || 'unknown';
+                const location = visit.timezone || 'unknown';
+                const timeOnSite = Math.round((visit.timeOnPage || 0) / 1000);
+                const sourceClass = getSourceClass(visit.referrerData?.type || 'direct');
+                const actions = visit.interactionData?.clicks || 0;
+
+                return `
+                    <div class="visitor-row">
+                        <div data-label="Time">${time}</div>
+                        <div data-label="Source"><span class="source-badge ${sourceClass}">${source}</span></div>
+                        <div data-label="Device">${device}</div>
+                        <div data-label="Location">${location}</div>
+                        <div data-label="Duration">${timeOnSite}s</div>
+                        <div data-label="Actions">${actions} clicks</div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function updateFunnel() {
+            const funnelSteps = [
+                { name: 'Page View', count: analyticsData.length },
+                { name: 'Scroll > 25%', count: analyticsData.filter(v => v.interactionData?.scrollDepth > 25).length },
+                { name: 'Scroll > 50%', count: analyticsData.filter(v => v.interactionData?.scrollDepth > 50).length },
+                { name: 'Click Interaction', count: analyticsData.filter(v => v.interactionData?.clicks > 0).length },
+                { name: 'Form Focus', count: analyticsData.filter(v => v.interactionData?.formInteractions > 0).length },
+                { name: 'Form Submit', count: analyticsData.filter(v => v.event === 'form_submit').length }
+            ];
+
+            const funnelContainer = document.getElementById('funnelSteps');
+            if (funnelSteps[0].count === 0) {
+                funnelContainer.innerHTML = '<div class="no-data">No funnel data available yet</div>';
+                return;
+            }
+
+            funnelContainer.innerHTML = funnelSteps.map((step, index) => {
+                const percentage = index === 0 ? 100 : Math.round((step.count / funnelSteps[0].count) * 100);
+                return `
+                    <div class="funnel-step">
+                        <div class="funnel-step-info">
+                            <div class="funnel-step-number">${index + 1}</div>
+                            <div class="funnel-step-details">
+                                <h4>${step.name}</h4>
+                                <p>${step.count} visitors</p>
+                            </div>
+                        </div>
+                        <div class="funnel-step-stats">
+                            <div class="value">${step.count}</div>
+                            <div class="percentage">${percentage}%</div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function updateSearchAnalytics() {
+            const searchData = analyticsData.filter(visit => visit.referrerData?.type === 'search');
+            const searchTerms = {};
+            
+            searchData.forEach(visit => {
+                const term = visit.referrerData?.searchTerm;
+                if (term) {
+                    searchTerms[term] = (searchTerms[term] || 0) + 1;
+                }
+            });
+
+            document.getElementById('organicSearches').textContent = searchData.length;
+            document.getElementById('searchTermsCount').textContent = Object.keys(searchTerms).length;
+            document.getElementById('avgPosition').textContent = searchData.length > 0 ? '1-10' : '-';
+            document.getElementById('searchCTR').textContent = searchData.length > 0 ? '2.5%' : '0%';
+
+            const searchTermsContainer = document.getElementById('searchTerms');
+            if (Object.keys(searchTerms).length === 0) {
+                searchTermsContainer.innerHTML = '<div class="no-data">No search terms available yet</div>';
+                return;
+            }
+
+            const sortedTerms = Object.entries(searchTerms)
+                .sort(([,a], [,b]) => b - a)
+                .slice(0, 10);
+
+            searchTermsContainer.innerHTML = sortedTerms.map(([term, count]) => 
+                `<div class="search-term">${term} (${count})</div>`
+            ).join('');
+        }
+
+        function getSourceClass(type) {
+            const classes = {
+                'search': 'source-search',
+                'social': 'source-social',
+                'direct': 'source-direct',
+                'email': 'source-email',
+                'referral': 'source-referral'
+            };
+            return classes[type] || 'source-direct';
+        }
+
+        // Auto-refresh every 30 seconds
+        function startAutoRefresh() {
+            setInterval(() => {
+                loadAnalyticsData();
+                updateDashboard();
+            }, 30000);
+        }
+
+        // Initialize dashboard
+        document.addEventListener('DOMContentLoaded', function() {
+            if (!checkAuth()) return;
+            
+            loadAnalyticsData();
+            initCharts();
+            updateDashboard();
+            startAutoRefresh();
+            
+            // Set date picker to today
+            document.getElementById('datePicker').value = new Date().toISOString().split('T')[0];
+        });
+    </script>
+</body>
+</html>

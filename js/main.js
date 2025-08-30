@@ -1,47 +1,140 @@
-// Main JavaScript for Consulting Website
+// Modern AI-Themed Website JavaScript
 document.addEventListener('DOMContentLoaded', function() {
-    // Initialize all functionality
-    initTypingAnimation();
-    initServices();
-    initCaseStudies();
-    initExperience();
-    initScrollAnimations();
-    initNavigation();
+    // Initialize all components
     initThemeToggle();
+    initNavigation();
     initMobileMenu();
-    initContactForm();
+    initTypewriter();
+    initAnimatedBackground();
+    initScrollAnimations();
+    initStatsCounter();
+    initModal();
+    initFormSubmission();
     initNewsletterForm();
-    initHireModal();
-    initCustomCursor();
-    initFloatingShapes();
-    initScrollProgress();
-    initCountUpAnimations();
-    initLoader();
+    initFloatingConsultation();
+    initSmoothScrolling();
+    initLearnMoreButton();
 });
 
-// Typing Animation
-function initTypingAnimation() {
-    const typedText = document.getElementById('typed-text');
-    const cursor = document.querySelector('.typing-cursor');
+// Theme Toggle
+function initThemeToggle() {
+    const themeToggle = document.getElementById('themeToggle');
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    
+    // Set initial theme
+    if (localStorage.getItem('theme') === 'dark' || (!localStorage.getItem('theme') && prefersDark)) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+    } else {
+        document.documentElement.setAttribute('data-theme', 'light');
+    }
+    
+    themeToggle.addEventListener('click', () => {
+        const currentTheme = document.documentElement.getAttribute('data-theme');
+        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+        
+        document.documentElement.setAttribute('data-theme', newTheme);
+        localStorage.setItem('theme', newTheme);
+        
+        // Add animation effect
+        themeToggle.style.transform = 'scale(0.8)';
+        setTimeout(() => {
+            themeToggle.style.transform = 'scale(1)';
+        }, 150);
+    });
+}
+
+// Navigation
+function initNavigation() {
+    const navLinks = document.querySelectorAll('.nav-link');
+    const sections = document.querySelectorAll('section[id]');
+    
+    // Active link highlighting
+    function updateActiveLink() {
+        const scrollPos = window.scrollY + 100;
+        
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop;
+            const sectionHeight = section.offsetHeight;
+            const sectionId = section.getAttribute('id');
+            
+            if (scrollPos >= sectionTop && scrollPos < sectionTop + sectionHeight) {
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') === `#${sectionId}`) {
+                        link.classList.add('active');
+                    }
+                });
+            }
+        });
+    }
+    
+    window.addEventListener('scroll', updateActiveLink);
+    updateActiveLink();
+}
+
+// Mobile Menu
+function initMobileMenu() {
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+    
+    mobileMenuBtn.addEventListener('click', () => {
+        mobileMenu.classList.toggle('active');
+        
+        // Animate hamburger
+        const spans = mobileMenuBtn.querySelectorAll('span');
+        spans.forEach((span, index) => {
+            if (mobileMenu.classList.contains('active')) {
+                if (index === 0) span.style.transform = 'rotate(45deg) translate(5px, 5px)';
+                if (index === 1) span.style.opacity = '0';
+                if (index === 2) span.style.transform = 'rotate(-45deg) translate(7px, -6px)';
+            } else {
+                span.style.transform = 'none';
+                span.style.opacity = '1';
+            }
+        });
+    });
+    
+    // Close mobile menu when clicking on links
+    mobileNavLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            mobileMenu.classList.remove('active');
+            const spans = mobileMenuBtn.querySelectorAll('span');
+            spans.forEach(span => {
+                span.style.transform = 'none';
+                span.style.opacity = '1';
+            });
+        });
+    });
+}
+
+// Typewriter Effect
+function initTypewriter() {
+    const typewriterElement = document.getElementById('typewriter');
+    if (!typewriterElement) return;
+    
+    const words = ['Strategic Planning', 'Data Analytics', 'Digital Innovation', 'AI Adoption', 'Agile Management', 'Product Management'];
     let wordIndex = 0;
     let charIndex = 0;
     let isDeleting = false;
-    let currentWord = '';
-
+    
     function type() {
-        const words = window.websiteData.typingWords;
-        currentWord = words[wordIndex];
-
+        const currentWord = words[wordIndex];
+        
         if (isDeleting) {
-            typedText.textContent = currentWord.substring(0, charIndex - 1);
+            typewriterElement.textContent = currentWord.substring(0, charIndex - 1);
             charIndex--;
         } else {
-            typedText.textContent = currentWord.substring(0, charIndex + 1);
+            typewriterElement.textContent = currentWord.substring(0, charIndex + 1);
             charIndex++;
         }
-
-        let typeSpeed = isDeleting ? 100 : 150;
-
+        
+        let typeSpeed = 150;
+        
+        if (isDeleting) {
+            typeSpeed /= 2;
+        }
+        
         if (!isDeleting && charIndex === currentWord.length) {
             typeSpeed = 2000; // Pause at end
             isDeleting = true;
@@ -50,133 +143,17 @@ function initTypingAnimation() {
             wordIndex = (wordIndex + 1) % words.length;
             typeSpeed = 500; // Pause before next word
         }
-
+        
         setTimeout(type, typeSpeed);
     }
-
-    if (typedText) {
-        setTimeout(type, 1000);
-    }
+    
+    type();
 }
 
-// Services Section
-function initServices() {
-    const servicesGrid = document.getElementById('servicesGrid');
-    if (!servicesGrid) return;
-
-    const services = window.websiteData.services;
-    
-    services.forEach(service => {
-        const serviceCard = document.createElement('div');
-        serviceCard.className = 'service-card reveal';
-        serviceCard.style.setProperty('--service-color', service.color);
-        
-        serviceCard.innerHTML = `
-            <div class="service-icon" style="background: ${service.color}">
-                <i class="${service.icon}"></i>
-            </div>
-            <h3 class="service-title">${service.title}</h3>
-            <p class="service-description">${service.description}</p>
-            <ul class="service-features">
-                ${service.features.map(feature => `<li><i class="fas fa-check"></i>${feature}</li>`).join('')}
-            </ul>
-        `;
-        
-        servicesGrid.appendChild(serviceCard);
-    });
-}
-
-// Case Studies Section
-function initCaseStudies() {
-    const caseStudyGrid = document.getElementById('caseStudyGrid');
-    if (!caseStudyGrid) return;
-
-    const caseStudies = window.websiteData.caseStudies;
-    
-    caseStudies.forEach(study => {
-        const caseStudyCard = document.createElement('div');
-        caseStudyCard.className = 'case-study-card reveal';
-        
-        caseStudyCard.innerHTML = `
-            <div class="case-study-header">
-                <div class="case-study-meta">
-                    <span class="case-study-industry">${study.industry}</span>
-                    <span class="case-study-duration">${study.duration}</span>
-                </div>
-                <h3 class="case-study-title">${study.title}</h3>
-                <p class="case-study-client">${study.client}</p>
-            </div>
-            
-            <div class="case-study-content">
-                <div class="case-study-section">
-                    <h4>Challenge</h4>
-                    <p>${study.challenge}</p>
-                </div>
-                
-                <div class="case-study-section">
-                    <h4>Solution</h4>
-                    <p>${study.solution}</p>
-                </div>
-                
-                <div class="case-study-section">
-                    <h4>Results</h4>
-                    <ul class="case-study-results">
-                        ${study.results.map(result => `<li>${result}</li>`).join('')}
-                    </ul>
-                </div>
-                
-                <div class="case-study-technologies">
-                    ${study.technologies.map(tech => `<span class="tech-tag">${tech}</span>`).join('')}
-                </div>
-            </div>
-        `;
-        
-        caseStudyGrid.appendChild(caseStudyCard);
-    });
-}
-
-// Experience Timeline
-function initExperience() {
-    const experienceTimeline = document.getElementById('experienceTimeline');
-    if (!experienceTimeline) return;
-
-    const experience = window.websiteData.experience;
-    
-    experience.forEach(exp => {
-        const timelineItem = document.createElement('div');
-        timelineItem.className = `timeline-item reveal ${exp.type}`;
-        
-        timelineItem.innerHTML = `
-            <div class="timeline-marker">
-                <div class="timeline-dot"></div>
-                <div class="timeline-line"></div>
-            </div>
-            
-            <div class="timeline-content">
-                <div class="timeline-header">
-                    <h3 class="timeline-title">${exp.title}</h3>
-                    <div class="timeline-company">${exp.company}</div>
-                    <div class="timeline-period">${exp.period}</div>
-                    <div class="timeline-location">${exp.location}</div>
-                </div>
-                
-                <p class="timeline-description">${exp.description}</p>
-                
-                <div class="timeline-achievements">
-                    <h4>Key Achievements:</h4>
-                    <ul>
-                        ${exp.achievements.map(achievement => `<li>${achievement}</li>`).join('')}
-                    </ul>
-                </div>
-                
-                <div class="timeline-technologies">
-                    ${exp.technologies.map(tech => `<span class="tech-tag">${tech}</span>`).join('')}
-                </div>
-            </div>
-        `;
-        
-        experienceTimeline.appendChild(timelineItem);
-    });
+// Animated Background
+function initAnimatedBackground() {
+    // Background animation is handled by CSS
+    // This function can be used for any additional background effects
 }
 
 // Scroll Animations
@@ -185,161 +162,179 @@ function initScrollAnimations() {
         threshold: 0.1,
         rootMargin: '0px 0px -50px 0px'
     };
-
+    
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                entry.target.classList.add('visible');
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'translateY(0)';
             }
         });
     }, observerOptions);
-
-    document.querySelectorAll('.reveal').forEach(el => {
+    
+    // Observe elements for animation
+    const animateElements = document.querySelectorAll('.service-card, .work-card, .stat-item, .contact-item');
+    animateElements.forEach(el => {
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(30px)';
+        el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
         observer.observe(el);
     });
 }
 
-// Navigation
-function initNavigation() {
-    const navLinks = document.querySelectorAll('.nav-link');
-    const sections = document.querySelectorAll('section[id]');
-
-    function updateActiveNav() {
-        const scrollPos = window.scrollY + 100;
-
-        sections.forEach(section => {
-            const sectionTop = section.offsetTop;
-            const sectionHeight = section.offsetHeight;
-            const sectionId = section.getAttribute('id');
-            const navLink = document.querySelector(`.nav-link[href="#${sectionId}"]`);
-
-            if (scrollPos >= sectionTop && scrollPos < sectionTop + sectionHeight) {
-                navLinks.forEach(link => link.classList.remove('active'));
-                if (navLink) navLink.classList.add('active');
+// Stats Counter Animation
+function initStatsCounter() {
+    const stats = document.querySelectorAll('.stat-number');
+    
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const target = parseInt(entry.target.getAttribute('data-target'));
+                animateCounter(entry.target, target);
+                observer.unobserve(entry.target);
             }
         });
-    }
-
-    window.addEventListener('scroll', updateActiveNav);
+    }, { threshold: 0.5 });
     
-    // Smooth scrolling for nav links
-    navLinks.forEach(link => {
-        link.addEventListener('click', (e) => {
+    stats.forEach(stat => observer.observe(stat));
+    
+    function animateCounter(element, target) {
+        let current = 0;
+        const increment = target / 50;
+        const timer = setInterval(() => {
+            current += increment;
+            if (current >= target) {
+                current = target;
+                clearInterval(timer);
+            }
+            // Special case for years experience - add "+" after 4
+            if (target === 4) {
+                element.textContent = Math.floor(current) + '+';
+            } else {
+                element.textContent = Math.floor(current);
+            }
+        }, 30);
+    }
+}
+
+// Modal Functionality
+// Global modal functions
+function openModal() {
+    const modal = document.getElementById('consultationModal');
+    modal.classList.add('show');
+    document.body.style.overflow = 'hidden';
+    
+    // Focus first input
+    setTimeout(() => {
+        const firstInput = modal.querySelector('input');
+        if (firstInput) firstInput.focus();
+    }, 300);
+}
+
+function closeModal() {
+    const modal = document.getElementById('consultationModal');
+    modal.classList.remove('show');
+    document.body.style.overflow = '';
+}
+
+function initModal() {
+    const modal = document.getElementById('consultationModal');
+    const modalClose = document.getElementById('modalClose');
+    const consultationBtns = document.querySelectorAll('#consultationBtn, #contactConsultationBtn');
+    
+    // Open modal
+    consultationBtns.forEach(btn => {
+        btn.addEventListener('click', (e) => {
             e.preventDefault();
-            const targetId = link.getAttribute('href');
-            const targetSection = document.querySelector(targetId);
-            
-            if (targetSection) {
-                targetSection.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
-                });
-            }
+            openModal();
         });
     });
+    
+    // Close modal
+    modalClose.addEventListener('click', closeModal);
+    
+    // Close on backdrop click
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+            closeModal();
+        }
+    });
+    
+    // Close on escape key
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && modal.classList.contains('show')) {
+            closeModal();
+        }
+    });
 }
 
-// Theme Toggle
-function initThemeToggle() {
-    const themeToggles = document.querySelectorAll('.theme-toggle');
-    const currentTheme = localStorage.getItem('theme') || 'light';
-    
-    document.documentElement.setAttribute('data-theme', currentTheme);
-    
-    themeToggles.forEach(toggle => {
-        toggle.addEventListener('click', () => {
-            const currentTheme = document.documentElement.getAttribute('data-theme');
-            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-            
-            document.documentElement.setAttribute('data-theme', newTheme);
-            localStorage.setItem('theme', newTheme);
+// Floating Consultation Button
+function initFloatingConsultation() {
+    const floatingConsultationBtn = document.getElementById('floatingConsultationBtn');
+    if (floatingConsultationBtn) {
+        floatingConsultationBtn.addEventListener('click', () => {
+            openModal();
         });
-    });
+    }
 }
 
-// Mobile Menu
-function initMobileMenu() {
-    const mobileMenuToggle = document.getElementById('mobileMenuToggle');
-    const mobileMenu = document.getElementById('mobileMenu');
-    const mobileMenuOverlay = document.getElementById('mobileMenuOverlay');
-    const mobileMenuClose = document.getElementById('mobileMenuClose');
-    const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
-
-    function openMobileMenu() {
-        mobileMenu.classList.add('active');
-        mobileMenuOverlay.classList.add('active');
-        document.body.style.overflow = 'hidden';
-    }
-
-    function closeMobileMenu() {
-        mobileMenu.classList.remove('active');
-        mobileMenuOverlay.classList.remove('active');
-        document.body.style.overflow = '';
-    }
-
-    mobileMenuToggle?.addEventListener('click', openMobileMenu);
-    mobileMenuClose?.addEventListener('click', closeMobileMenu);
-    mobileMenuOverlay?.addEventListener('click', closeMobileMenu);
-
-    mobileNavLinks.forEach(link => {
-        link.addEventListener('click', closeMobileMenu);
-    });
-}
-
-// Contact Form
-function initContactForm() {
-    const hireForm = document.getElementById('hireForm');
-    if (!hireForm) return;
-
-    hireForm.addEventListener('submit', async (e) => {
+// Form Submission
+function initFormSubmission() {
+    const form = document.getElementById('consultationForm');
+    if (!form) return;
+    
+    form.addEventListener('submit', async (e) => {
         e.preventDefault();
         
-        const submitBtn = document.getElementById('formSubmit');
-        const originalText = submitBtn.textContent;
+        const submitBtn = form.querySelector('button[type="submit"]');
+        const originalText = submitBtn.innerHTML;
         
-        submitBtn.textContent = 'Sending...';
+        // Show loading state
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
         submitBtn.disabled = true;
-
+        
         try {
-            const formData = new FormData(hireForm);
-            const response = await fetch(hireForm.action, {
+            const formData = new FormData(form);
+            const response = await fetch(form.action, {
                 method: 'POST',
                 body: formData,
                 headers: {
                     'Accept': 'application/json'
                 }
             });
-
+            
             if (response.ok) {
-                alert('Thank you! I\'ll get back to you within 24 hours.');
-                hireForm.reset();
-                closeHireModal();
+                showToast('Thank you! I\'ll get back to you in 24-48 hours.', 'success');
+                form.reset();
+                closeModal();
             } else {
                 throw new Error('Form submission failed');
             }
         } catch (error) {
-            alert('Sorry, there was an error. Please try again or contact me directly.');
+            console.error('Form submission error:', error);
+            showToast('Sorry, there was an error. Please try again or contact me directly.', 'error');
         } finally {
-            submitBtn.textContent = originalText;
+            submitBtn.innerHTML = originalText;
             submitBtn.disabled = false;
         }
     });
 }
 
-// Newsletter Form
+// Newsletter Form Handling
 function initNewsletterForm() {
     const newsletterForm = document.getElementById('newsletterForm');
     if (!newsletterForm) return;
-
+    
     newsletterForm.addEventListener('submit', async (e) => {
         e.preventDefault();
         
-        const submitBtn = document.getElementById('newsletterSubmit');
+        const submitBtn = newsletterForm.querySelector('button[type="submit"]');
         const originalText = submitBtn.innerHTML;
         
-        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i><span>Subscribing...</span>';
+        // Show loading state
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Subscribing...';
         submitBtn.disabled = true;
-
+        
         try {
             const formData = new FormData(newsletterForm);
             const response = await fetch(newsletterForm.action, {
@@ -349,15 +344,16 @@ function initNewsletterForm() {
                     'Accept': 'application/json'
                 }
             });
-
+            
             if (response.ok) {
-                alert('Thank you for subscribing! You\'ll receive my insights soon.');
+                showToast('Thank you for subscribing! You\'ll receive our first newsletter soon.', 'success');
                 newsletterForm.reset();
             } else {
-                throw new Error('Subscription failed');
+                throw new Error('Newsletter subscription failed');
             }
         } catch (error) {
-            alert('Sorry, there was an error. Please try again.');
+            console.error('Newsletter subscription error:', error);
+            showToast('Sorry, there was an error. Please try again.', 'error');
         } finally {
             submitBtn.innerHTML = originalText;
             submitBtn.disabled = false;
@@ -365,147 +361,181 @@ function initNewsletterForm() {
     });
 }
 
-// Hire Modal
-function initHireModal() {
-    const hireButton = document.getElementById('hireButton');
-    const hireModal = document.getElementById('hireModal');
-    const modalClose = document.getElementById('modalClose');
 
-    function openHireModal() {
-        hireModal.classList.add('active');
-        document.body.style.overflow = 'hidden';
+
+// Toast Notifications
+function showToast(message, type = 'success') {
+    const toast = document.getElementById('toast');
+    const toastMessage = document.getElementById('toastMessage');
+    
+    // Update message and styling
+    toastMessage.textContent = message;
+    toast.className = `toast ${type}`;
+    
+    // Show toast
+    setTimeout(() => {
+        toast.classList.add('show');
+    }, 100);
+    
+    // Hide toast after 5 seconds
+    setTimeout(() => {
+        toast.classList.remove('show');
+    }, 5000);
+}
+
+// Smooth Scrolling
+function initSmoothScrolling() {
+    const links = document.querySelectorAll('a[href^="#"]');
+    
+    links.forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            const targetId = link.getAttribute('href');
+            const targetSection = document.querySelector(targetId);
+            
+            if (targetSection) {
+                const offsetTop = targetSection.offsetTop - 80; // Account for fixed navbar
+                window.scrollTo({
+                    top: offsetTop,
+                    behavior: 'smooth'
+                });
+            }
+        });
+    });
+}
+
+// Learn More Button
+function initLearnMoreButton() {
+    const learnMoreBtn = document.getElementById('learnMoreBtn');
+    
+    if (learnMoreBtn) {
+        learnMoreBtn.addEventListener('click', () => {
+            const aboutSection = document.querySelector('#about');
+            if (aboutSection) {
+                const offsetTop = aboutSection.offsetTop - 80; // Account for fixed navbar
+                window.scrollTo({
+                    top: offsetTop,
+                    behavior: 'smooth'
+                });
+            }
+        });
     }
+}
 
-    function closeHireModal() {
-        hireModal.classList.remove('active');
+// Utility function for scrolling to sections
+function scrollToSection(sectionId) {
+    const section = document.querySelector(sectionId);
+    if (section) {
+        const offsetTop = section.offsetTop - 80;
+        window.scrollTo({
+            top: offsetTop,
+            behavior: 'smooth'
+        });
+    }
+}
+
+// Close modal function (for external use)
+function closeModal() {
+    const modal = document.getElementById('consultationModal');
+    if (modal) {
+        modal.classList.remove('show');
         document.body.style.overflow = '';
     }
-
-    hireButton?.addEventListener('click', (e) => {
-        e.preventDefault();
-        openHireModal();
-    });
-
-    modalClose?.addEventListener('click', closeHireModal);
-
-    hireModal?.addEventListener('click', (e) => {
-        if (e.target === hireModal) {
-            closeHireModal();
-        }
-    });
-
-    // Close modal on escape key
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && hireModal.classList.contains('active')) {
-            closeHireModal();
-        }
-    });
 }
 
-// Custom Cursor
-function initCustomCursor() {
-    const cursor = document.querySelector('.cursor');
-    if (!cursor) return;
-
-    document.addEventListener('mousemove', (e) => {
-        cursor.style.left = e.clientX + 'px';
-        cursor.style.top = e.clientY + 'px';
-    });
-
-    // Add hover effect for interactive elements
-    const interactiveElements = document.querySelectorAll('a, button, .service-card, .case-study-card, .timeline-item');
+// Performance optimizations
+window.addEventListener('load', () => {
+    // Remove loading states
+    document.body.classList.add('loaded');
     
-    interactiveElements.forEach(el => {
-        el.addEventListener('mouseenter', () => {
-            cursor.classList.add('hover');
-        });
-        
-        el.addEventListener('mouseleave', () => {
-            cursor.classList.remove('hover');
-        });
+    // Preload critical resources
+    const criticalImages = document.querySelectorAll('img[data-src]');
+    criticalImages.forEach(img => {
+        img.src = img.dataset.src;
+        img.removeAttribute('data-src');
     });
-}
+});
 
-// Floating Shapes Animation
-function initFloatingShapes() {
-    const shapes = document.querySelectorAll('.shape');
-    
-    shapes.forEach((shape, index) => {
-        const animationDuration = 20 + index * 5;
-        const animationDelay = index * 2;
-        
-        shape.style.animation = `float ${animationDuration}s ease-in-out ${animationDelay}s infinite`;
-    });
-}
-
-// Scroll Progress Bar
-function initScrollProgress() {
-    const progressBar = document.getElementById('scroll-progress');
-    if (!progressBar) return;
-
-    window.addEventListener('scroll', () => {
-        const scrollTop = document.documentElement.scrollTop;
-        const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-        const scrollPercent = (scrollTop / scrollHeight) * 100;
-        
-        progressBar.style.width = scrollPercent + '%';
-    });
-}
-
-// Count Up Animations
-function initCountUpAnimations() {
-    const countUpElements = document.querySelectorAll('.count-up');
-    
-    const countUpObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const element = entry.target;
-                const target = parseInt(element.getAttribute('data-target'));
-                const duration = 2000;
-                const increment = target / (duration / 16);
-                let current = 0;
-                
-                const timer = setInterval(() => {
-                    current += increment;
-                    if (current >= target) {
-                        current = target;
-                        clearInterval(timer);
-                    }
-                    element.textContent = Math.floor(current);
-                }, 16);
-                
-                countUpObserver.unobserve(element);
-            }
-        });
-    }, { threshold: 0.5 });
-
-    countUpElements.forEach(el => countUpObserver.observe(el));
-}
-
-// Loader
-function initLoader() {
-    const loader = document.querySelector('.loader');
-    if (!loader) return;
-
-    window.addEventListener('load', () => {
-        setTimeout(() => {
-            loader.style.opacity = '0';
-            setTimeout(() => {
-                loader.style.display = 'none';
-            }, 300);
-        }, 1000);
-    });
-}
-
-// Phone number click handler
-document.addEventListener('DOMContentLoaded', function() {
-    const callMeBtn = document.getElementById('callMeBtn');
-    if (callMeBtn) {
-        callMeBtn.addEventListener('click', function(e) {
-            e.preventDefault();
-            if (confirm('Would you like to call me?')) {
-                window.location.href = 'tel:+919131620063';
-            }
-        });
+// Handle window resize
+window.addEventListener('resize', () => {
+    // Close mobile menu on resize
+    const mobileMenu = document.getElementById('mobileMenu');
+    if (mobileMenu && window.innerWidth > 768) {
+        mobileMenu.classList.remove('active');
     }
 });
+
+// Add some interactive effects
+document.addEventListener('mousemove', (e) => {
+    // Subtle parallax effect for neural grid
+    const neuralGrid = document.getElementById('neuralGrid');
+    if (neuralGrid) {
+        const x = e.clientX / window.innerWidth;
+        const y = e.clientY / window.innerHeight;
+        neuralGrid.style.transform = `translate(${x * 10}px, ${y * 10}px)`;
+    }
+});
+
+// Add loading animation for images
+document.querySelectorAll('img').forEach(img => {
+    img.addEventListener('load', () => {
+        img.style.opacity = '1';
+    });
+    
+    img.addEventListener('error', () => {
+        img.style.display = 'none';
+    });
+});
+
+// Healthcare Tech Visual Effects
+function initAdvancedEffects() {
+    // Parallax effect for healthcare elements
+    window.addEventListener('scroll', () => {
+        const scrolled = window.pageYOffset;
+        const healthcareElements = document.querySelectorAll('.dna-helix, .neural-network, .heartbeat-monitor, .data-flow');
+        
+        healthcareElements.forEach((element, index) => {
+            const speed = 0.2 + (index * 0.1);
+            element.style.transform += ` translateY(${scrolled * speed}px)`;
+        });
+    });
+    
+    // Interactive DNA helix
+    const dnaHelix = document.querySelector('.dna-helix');
+    if (dnaHelix) {
+        dnaHelix.addEventListener('mouseenter', () => {
+            dnaHelix.style.animationPlayState = 'paused';
+        });
+        
+        dnaHelix.addEventListener('mouseleave', () => {
+            dnaHelix.style.animationPlayState = 'running';
+        });
+    }
+    
+    // Neural network interaction
+    const neurons = document.querySelectorAll('.neuron');
+    neurons.forEach(neuron => {
+        neuron.addEventListener('mouseenter', () => {
+            neuron.style.animationDuration = '0.5s';
+        });
+        
+        neuron.addEventListener('mouseleave', () => {
+            neuron.style.animationDuration = '3s';
+        });
+    });
+    
+    // ECG pulse interaction
+    const ecgPulses = document.querySelectorAll('.ecg-pulse');
+    ecgPulses.forEach(pulse => {
+        pulse.addEventListener('mouseenter', () => {
+            pulse.style.animationDuration = '0.5s';
+        });
+        
+        pulse.addEventListener('mouseleave', () => {
+            pulse.style.animationDuration = '2s';
+        });
+    });
+}
+
+// Initialize advanced effects
+initAdvancedEffects();

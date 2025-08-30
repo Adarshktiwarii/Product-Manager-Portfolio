@@ -1,5 +1,40 @@
 # Adarsh Kumar Tiwari - Consulting Website
+Dev deployment via GitHub Actions (S3)
+-------------------------------------
 
+This repo includes a workflow to deploy to an AWS S3 dev bucket on pushes to `dev` and any `feat/**` branches, and on manual dispatch.
+
+1) Add the following GitHub Actions secrets (Repository Settings → Secrets and variables → Actions):
+
+- AWS_ACCESS_KEY_ID
+- AWS_SECRET_ACCESS_KEY
+- AWS_REGION (e.g. ap-south-1)
+- S3_DEV_BUCKET (e.g. my-portfolio-dev-bucket)
+- CLOUDFRONT_DISTRIBUTION_ID (optional, for cache invalidation)
+
+2) Trigger deploy:
+- Push to `dev` or `feat/*` branch; OR
+- Manually run: Actions → Deploy to S3 (dev) → Run workflow
+
+Notes:
+- HTML files upload with `no-cache` headers for instant refresh; assets sync with standard caching.
+- Excludes `index - Copy.html` and CI files from upload.
+
+
+Promote to Production (Amplify)
+-------------------------------
+
+Use the `Promote to Production (Amplify)` workflow (manual dispatch). Two options:
+
+- Webhook (recommended if prod app is connected to repo):
+  - Add secrets: `AMPLIFY_PROD_WEBHOOK_URL`
+
+- Direct deployment (for prod app not connected to repo):
+  - Add secrets: `AMPLIFY_PROD_APP_ID`, `AMPLIFY_PROD_BRANCH`, and reuse `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`, `AWS_REGION`
+  - IAM user needs:
+    - `amplify:CreateDeployment` and `amplify:StartDeployment` on `arn:aws:amplify:REGION:ACCOUNT:apps/APP_ID/branches/BRANCH/deployments/*`
+
+Run: GitHub → Actions → Promote to Production (Amplify) → Run workflow.
 A modern, responsive consulting website showcasing strategic consulting services, case studies, and professional experience. Built with clean design principles and optimized for performance.
 
 ## 🚀 Features

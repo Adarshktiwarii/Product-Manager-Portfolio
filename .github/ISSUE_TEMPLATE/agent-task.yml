@@ -1,0 +1,42 @@
+name: Agent Task
+description: Create a standardized task for agents with clear context and DoD
+title: "[Agent] <short task title>"
+labels: ["agent-task"]
+assignees: []
+body:
+  - type: textarea
+    id: context
+    attributes:
+      label: Context
+      description: Why this task? Links to prior Issues/PRs/AGENT_LOG entries.
+      placeholder: |
+        Problem statement, relevant links, constraints
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps / Plan
+      description: High-level steps the agent will take
+      placeholder: |
+        1. ...
+        2. ...
+    validations:
+      required: true
+  - type: textarea
+    id: dod
+    attributes:
+      label: Definition of Done
+      description: Acceptance criteria for completion
+      placeholder: |
+        - [ ] Criteria 1
+        - [ ] Criteria 2
+    validations:
+      required: true
+  - type: input
+    id: env
+    attributes:
+      label: Target environment/branch
+      placeholder: dev, main, feature/...
+    validations:
+      required: true
