@@ -941,13 +941,7 @@ body {
     font-weight: 500;
 }
 
-.stat-item .stat-label:nth-child(2) {
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: var(--accent-primary);
-    margin-top: -0.5rem;
-    margin-bottom: 0.25rem;
-}
+
 
 .hero-image {
     position: relative;

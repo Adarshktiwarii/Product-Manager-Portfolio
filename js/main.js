@@ -229,7 +229,12 @@ function initStatsCounter() {
                 current = target;
                 clearInterval(timer);
             }
-            element.textContent = Math.floor(current);
+            // Special case for years experience - add "+" after 4
+            if (target === 4) {
+                element.textContent = Math.floor(current) + '+';
+            } else {
+                element.textContent = Math.floor(current);
+            }
         }, 30);
     }
 }
