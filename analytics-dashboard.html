@@ -408,6 +408,10 @@
             <div class="header-controls">
                 <span class="real-time-indicator"></span>
                 <span style="color: var(--text-muted); font-size: 0.9rem;">Real-time</span>
+                <div style="display: flex; align-items: center; gap: 0.5rem; font-size: 0.8rem; color: var(--text-muted);">
+                    <i class="fas fa-database"></i>
+                    <span id="storageInfo">Loading...</span>
+                </div>
                 <input type="date" class="date-picker" id="datePicker">
                 <button class="btn btn-secondary" onclick="exportData()">
                     <i class="fas fa-download"></i> Export
@@ -683,8 +687,59 @@
         document.body.setAttribute('data-theme', savedTheme);
 
         // Analytics data storage
-        let analyticsData = JSON.parse(localStorage.getItem('analyticsData') || '[]');
+        let analyticsData = [];
         let charts = {};
+
+        // Load analytics data with decompression
+        function loadAnalyticsData() {
+          try {
+            const compressedData = JSON.parse(localStorage.getItem('analyticsData') || '[]');
+            analyticsData = compressedData.map(compressed => {
+              try {
+                const decoded = atob(compressed);
+                const data = JSON.parse(decoded);
+                
+                // Expand compressed data back to full format
+                return {
+                  visitorId: data.v,
+                  pageUrl: data.p,
+                  timestamp: data.t,
+                  event: data.e,
+                  deviceType: data.d,
+                  browserName: data.b,
+                  referrerData: {
+                    source: data.r,
+                    type: data.r === 'direct' ? 'direct' : 'referral'
+                  },
+                  interactionData: data.i ? {
+                    scrollDepth: data.i.s,
+                    clicks: data.i.c,
+                    formInteractions: data.i.f,
+                    sectionsViewed: []
+                  } : null,
+                  eventData: data.ed,
+                  // Add default values for compatibility
+                  trackingId: 'default',
+                  browser: navigator.userAgent,
+                  screenWidth: window.screen.width,
+                  screenHeight: window.screen.height,
+                  viewportWidth: window.innerWidth,
+                  viewportHeight: window.innerHeight,
+                  language: navigator.language,
+                  timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+                  connectionType: navigator.connection ? navigator.connection.effectiveType : 'unknown',
+                  onlineStatus: navigator.onLine
+                };
+              } catch (error) {
+                console.error('Error decompressing record:', error);
+                return null;
+              }
+            }).filter(record => record !== null);
+          } catch (error) {
+            console.error('Error loading analytics data:', error);
+            analyticsData = [];
+          }
+        }
 
         // Initialize all charts
         function initCharts() {
@@ -811,6 +866,28 @@
             });
         }
 
+        // Update storage information
+        function updateStorageInfo() {
+            try {
+                const analyticsData = JSON.parse(localStorage.getItem('analyticsData') || '[]');
+                const storageSize = JSON.stringify(analyticsData).length;
+                const maxSize = 4 * 1024 * 1024; // 4MB
+                const usagePercent = Math.round((storageSize / maxSize) * 100);
+                
+                let statusColor = '#10b981'; // Green
+                if (usagePercent > 80) statusColor = '#f59e0b'; // Yellow
+                if (usagePercent > 95) statusColor = '#ef4444'; // Red
+                
+                document.getElementById('storageInfo').innerHTML = `
+                    <span style="color: ${statusColor};">${analyticsData.length} records</span> • 
+                    <span>${Math.round(storageSize / 1024)}KB</span> • 
+                    <span>${usagePercent}% used</span>
+                `;
+            } catch (error) {
+                document.getElementById('storageInfo').textContent = 'Error loading storage info';
+            }
+        }
+
         // Update dashboard with comprehensive analytics
         function updateDashboard() {
             if (analyticsData.length === 0) return;
@@ -820,6 +897,7 @@
             updateVisitorsTable();
             updateFunnel();
             updateSearchAnalytics();
+            updateStorageInfo();
         }
 
         function updateKeyMetrics() {
@@ -1016,7 +1094,7 @@
         // Auto-refresh every 30 seconds
         function startAutoRefresh() {
             setInterval(() => {
-                analyticsData = JSON.parse(localStorage.getItem('analyticsData') || '[]');
+                loadAnalyticsData();
                 updateDashboard();
             }, 30000);
         }
@@ -1025,6 +1103,7 @@
         document.addEventListener('DOMContentLoaded', function() {
             if (!checkAuth()) return;
             
+            loadAnalyticsData();
             initCharts();
             updateDashboard();
             startAutoRefresh();

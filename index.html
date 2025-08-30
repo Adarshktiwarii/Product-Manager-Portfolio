@@ -1091,20 +1091,177 @@
         });
       }
       
-      // Store analytics data locally
+      // Store analytics data locally with optimization
       function storeAnalyticsData(data) {
         try {
-          let analyticsData = JSON.parse(localStorage.getItem('analyticsData') || '[]');
-          analyticsData.push(data);
+          // Only store important events locally to save space
+          const IMPORTANT_EVENTS = ['page_view', 'form_submit', 'cta_click', 'exit'];
+          const shouldStoreLocally = IMPORTANT_EVENTS.includes(data.event);
           
-          // Keep only last 1000 records to prevent storage overflow
-          if (analyticsData.length > 1000) {
-            analyticsData = analyticsData.slice(-1000);
+          if (!shouldStoreLocally) {
+            // For non-important events, only send to Mixpanel
+            if (window.mixpanel && MIXPANEL_TOKEN !== 'YOUR_MIXPANEL_PROJECT_TOKEN') {
+              mixpanel.track(data.event, {
+                ...data.eventData,
+                page_url: data.pageUrl,
+                referrer: data.referrer,
+                device_type: data.deviceType,
+                browser: data.browserName
+              });
+            }
+            return;
+          }
+          
+          let analyticsData = JSON.parse(localStorage.getItem('analyticsData') || '[]');
+          
+          // Compress data before storing
+          const compressedData = compressData(data);
+          analyticsData.push(compressedData);
+          
+          // Time-based cleanup: Keep only last 30 days of data
+          const thirtyDaysAgo = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000);
+          analyticsData = analyticsData.filter(compressedRecord => {
+            const record = decompressData(compressedRecord);
+            return new Date(record.timestamp) > thirtyDaysAgo;
+          });
+          
+          // Size-based cleanup: Keep only last 500 records to prevent storage overflow
+          if (analyticsData.length > 500) {
+            analyticsData = analyticsData.slice(-500);
+          }
+          
+          // Check storage size and cleanup if needed
+          const storageSize = JSON.stringify(analyticsData).length;
+          const maxSize = 4 * 1024 * 1024; // 4MB limit
+          
+          if (storageSize > maxSize) {
+            // Remove oldest records until under limit
+            while (analyticsData.length > 100 && JSON.stringify(analyticsData).length > maxSize) {
+              analyticsData.shift();
+            }
           }
           
           localStorage.setItem('analyticsData', JSON.stringify(analyticsData));
+          
+          // Log storage usage for monitoring
+          console.log(`Analytics storage: ${analyticsData.length} records, ${Math.round(storageSize / 1024)}KB`);
+          
         } catch (error) {
           console.error('Error storing analytics data:', error);
+          
+          // Fallback: clear storage and start fresh if there's an error
+          try {
+            localStorage.removeItem('analyticsData');
+            console.log('Analytics storage cleared due to error');
+          } catch (clearError) {
+            console.error('Failed to clear analytics storage:', clearError);
+          }
+        }
+      }
+      
+      // Compress data to save storage space
+      function compressData(data) {
+        try {
+          // Remove unnecessary fields for local storage
+          const compressed = {
+            v: data.visitorId,
+            p: data.pageUrl,
+            t: data.timestamp,
+            e: data.event,
+            d: data.deviceType,
+            b: data.browserName,
+            r: data.referrerData?.source || 'direct',
+            i: data.interactionData ? {
+              s: data.interactionData.scrollDepth,
+              c: data.interactionData.clicks,
+              f: data.interactionData.formInteractions
+            } : null,
+            ed: data.eventData || null
+          };
+          
+          // Base64 encode to compress further
+          return btoa(JSON.stringify(compressed));
+        } catch (error) {
+          console.error('Error compressing data:', error);
+          return btoa(JSON.stringify(data));
+        }
+      }
+      
+      // Decompress data for reading
+      function decompressData(compressedData) {
+        try {
+          const decoded = atob(compressedData);
+          const data = JSON.parse(decoded);
+          
+          // Expand compressed data back to full format
+          return {
+            visitorId: data.v,
+            pageUrl: data.p,
+            timestamp: data.t,
+            event: data.e,
+            deviceType: data.d,
+            browserName: data.b,
+            referrerData: {
+              source: data.r,
+              type: data.r === 'direct' ? 'direct' : 'referral'
+            },
+            interactionData: data.i ? {
+              scrollDepth: data.i.s,
+              clicks: data.i.c,
+              formInteractions: data.i.f,
+              sectionsViewed: []
+            } : null,
+            eventData: data.ed,
+            // Add default values for compatibility
+            trackingId: TRACKING_ID,
+            browser: navigator.userAgent,
+            screenWidth: window.screen.width,
+            screenHeight: window.screen.height,
+            viewportWidth: window.innerWidth,
+            viewportHeight: window.innerHeight,
+            language: navigator.language,
+            timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+            connectionType: navigator.connection ? navigator.connection.effectiveType : 'unknown',
+            onlineStatus: navigator.onLine
+          };
+        } catch (error) {
+          console.error('Error decompressing data:', error);
+          // Fallback to original data if decompression fails
+          return JSON.parse(atob(compressedData));
+        }
+      }
+      
+      // Get analytics data with decompression
+      function getAnalyticsData() {
+        try {
+          const compressedData = JSON.parse(localStorage.getItem('analyticsData') || '[]');
+          return compressedData.map(compressed => decompressData(compressed));
+        } catch (error) {
+          console.error('Error reading analytics data:', error);
+          return [];
+        }
+      }
+      
+      // Update the latest record with current interaction data (optimized)
+      function updateLatestRecordWithInteractionData() {
+        try {
+          let analyticsData = JSON.parse(localStorage.getItem('analyticsData') || '[]');
+          if (analyticsData.length > 0) {
+            const latestCompressed = analyticsData[analyticsData.length - 1];
+            const latestRecord = decompressData(latestCompressed);
+            
+            // Update interaction data
+            latestRecord.interactionData = { ...interactionData };
+            latestRecord.clicks = interactionData.clicks;
+            latestRecord.formInteractions = interactionData.formInteractions;
+            latestRecord.scrollDepth = interactionData.scrollDepth;
+            
+            // Recompress and store
+            analyticsData[analyticsData.length - 1] = compressData(latestRecord);
+            localStorage.setItem('analyticsData', JSON.stringify(analyticsData));
+          }
+        } catch (error) {
+          console.error('Error updating interaction data:', error);
         }
       }
       
@@ -1214,23 +1371,6 @@
           x: Math.round(rect.left + rect.width / 2),
           y: Math.round(rect.top + rect.height / 2)
         };
-      }
-      
-      // Update the latest record with current interaction data
-      function updateLatestRecordWithInteractionData() {
-        try {
-          let analyticsData = JSON.parse(localStorage.getItem('analyticsData') || '[]');
-          if (analyticsData.length > 0) {
-            const latestRecord = analyticsData[analyticsData.length - 1];
-            latestRecord.interactionData = { ...interactionData };
-            latestRecord.clicks = interactionData.clicks;
-            latestRecord.formInteractions = interactionData.formInteractions;
-            latestRecord.scrollDepth = interactionData.scrollDepth;
-            localStorage.setItem('analyticsData', JSON.stringify(analyticsData));
-          }
-        } catch (error) {
-          console.error('Error updating interaction data:', error);
-        }
       }
       
       // Track custom events
