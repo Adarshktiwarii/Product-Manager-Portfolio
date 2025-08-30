@@ -1597,6 +1597,9 @@ body {
 .work-image {
     height: 200px;
     background: var(--gradient-primary);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
     position: relative;
     display: flex;
     align-items: center;
