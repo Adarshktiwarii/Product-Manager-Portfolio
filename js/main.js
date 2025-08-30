@@ -242,26 +242,29 @@ function initStatsCounter() {
 }
 
 // Modal Functionality
+// Global modal functions
+function openModal() {
+    const modal = document.getElementById('consultationModal');
+    modal.classList.add('show');
+    document.body.style.overflow = 'hidden';
+    
+    // Focus first input
+    setTimeout(() => {
+        const firstInput = modal.querySelector('input');
+        if (firstInput) firstInput.focus();
+    }, 300);
+}
+
+function closeModal() {
+    const modal = document.getElementById('consultationModal');
+    modal.classList.remove('show');
+    document.body.style.overflow = '';
+}
+
 function initModal() {
     const modal = document.getElementById('consultationModal');
     const modalClose = document.getElementById('modalClose');
     const consultationBtns = document.querySelectorAll('#consultationBtn, #contactConsultationBtn');
-    
-    function openModal() {
-        modal.classList.add('show');
-        document.body.style.overflow = 'hidden';
-        
-        // Focus first input
-        setTimeout(() => {
-            const firstInput = modal.querySelector('input');
-            if (firstInput) firstInput.focus();
-        }, 300);
-    }
-    
-    function closeModal() {
-        modal.classList.remove('show');
-        document.body.style.overflow = '';
-    }
     
     // Open modal
     consultationBtns.forEach(btn => {
