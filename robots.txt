@@ -1,0 +1,11 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://adarshktiwari.co.in/sitemap.xml
+
+# Crawl-delay
+Crawl-delay: 1
+
+# Disallow analytics dashboard from public search
+Disallow: /analytics-dashboard.html
