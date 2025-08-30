@@ -28,6 +28,7 @@ Usage rules:
 - YYYY-MM-DD: <decision> — Rationale: <why> — Link: <Issue/PR>
 
 ## Recent Activity
+- 2025-08-30 01:40 UTC — Cursor Agent: feat: add hover effects to all contact CTAs and update newsletter privacy text — https://github.com/Adarshktiwarii/Product-Manager-Portfolio/commit/00a2237ad7653ab29b2a581d029ce89de5d6f024
 - 2025-08-30 01:36 UTC — Cursor Agent: feat: add modern newsletter subscription section below contact page — https://github.com/Adarshktiwarii/Product-Manager-Portfolio/commit/a21c3c1bc7f672232279991eef8cc4c8f0aa7287
 - 2025-08-30 01:34 UTC — Cursor Agent: fix: simplify consultation form success message — https://github.com/Adarshktiwarii/Product-Manager-Portfolio/commit/38fe07b57fcf6c2b71c944a18825f5503275be87
 - 2025-08-30 01:31 UTC — Cursor Agent: fix: remove link icon completely and make entire Topmate item clickable — https://github.com/Adarshktiwarii/Product-Manager-Portfolio/commit/fb4a692ab001374ca8c17175ffe241fb41f875d0
