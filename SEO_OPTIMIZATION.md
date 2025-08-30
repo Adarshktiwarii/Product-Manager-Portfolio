@@ -6,7 +6,7 @@
 - **"Adarsh"** - Personal name search
 - **"Adarsh Tiwari"** - Full name search  
 - **"Adarsh Kumar Tiwari"** - Complete name search
-- **"consultant at Wiserex"** - Professional role search
+- **"consultant at WiseRx"** - Professional role search
 
 ### **Secondary Keywords:**
 - "strategic consultant Bangalore"
@@ -17,7 +17,7 @@
 ## ✅ **Current SEO Implementation**
 
 ### **1. Enhanced Meta Tags**
-- ✅ **Title**: "Adarsh Kumar Tiwari — Strategic Consultant & Technology Expert at Wiserex"
+- ✅ **Title**: "Adarsh Kumar Tiwari — Strategic Consultant & Technology Expert at WiseRx"
 - ✅ **Description**: Includes name, role, company, and location
 - ✅ **Keywords**: Comprehensive keyword targeting
 - ✅ **Author**: Proper author attribution
@@ -30,7 +30,7 @@
 
 ### **3. Content Optimization**
 - ✅ **Hero Section**: Name prominently displayed
-- ✅ **Wiserex Mention**: Multiple strategic mentions
+- ✅ **WiseRx Mention**: Multiple strategic mentions
 - ✅ **Location**: Bangalore, India references
 - ✅ **Professional Title**: Strategic Consultant emphasis
 
@@ -55,7 +55,7 @@
 **Expected Ranking**: **Top 3** for name searches
 
 ### **2. Professional Role Searches**
-**Target**: "consultant at Wiserex"
+**Target**: "consultant at WiseRx"
 
 **Implementation**:
 - ✅ Company name in title
@@ -131,7 +131,7 @@
 - **"Adarsh Kumar Tiwari"**: Top 3 results
 - **"Adarsh Tiwari"**: Top 5 results
 - **"Adarsh"**: Top 10 results (competitive)
-- **"consultant at Wiserex"**: Top 10 results
+- **"consultant at WiseRx"**: Top 10 results
 
 ### **Medium Term (3-6 months):**
 - **All name variations**: Top 3 results
@@ -196,6 +196,6 @@ Your website is now **fully optimized** for the target keywords:
 - **"Adarsh"** ✅
 - **"Adarsh Tiwari"** ✅
 - **"Adarsh Kumar Tiwari"** ✅
-- **"consultant at Wiserex"** ✅
+- **"consultant at WiseRx"** ✅
 
 **Expected Outcome**: **Top rankings** for personal name searches and **strong visibility** for professional role searches within 1-3 months of deployment! 🎯
