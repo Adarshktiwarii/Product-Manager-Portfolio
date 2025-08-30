@@ -210,9 +210,14 @@
     <div class="dashboard">
         <div class="header">
             <h1>Analytics Dashboard</h1>
-            <button class="theme-toggle" onclick="toggleTheme()">
-                <i class="fas fa-moon"></i> Toggle Theme
-            </button>
+            <div style="display: flex; gap: 1rem; align-items: center;">
+                <button class="theme-toggle" onclick="toggleTheme()">
+                    <i class="fas fa-moon"></i> Toggle Theme
+                </button>
+                <button class="theme-toggle" onclick="logout()" style="background: #dc2626;">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </button>
+            </div>
         </div>
 
         <!-- Stats Overview -->
@@ -279,6 +284,100 @@
     </div>
 
     <script>
+        // Basic Authentication
+        const AUTH_USERNAME = 'admin';
+        const AUTH_PASSWORD = 'adarsh2025'; // Change this to your preferred password
+        
+        function checkAuth() {
+            const isAuthenticated = sessionStorage.getItem('analytics_authenticated');
+            if (!isAuthenticated) {
+                showLoginForm();
+                return false;
+            }
+            return true;
+        }
+        
+        function showLoginForm() {
+            document.body.innerHTML = `
+                <div style="
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    min-height: 100vh;
+                    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                    font-family: 'Inter', sans-serif;
+                ">
+                    <div style="
+                        background: white;
+                        padding: 2rem;
+                        border-radius: 12px;
+                        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+                        width: 100%;
+                        max-width: 400px;
+                    ">
+                        <h2 style="text-align: center; margin-bottom: 2rem; color: #1f2937;">Analytics Dashboard</h2>
+                        <form id="loginForm" onsubmit="handleLogin(event)">
+                            <div style="margin-bottom: 1rem;">
+                                <label style="display: block; margin-bottom: 0.5rem; color: #374151;">Username</label>
+                                <input type="text" id="username" required style="
+                                    width: 100%;
+                                    padding: 0.75rem;
+                                    border: 1px solid #d1d5db;
+                                    border-radius: 6px;
+                                    font-size: 1rem;
+                                ">
+                            </div>
+                            <div style="margin-bottom: 1.5rem;">
+                                <label style="display: block; margin-bottom: 0.5rem; color: #374151;">Password</label>
+                                <input type="password" id="password" required style="
+                                    width: 100%;
+                                    padding: 0.75rem;
+                                    border: 1px solid #d1d5db;
+                                    border-radius: 6px;
+                                    font-size: 1rem;
+                                ">
+                            </div>
+                            <button type="submit" style="
+                                width: 100%;
+                                padding: 0.75rem;
+                                background: #3b82f6;
+                                color: white;
+                                border: none;
+                                border-radius: 6px;
+                                font-size: 1rem;
+                                cursor: pointer;
+                            ">Login</button>
+                        </form>
+                        <div id="loginError" style="
+                            color: #dc2626;
+                            text-align: center;
+                            margin-top: 1rem;
+                            display: none;
+                        "></div>
+                    </div>
+                </div>
+            `;
+        }
+        
+        function handleLogin(event) {
+            event.preventDefault();
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            
+            if (username === AUTH_USERNAME && password === AUTH_PASSWORD) {
+                sessionStorage.setItem('analytics_authenticated', 'true');
+                location.reload();
+            } else {
+                document.getElementById('loginError').style.display = 'block';
+                document.getElementById('loginError').textContent = 'Invalid username or password';
+            }
+        }
+        
+        function logout() {
+            sessionStorage.removeItem('analytics_authenticated');
+            location.reload();
+        }
+
         // Theme toggle
         function toggleTheme() {
             const body = document.body;
@@ -295,22 +394,31 @@
         // Analytics data storage
         let analyticsData = JSON.parse(localStorage.getItem('analyticsData') || '[]');
 
-        // Initialize charts
+        // Initialize charts with real data
         function initCharts() {
+            // Calculate traffic sources from real data
+            const trafficSources = {};
+            const deviceTypes = {};
+            
+            analyticsData.forEach(visit => {
+                const source = visit.referrerData?.source || 'direct';
+                const device = visit.deviceType || 'unknown';
+                
+                trafficSources[source] = (trafficSources[source] || 0) + 1;
+                deviceTypes[device] = (deviceTypes[device] || 0) + 1;
+            });
+            
             // Traffic Sources Chart
             const trafficCtx = document.getElementById('trafficSourcesChart').getContext('2d');
             const trafficChart = new Chart(trafficCtx, {
                 type: 'doughnut',
                 data: {
-                    labels: ['Direct', 'Google', 'LinkedIn', 'Twitter', 'Other'],
+                    labels: Object.keys(trafficSources),
                     datasets: [{
-                        data: [30, 25, 20, 15, 10],
+                        data: Object.values(trafficSources),
                         backgroundColor: [
-                            '#10b981',
-                            '#3b82f6',
-                            '#0ea5e9',
-                            '#06b6d4',
-                            '#8b5cf6'
+                            '#10b981', '#3b82f6', '#0ea5e9', '#06b6d4', '#8b5cf6',
+                            '#f59e0b', '#ef4444', '#ec4899', '#8b5cf6', '#06b6d4'
                         ]
                     }]
                 },
@@ -329,14 +437,12 @@
             const deviceChart = new Chart(deviceCtx, {
                 type: 'bar',
                 data: {
-                    labels: ['Desktop', 'Mobile', 'Tablet'],
+                    labels: Object.keys(deviceTypes),
                     datasets: [{
                         label: 'Visitors',
-                        data: [45, 40, 15],
+                        data: Object.values(deviceTypes),
                         backgroundColor: [
-                            '#3b82f6',
-                            '#10b981',
-                            '#f59e0b'
+                            '#3b82f6', '#10b981', '#f59e0b', '#ef4444', '#8b5cf6'
                         ]
                     }]
                 },
@@ -419,41 +525,13 @@
             return classes[type] || 'source-direct';
         }
 
-        // Simulate receiving analytics data
-        function simulateAnalyticsData() {
-            const mockData = [
-                {
-                    timestamp: new Date(Date.now() - 1000 * 60 * 30).toISOString(),
-                    referrerData: { type: 'search', source: 'google' },
-                    deviceType: 'desktop',
-                    timezone: 'Asia/Kolkata',
-                    timeOnPage: 45000,
-                    interactionData: { clicks: 5 }
-                },
-                {
-                    timestamp: new Date(Date.now() - 1000 * 60 * 15).toISOString(),
-                    referrerData: { type: 'social', source: 'linkedin' },
-                    deviceType: 'mobile',
-                    timezone: 'America/New_York',
-                    timeOnPage: 120000,
-                    interactionData: { clicks: 8 }
-                }
-            ];
-
-            analyticsData = [...analyticsData, ...mockData];
-            localStorage.setItem('analyticsData', JSON.stringify(analyticsData));
-            updateDashboard();
-        }
-
         // Initialize dashboard
         document.addEventListener('DOMContentLoaded', function() {
+            // Check authentication first
+            if (!checkAuth()) return;
+            
             initCharts();
             updateDashboard();
-            
-            // Simulate some data for demo
-            if (analyticsData.length === 0) {
-                simulateAnalyticsData();
-            }
         });
     </script>
 </body>
