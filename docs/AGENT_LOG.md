@@ -28,6 +28,7 @@ Usage rules:
 - YYYY-MM-DD: <decision> — Rationale: <why> — Link: <Issue/PR>
 
 ## Recent Activity
+- 2025-08-30 02:00 UTC — Cursor Agent: feat: add creative startup showcase section in about page to display B2B, SaaS, and B2C startup experience — https://github.com/Adarshktiwarii/Product-Manager-Portfolio/commit/4e8e6d8572853d5fc50f1eafad6241aa08e3b93a
 - 2025-08-30 01:55 UTC — Cursor Agent: fix: update about section stat label to '17+ Members Team Transformed' — https://github.com/Adarshktiwarii/Product-Manager-Portfolio/commit/bd68aeca7d89c4bc5f0ca9f7c65e0baa72b3a0b3
 - 2025-08-30 01:53 UTC — Cursor Agent: fix: remove redundant consultation CTA from footer — https://github.com/Adarshktiwarii/Product-Manager-Portfolio/commit/5861d9070c9576c364177cb0e3e25d9c0b8703f8
 - 2025-08-30 01:51 UTC — Cursor Agent: fix: remove duplicate newsletter section from footer to avoid redundancy — https://github.com/Adarshktiwarii/Product-Manager-Portfolio/commit/0b0436ea8b61b462a3e5330e2bf92c89060ca93e
