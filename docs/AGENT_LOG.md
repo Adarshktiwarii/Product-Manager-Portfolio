@@ -28,6 +28,7 @@ Usage rules:
 - YYYY-MM-DD: <decision> — Rationale: <why> — Link: <Issue/PR>
 
 ## Recent Activity
+- 2025-08-30 02:42 UTC — Cursor Agent: fix: align work card labels and tags uniformly by making cards equal height with flexbox — https://github.com/Adarshktiwarii/Product-Manager-Portfolio/commit/8a679453912951fb96f7f2e5ef6f7525b5176c3a
 - 2025-08-30 02:40 UTC — Cursor Agent: fix: combine B2B and SaaS as 4 B2B/SaaS in startup experience text — https://github.com/Adarshktiwarii/Product-Manager-Portfolio/commit/d46cb43b2ad90938ab197831fbbd84fe27fce3eb
 - 2025-08-30 02:38 UTC — Cursor Agent: fix: move startup experience text inside about-text div with smaller font size — https://github.com/Adarshktiwarii/Product-Manager-Portfolio/commit/541e63da906e3e758969f7229f78a415f8b82032
 - 2025-08-30 02:02 UTC — Cursor Agent: fix: simplify startup experience display to just a simple paragraph below the about text — https://github.com/Adarshktiwarii/Product-Manager-Portfolio/commit/538f6f9c860d85ff9a5c7fdd2a7baa51b0b87c4e
