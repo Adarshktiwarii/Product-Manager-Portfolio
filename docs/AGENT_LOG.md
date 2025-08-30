@@ -28,6 +28,7 @@ Usage rules:
 - YYYY-MM-DD: <decision> — Rationale: <why> — Link: <Issue/PR>
 
 ## Recent Activity
+- 2025-08-30 00:23 UTC — Cursor Agent: fix: update featured work card images to be more relevant to each project - healthcare platform, telemedicine, RPM automation, startup strategy, team leadership, and compliance themes — https://github.com/Adarshktiwarii/Product-Manager-Portfolio/commit/7a2a5c013994153fc47c9933eaaff34d21071c67
 - 2025-08-30 00:16 UTC — Cursor Agent: feat: add professional images to featured work cards - healthcare, telemedicine, RPM, startup, team leadership, and compliance themes with relevant icons — https://github.com/Adarshktiwarii/Product-Manager-Portfolio/commit/5cbe2828c3ebf8c3d23d8579d7817bd184461220
 - 2025-08-30 00:12 UTC — Cursor Agent: fix: revert to original 3-card layout and display '4+' in animated counter for years experience — https://github.com/Adarshktiwarii/Product-Manager-Portfolio/commit/1e6c28e510429ed7bad6aca8b03a379588da3d28
 - 2025-08-30 00:10 UTC — Cursor Agent: fix: separate 4+ display - bold '+' symbol above 'Years Experience' text for better visual hierarchy — https://github.com/Adarshktiwarii/Product-Manager-Portfolio/commit/1f8cfeb0c9467d29c0ee479b0fe8b6c8fd28d367
