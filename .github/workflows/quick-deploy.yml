@@ -1,0 +1,58 @@
+name: ⚡ Quick Deploy to Production
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+env:
+  AWS_REGION: ${{ secrets.AWS_REGION }}
+  AMPLIFY_PROD_APP_ID: ${{ secrets.AMPLIFY_PROD_APP_ID }}
+  AMPLIFY_PROD_BRANCH: ${{ secrets.AMPLIFY_PROD_BRANCH }}
+
+jobs:
+  quick-deploy:
+    name: Quick Deploy Dev to Production
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout dev branch
+        uses: actions/checkout@v4
+        with:
+          ref: dev
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Deploy to Production
+        run: |
+          echo "⚡ Quick deploying dev to production..."
+          echo "Latest commit: $(git log -1 --oneline)"
+          
+          # Create deployment package
+          zip -r deploy.zip . -x ".git/*" ".github/*" "index - Copy.html" "*.log" "node_modules/*" "cosmos-website/*"
+          
+          # Create and start deployment
+          DEPLOY_RESPONSE=$(aws amplify create-deployment --app-id "${AMPLIFY_PROD_APP_ID}" --branch-name "${AMPLIFY_PROD_BRANCH}" --output json)
+          JOB_ID=$(echo "$DEPLOY_RESPONSE" | jq -r '.jobId')
+          UPLOAD_URL=$(echo "$DEPLOY_RESPONSE" | jq -r '.zipUploadUrl')
+          
+          # Upload and deploy
+          curl -X PUT -T deploy.zip -H "Content-Type: application/zip" "$UPLOAD_URL"
+          aws amplify start-deployment --app-id "${AMPLIFY_PROD_APP_ID}" --branch-name "${AMPLIFY_PROD_BRANCH}" --job-id "$JOB_ID"
+          
+          echo "✅ Quick deployment completed!"
+
+      - name: Update main branch
+        run: |
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
+          git checkout main
+          git merge dev --no-ff -m "feat: quick deploy - $(date)"
+          git push origin main
