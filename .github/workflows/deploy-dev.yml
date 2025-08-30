@@ -51,6 +51,14 @@ jobs:
             --exclude "README.md" \
             --exclude "index - Copy.html" \
             --exclude "*.html"
+          
+          # Upload work card images with proper cache headers
+          aws s3 cp card1.jpg "s3://${S3_DEV_BUCKET}/card1.jpg" --cache-control "public, max-age=31536000" --content-type "image/jpeg"
+          aws s3 cp card2.jpg "s3://${S3_DEV_BUCKET}/card2.jpg" --cache-control "public, max-age=31536000" --content-type "image/jpeg"
+          aws s3 cp card3.jpg "s3://${S3_DEV_BUCKET}/card3.jpg" --cache-control "public, max-age=31536000" --content-type "image/jpeg"
+          aws s3 cp card4.jpg "s3://${S3_DEV_BUCKET}/card4.jpg" --cache-control "public, max-age=31536000" --content-type "image/jpeg"
+          aws s3 cp card5.jpg "s3://${S3_DEV_BUCKET}/card5.jpg" --cache-control "public, max-age=31536000" --content-type "image/jpeg"
+          aws s3 cp card6.jpg "s3://${S3_DEV_BUCKET}/card6.jpg" --cache-control "public, max-age=31536000" --content-type "image/jpeg"
 
       - name: Upload HTML with no-cache headers to S3 (optional)
         if: env.ENABLE_S3 == 'true' && env.S3_DEV_BUCKET != ''
