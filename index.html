@@ -810,15 +810,72 @@
         return visitorId;
       }
       
-      // Collect browser and device info
+      // Collect comprehensive browser and device info
       function getDeviceInfo() {
         return {
+          // Browser & Device
           browser: navigator.userAgent,
+          browserName: getBrowserName(),
+          browserVersion: getBrowserVersion(),
+          deviceType: getDeviceType(),
           screenWidth: window.screen.width,
           screenHeight: window.screen.height,
+          viewportWidth: window.innerWidth,
+          viewportHeight: window.innerHeight,
+          colorDepth: window.screen.colorDepth,
+          pixelRatio: window.devicePixelRatio,
+          
+          // Location & Language
           language: navigator.language,
-          referrer: document.referrer || null
+          languages: navigator.languages,
+          timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+          
+          // Network & Performance
+          connectionType: navigator.connection ? navigator.connection.effectiveType : 'unknown',
+          onlineStatus: navigator.onLine,
+          
+          // Referrer & Source
+          referrer: document.referrer || null,
+          referrerDomain: getReferrerDomain(),
+          
+          // Session & Engagement
+          sessionStart: new Date().toISOString(),
+          scrollDepth: 0,
+          clicks: 0,
+          formInteractions: 0
         };
+      }
+      
+      // Helper functions
+      function getBrowserName() {
+        const ua = navigator.userAgent;
+        if (ua.includes('Chrome')) return 'Chrome';
+        if (ua.includes('Firefox')) return 'Firefox';
+        if (ua.includes('Safari')) return 'Safari';
+        if (ua.includes('Edge')) return 'Edge';
+        return 'Other';
+      }
+      
+      function getBrowserVersion() {
+        const ua = navigator.userAgent;
+        const match = ua.match(/(chrome|firefox|safari|edge)\/(\d+)/i);
+        return match ? match[2] : 'unknown';
+      }
+      
+      function getDeviceType() {
+        const ua = navigator.userAgent;
+        if (/Mobile|Android|iPhone|iPad/.test(ua)) return 'mobile';
+        if (/Tablet|iPad/.test(ua)) return 'tablet';
+        return 'desktop';
+      }
+      
+      function getReferrerDomain() {
+        if (!document.referrer) return null;
+        try {
+          return new URL(document.referrer).hostname;
+        } catch {
+          return null;
+        }
       }
       
       // Track page view
@@ -846,6 +903,105 @@
       // Track when the page loads
       window.addEventListener('load', trackPageView);
       
+      // Track user interactions
+      let interactionData = {
+        scrollDepth: 0,
+        clicks: 0,
+        formInteractions: 0,
+        sectionsViewed: []
+      };
+      
+      // Track scroll depth
+      window.addEventListener('scroll', function() {
+        const scrollPercent = Math.round((window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100);
+        if (scrollPercent > interactionData.scrollDepth) {
+          interactionData.scrollDepth = scrollPercent;
+        }
+      });
+      
+      // Track clicks
+      document.addEventListener('click', function(e) {
+        interactionData.clicks++;
+        
+        // Track specific interactions
+        const target = e.target;
+        if (target.tagName === 'A') {
+          trackEvent('link_click', {
+            linkText: target.textContent.trim(),
+            linkHref: target.href,
+            linkLocation: getElementLocation(target)
+          });
+        } else if (target.tagName === 'BUTTON') {
+          trackEvent('button_click', {
+            buttonText: target.textContent.trim(),
+            buttonLocation: getElementLocation(target)
+          });
+        }
+      });
+      
+      // Track form interactions
+      document.addEventListener('focus', function(e) {
+        if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') {
+          interactionData.formInteractions++;
+          trackEvent('form_focus', {
+            fieldName: e.target.name || e.target.id,
+            fieldType: e.target.type
+          });
+        }
+      });
+      
+      // Track section visibility
+      const observer = new IntersectionObserver(function(entries) {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const sectionId = entry.target.id;
+            if (sectionId && !interactionData.sectionsViewed.includes(sectionId)) {
+              interactionData.sectionsViewed.push(sectionId);
+              trackEvent('section_view', {
+                sectionId: sectionId,
+                sectionName: entry.target.querySelector('h2, h3')?.textContent || sectionId
+              });
+            }
+          }
+        });
+      }, { threshold: 0.5 });
+      
+      // Observe all sections
+      document.querySelectorAll('section[id]').forEach(section => {
+        observer.observe(section);
+      });
+      
+      // Helper function to get element location
+      function getElementLocation(element) {
+        const rect = element.getBoundingClientRect();
+        return {
+          x: Math.round(rect.left + rect.width / 2),
+          y: Math.round(rect.top + rect.height / 2)
+        };
+      }
+      
+      // Track custom events
+      function trackEvent(eventName, eventData = {}) {
+        const visitorId = getVisitorId();
+        
+        fetch(TRACKING_ENDPOINT, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            trackingId: TRACKING_ID,
+            visitorId: visitorId,
+            pageUrl: window.location.pathname,
+            timestamp: new Date().toISOString(),
+            event: eventName,
+            eventData: eventData,
+            ...getDeviceInfo()
+          }),
+          keepalive: true
+        }).catch(err => console.error('Event tracking error:', err));
+      }
+      
       // Track when the user is about to leave
       let startTime = Date.now();
       window.addEventListener('beforeunload', function() {
@@ -858,7 +1014,8 @@
             visitorId: getVisitorId(),
             pageUrl: window.location.pathname,
             timeOnPage: timeSpent,
-            event: 'exit'
+            event: 'exit',
+            interactionData: interactionData
           });
           navigator.sendBeacon(TRACKING_ENDPOINT, data);
         }
