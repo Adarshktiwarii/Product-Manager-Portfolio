@@ -28,6 +28,7 @@ Usage rules:
 - YYYY-MM-DD: <decision> — Rationale: <why> — Link: <Issue/PR>
 
 ## Recent Activity
+- 2025-08-30 01:45 UTC — Cursor Agent: fix: make floating consultation button functional by moving modal functions to global scope — https://github.com/Adarshktiwarii/Product-Manager-Portfolio/commit/5c48e232e6e39be14221c7968f19887c2a10fa5d
 - 2025-08-30 01:43 UTC — Cursor Agent: fix: update footer note text — https://github.com/Adarshktiwarii/Product-Manager-Portfolio/commit/e3db70a6a4bbdd7f55d8958c0cf63983ad954b8c
 - 2025-08-30 01:42 UTC — Cursor Agent: feat: add floating consultation button to header — https://github.com/Adarshktiwarii/Product-Manager-Portfolio/commit/d821d7614d3c1007fe6590e7fc91349420de6128
 - 2025-08-30 01:40 UTC — Cursor Agent: feat: add hover effects to all contact CTAs and update newsletter privacy text — https://github.com/Adarshktiwarii/Product-Manager-Portfolio/commit/00a2237ad7653ab29b2a581d029ce89de5d6f024
