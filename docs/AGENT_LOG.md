@@ -28,6 +28,7 @@ Usage rules:
 - YYYY-MM-DD: <decision> — Rationale: <why> — Link: <Issue/PR>
 
 ## Recent Activity
+- 2025-08-30 00:12 UTC — Cursor Agent: fix: revert to original 3-card layout and display '4+' in animated counter for years experience — https://github.com/Adarshktiwarii/Product-Manager-Portfolio/commit/1e6c28e510429ed7bad6aca8b03a379588da3d28
 - 2025-08-30 00:10 UTC — Cursor Agent: fix: separate 4+ display - bold '+' symbol above 'Years Experience' text for better visual hierarchy — https://github.com/Adarshktiwarii/Product-Manager-Portfolio/commit/1f8cfeb0c9467d29c0ee479b0fe8b6c8fd28d367
 - 2025-08-30 00:08 UTC — Cursor Agent: fix: update experience label to '4+ Years Experience' for more accurate representation — https://github.com/Adarshktiwarii/Product-Manager-Portfolio/commit/99634330418aa9d7fd31b5a207da4a597f397b5d
 - 2025-08-30 00:07 UTC — Cursor Agent: fix: update hero stats to reflect accurate experience - 4+ years experience, 5 major projects, 17 team members led — https://github.com/Adarshktiwarii/Product-Manager-Portfolio/commit/6fd3a243528ab9e274b8051fe6b9ebd39b920153
