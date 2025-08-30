@@ -28,6 +28,7 @@ Usage rules:
 - YYYY-MM-DD: <decision> — Rationale: <why> — Link: <Issue/PR>
 
 ## Recent Activity
+- 2025-08-30 00:34 UTC — Cursor Agent: fix: assign unique images to each featured work card - healthcare platform, telemedicine, RPM automation, startup strategy, team leadership, and compliance themes — https://github.com/Adarshktiwarii/Product-Manager-Portfolio/commit/7b9b5fbdc59f0e4dc5266c266b63fe6f13f54f6a
 - 2025-08-30 00:29 UTC — Cursor Agent: fix: assign unique images to each featured work card - healthcare platform, telemedicine, RPM automation, startup strategy, team leadership, and compliance themes — https://github.com/Adarshktiwarii/Product-Manager-Portfolio/commit/7dbe5b491e320e24b17367cd70be85756b3ec5b9
 - 2025-08-30 00:25 UTC — Cursor Agent: fix: correct featured work card images - 2nd card now has telemedicine image, 3rd card has RPM-relevant image, 6th card has compliance-relevant image — https://github.com/Adarshktiwarii/Product-Manager-Portfolio/commit/3dbb75a2ff1c4016d509691314fe60da769ad0fb
 - 2025-08-30 00:23 UTC — Cursor Agent: fix: update featured work card images to be more relevant to each project - healthcare platform, telemedicine, RPM automation, startup strategy, team leadership, and compliance themes — https://github.com/Adarshktiwarii/Product-Manager-Portfolio/commit/7a2a5c013994153fc47c9933eaaff34d21071c67
