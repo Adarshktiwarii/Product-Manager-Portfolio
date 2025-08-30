@@ -75,37 +75,54 @@ function initNavigation() {
 // Mobile Menu
 function initMobileMenu() {
     const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-    const mobileMenu = document.getElementById('mobileMenu');
-    const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+    const navMenu = document.querySelector('.nav-menu');
+    const navLinks = document.querySelectorAll('.nav-link');
     
-    mobileMenuBtn.addEventListener('click', () => {
-        mobileMenu.classList.toggle('active');
-        
-        // Animate hamburger
-        const spans = mobileMenuBtn.querySelectorAll('span');
-        spans.forEach((span, index) => {
-            if (mobileMenu.classList.contains('active')) {
-                if (index === 0) span.style.transform = 'rotate(45deg) translate(5px, 5px)';
-                if (index === 1) span.style.opacity = '0';
-                if (index === 2) span.style.transform = 'rotate(-45deg) translate(7px, -6px)';
-            } else {
-                span.style.transform = 'none';
-                span.style.opacity = '1';
-            }
-        });
-    });
-    
-    // Close mobile menu when clicking on links
-    mobileNavLinks.forEach(link => {
-        link.addEventListener('click', () => {
-            mobileMenu.classList.remove('active');
+    if (mobileMenuBtn && navMenu) {
+        mobileMenuBtn.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+            mobileMenuBtn.classList.toggle('active');
+            
+            // Animate hamburger
             const spans = mobileMenuBtn.querySelectorAll('span');
-            spans.forEach(span => {
-                span.style.transform = 'none';
-                span.style.opacity = '1';
+            spans.forEach((span, index) => {
+                if (navMenu.classList.contains('active')) {
+                    if (index === 0) span.style.transform = 'rotate(45deg) translate(5px, 5px)';
+                    if (index === 1) span.style.opacity = '0';
+                    if (index === 2) span.style.transform = 'rotate(-45deg) translate(7px, -6px)';
+                } else {
+                    span.style.transform = 'none';
+                    span.style.opacity = '1';
+                }
             });
         });
-    });
+        
+        // Close mobile menu when clicking on links
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('active');
+                mobileMenuBtn.classList.remove('active');
+                const spans = mobileMenuBtn.querySelectorAll('span');
+                spans.forEach(span => {
+                    span.style.transform = 'none';
+                    span.style.opacity = '1';
+                });
+            });
+        });
+        
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!navMenu.contains(e.target) && !mobileMenuBtn.contains(e.target)) {
+                navMenu.classList.remove('active');
+                mobileMenuBtn.classList.remove('active');
+                const spans = mobileMenuBtn.querySelectorAll('span');
+                spans.forEach(span => {
+                    span.style.transform = 'none';
+                    span.style.opacity = '1';
+                });
+            }
+        });
+    }
 }
 
 // Typewriter Effect
@@ -459,9 +476,18 @@ window.addEventListener('load', () => {
 // Handle window resize
 window.addEventListener('resize', () => {
     // Close mobile menu on resize
-    const mobileMenu = document.getElementById('mobileMenu');
-    if (mobileMenu && window.innerWidth > 768) {
-        mobileMenu.classList.remove('active');
+    const navMenu = document.querySelector('.nav-menu');
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    if (navMenu && window.innerWidth > 768) {
+        navMenu.classList.remove('active');
+        if (mobileMenuBtn) {
+            mobileMenuBtn.classList.remove('active');
+            const spans = mobileMenuBtn.querySelectorAll('span');
+            spans.forEach(span => {
+                span.style.transform = 'none';
+                span.style.opacity = '1';
+            });
+        }
     }
 });
 

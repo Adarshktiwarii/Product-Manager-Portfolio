@@ -1,0 +1,395 @@
+/* ===== MOBILE RESPONSIVENESS FIXES ===== */
+
+/* Force mobile-first approach */
+* {
+    box-sizing: border-box !important;
+}
+
+/* Mobile Navigation Fixes */
+@media (max-width: 768px) {
+    /* Force mobile menu to work */
+    .nav-menu {
+        position: fixed !important;
+        top: 70px !important;
+        left: -100% !important;
+        width: 100% !important;
+        height: calc(100vh - 70px) !important;
+        background: var(--bg-primary) !important;
+        flex-direction: column !important;
+        justify-content: flex-start !important;
+        align-items: center !important;
+        padding-top: 2rem !important;
+        transition: left 0.3s ease !important;
+        box-shadow: var(--shadow-lg) !important;
+        z-index: 1000 !important;
+    }
+    
+    .nav-menu.active {
+        left: 0 !important;
+    }
+    
+    .nav-menu li {
+        margin: 1rem 0 !important;
+        width: 100% !important;
+        text-align: center !important;
+    }
+    
+    .nav-link {
+        font-size: 1.2rem !important;
+        padding: 1rem 2rem !important;
+        display: block !important;
+        width: 100% !important;
+    }
+    
+    .mobile-menu-btn {
+        display: block !important;
+    }
+    
+    /* Hide desktop nav */
+    .nav-menu:not(.active) {
+        display: none !important;
+    }
+}
+
+/* Mobile Layout Fixes */
+@media (max-width: 768px) {
+    /* Force single column layouts */
+    .hero-content {
+        grid-template-columns: 1fr !important;
+        text-align: center !important;
+        padding: 0 1rem !important;
+        gap: 2rem !important;
+    }
+    
+    .about-content {
+        grid-template-columns: 1fr !important;
+        gap: 2rem !important;
+        text-align: center !important;
+    }
+    
+    .services-grid {
+        grid-template-columns: 1fr !important;
+        gap: 1.5rem !important;
+    }
+    
+    .work-grid {
+        grid-template-columns: 1fr !important;
+        gap: 1.5rem !important;
+    }
+    
+    .contact-content {
+        grid-template-columns: 1fr !important;
+        gap: 2rem !important;
+    }
+    
+    .footer-content {
+        grid-template-columns: 1fr !important;
+        gap: 2rem !important;
+        text-align: center !important;
+    }
+    
+    .newsletter-content {
+        grid-template-columns: 1fr !important;
+        gap: 2rem !important;
+        text-align: center !important;
+    }
+    
+    /* Force proper spacing */
+    .container {
+        padding: 0 1rem !important;
+        max-width: 100% !important;
+    }
+    
+    /* Force proper text sizes */
+    .hero-title {
+        font-size: 2.5rem !important;
+        line-height: 1.2 !important;
+        margin-bottom: 1.5rem !important;
+    }
+    
+    .hero-description {
+        font-size: 1rem !important;
+        margin-bottom: 2rem !important;
+        padding: 0 1rem !important;
+    }
+    
+    .about-text h2,
+    .services-content h2,
+    .work-content h2 {
+        font-size: 2.5rem !important;
+        margin-bottom: 1.5rem !important;
+    }
+    
+    /* Force proper button sizes */
+    .btn {
+        width: 100% !important;
+        max-width: 300px !important;
+        padding: 1rem 2rem !important;
+        font-size: 1rem !important;
+    }
+    
+    .hero-actions {
+        flex-direction: column !important;
+        gap: 1rem !important;
+        align-items: center !important;
+    }
+    
+    /* Force proper card layouts */
+    .about-card,
+    .service-card,
+    .work-card {
+        padding: 1.5rem !important;
+        margin: 0 !important;
+    }
+    
+    .about-card h3,
+    .service-card h3,
+    .work-card h3 {
+        font-size: 1.25rem !important;
+    }
+    
+    /* Force proper contact layout */
+    .contact-item {
+        padding: 1rem !important;
+        margin-bottom: 1rem !important;
+    }
+    
+    .contact-item i {
+        width: 40px !important;
+        height: 40px !important;
+        font-size: 1rem !important;
+    }
+    
+    /* Force proper floating button */
+    .floating-consultation {
+        top: auto !important;
+        bottom: 2rem !important;
+        right: 1rem !important;
+        left: 1rem !important;
+        width: auto !important;
+    }
+    
+    .floating-btn {
+        width: 100% !important;
+        justify-content: center !important;
+        padding: 1rem !important;
+    }
+    
+    .floating-btn span {
+        display: none !important;
+    }
+    
+    .floating-btn i {
+        font-size: 1.2rem !important;
+    }
+    
+    /* Force proper form layout */
+    .newsletter-form .form-group {
+        flex-direction: column !important;
+        gap: 1rem !important;
+    }
+    
+    .newsletter-form input {
+        width: 100% !important;
+    }
+    
+    .newsletter-form button {
+        width: 100% !important;
+    }
+}
+
+/* Small Mobile Fixes */
+@media (max-width: 480px) {
+    .container {
+        padding: 0 0.75rem !important;
+    }
+    
+    .nav-container {
+        padding: 0 0.75rem !important;
+        height: 60px !important;
+    }
+    
+    .logo {
+        font-size: 1rem !important;
+    }
+    
+    .logo-icon {
+        width: 30px !important;
+        height: 30px !important;
+        font-size: 0.9rem !important;
+    }
+    
+    .nav-menu {
+        top: 60px !important;
+        height: calc(100vh - 60px) !important;
+    }
+    
+    .hero-title {
+        font-size: 2rem !important;
+        line-height: 1.3 !important;
+    }
+    
+    .hero-description {
+        font-size: 0.9rem !important;
+        padding: 0 0.5rem !important;
+    }
+    
+    .btn {
+        padding: 0.875rem 1.5rem !important;
+        font-size: 0.9rem !important;
+    }
+    
+    .about-text h2,
+    .services-content h2,
+    .work-content h2 {
+        font-size: 2rem !important;
+    }
+    
+    .about-text p {
+        font-size: 0.9rem !important;
+    }
+    
+    .about-card,
+    .service-card,
+    .work-card {
+        padding: 1rem !important;
+    }
+    
+    .about-card h3,
+    .service-card h3,
+    .work-card h3 {
+        font-size: 1.1rem !important;
+    }
+    
+    .contact-item {
+        padding: 0.75rem !important;
+    }
+    
+    .contact-item i {
+        width: 35px !important;
+        height: 35px !important;
+        font-size: 0.9rem !important;
+    }
+    
+    .floating-consultation {
+        bottom: 1rem !important;
+        right: 0.75rem !important;
+        left: 0.75rem !important;
+    }
+    
+    .floating-btn {
+        padding: 0.875rem !important;
+    }
+}
+
+/* Extra Small Mobile Fixes */
+@media (max-width: 360px) {
+    .container {
+        padding: 0 0.5rem !important;
+    }
+    
+    .nav-container {
+        padding: 0 0.5rem !important;
+    }
+    
+    .logo {
+        font-size: 0.9rem !important;
+    }
+    
+    .logo-icon {
+        width: 28px !important;
+        height: 28px !important;
+        font-size: 0.8rem !important;
+    }
+    
+    .hero-title {
+        font-size: 1.75rem !important;
+    }
+    
+    .hero-description {
+        font-size: 0.85rem !important;
+    }
+    
+    .btn {
+        padding: 0.75rem 1.25rem !important;
+        font-size: 0.85rem !important;
+    }
+    
+    .about-text h2,
+    .services-content h2,
+    .work-content h2 {
+        font-size: 1.75rem !important;
+    }
+    
+    .about-card,
+    .service-card,
+    .work-card {
+        padding: 0.75rem !important;
+    }
+    
+    .about-card h3,
+    .service-card h3,
+    .work-card h3 {
+        font-size: 1rem !important;
+    }
+}
+
+/* Landscape Mobile Fixes */
+@media (max-width: 768px) and (orientation: landscape) {
+    .hero {
+        padding: 6rem 0 2rem !important;
+        min-height: 100vh !important;
+    }
+    
+    .hero-title {
+        font-size: 2rem !important;
+    }
+    
+    .nav-menu {
+        padding-top: 1rem !important;
+    }
+    
+    .nav-menu li {
+        margin: 0.5rem 0 !important;
+    }
+}
+
+/* Ensure mobile menu button works */
+.mobile-menu-btn {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    .mobile-menu-btn {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 4px !important;
+        background: none !important;
+        border: none !important;
+        cursor: pointer !important;
+        padding: 8px !important;
+        border-radius: 8px !important;
+        transition: all 0.3s ease !important;
+        z-index: 1001 !important;
+    }
+    
+    .mobile-menu-btn span {
+        width: 25px !important;
+        height: 3px !important;
+        background: var(--text-primary) !important;
+        border-radius: 2px !important;
+        transition: all 0.3s ease !important;
+    }
+    
+    .mobile-menu-btn.active span:nth-child(1) {
+        transform: rotate(45deg) translate(5px, 5px) !important;
+    }
+    
+    .mobile-menu-btn.active span:nth-child(2) {
+        opacity: 0 !important;
+    }
+    
+    .mobile-menu-btn.active span:nth-child(3) {
+        transform: rotate(-45deg) translate(7px, -6px) !important;
+    }
+}
