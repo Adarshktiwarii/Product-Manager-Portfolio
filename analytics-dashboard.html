@@ -381,11 +381,19 @@
             .charts-grid, .data-grid {
                 grid-template-columns: 1fr;
             }
+            
+            .stats-grid {
+                grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            }
+            
+            .metric-grid {
+                grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            }
         }
 
-        @media (max-width: 768px) {
+        @media (max-width: 1024px) {
             .dashboard {
-                padding: 0.5rem;
+                padding: 0.75rem;
             }
             
             .header {
@@ -394,9 +402,387 @@
                 align-items: stretch;
             }
             
+            .header-controls {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 0.75rem;
+            }
+            
+            .stats-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 0.75rem;
+            }
+            
+            .stat-card {
+                padding: 1.25rem 1rem;
+            }
+            
+            .stat-card .value {
+                font-size: 1.5rem;
+            }
+            
+            .chart-container {
+                height: 250px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .dashboard {
+                padding: 0.5rem;
+            }
+            
+            .header {
+                padding: 1rem;
+                margin-bottom: 1.5rem;
+            }
+            
+            .header h1 {
+                font-size: 1.5rem;
+                text-align: center;
+            }
+            
+            .header-controls {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+            
+            .btn {
+                padding: 0.75rem 1rem;
+                font-size: 0.85rem;
+            }
+            
+            .date-picker {
+                width: 100%;
+                text-align: center;
+            }
+            
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 0.75rem;
+                margin-bottom: 1.5rem;
+            }
+            
+            .stat-card {
+                padding: 1rem 0.75rem;
+            }
+            
+            .stat-card h3 {
+                font-size: 0.75rem;
+            }
+            
+            .stat-card .value {
+                font-size: 1.25rem;
+            }
+            
+            .stat-card .change {
+                font-size: 0.75rem;
+            }
+            
+            .charts-grid {
+                gap: 1.5rem;
+                margin-bottom: 1.5rem;
+            }
+            
+            .chart-card {
+                padding: 1rem;
+            }
+            
+            .chart-card h3 {
+                font-size: 1rem;
+                margin-bottom: 0.75rem;
+            }
+            
+            .chart-container {
+                height: 200px;
+            }
+            
+            .data-grid {
+                gap: 1.5rem;
+                margin-bottom: 1.5rem;
+            }
+            
+            .data-card-header {
+                padding: 1rem;
+            }
+            
+            .data-card-header h3 {
+                font-size: 1rem;
+            }
+            
             .visitor-row {
                 grid-template-columns: 1fr;
                 gap: 0.5rem;
+                padding: 0.75rem 1rem;
+                font-size: 0.8rem;
+            }
+            
+            .visitor-row.header {
+                display: none;
+            }
+            
+            .visitor-row > div {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 0.25rem 0;
+                border-bottom: 1px solid var(--border-light);
+            }
+            
+            .visitor-row > div:last-child {
+                border-bottom: none;
+            }
+            
+            .visitor-row > div::before {
+                content: attr(data-label);
+                font-weight: 600;
+                color: var(--text-muted);
+                margin-right: 0.5rem;
+            }
+            
+            .funnel-step {
+                flex-direction: column;
+                gap: 0.75rem;
+                text-align: center;
+            }
+            
+            .funnel-step-info {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+            
+            .funnel-step-stats {
+                text-align: center;
+            }
+            
+            .metric-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 0.75rem;
+            }
+            
+            .metric-item {
+                padding: 0.75rem;
+            }
+            
+            .metric-item .label {
+                font-size: 0.75rem;
+            }
+            
+            .metric-item .value {
+                font-size: 1.25rem;
+            }
+            
+            .search-terms {
+                justify-content: center;
+            }
+            
+            .search-term {
+                font-size: 0.75rem;
+                padding: 0.375rem 0.75rem;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .dashboard {
+                padding: 0.25rem;
+            }
+            
+            .header {
+                padding: 0.75rem;
+                margin-bottom: 1rem;
+            }
+            
+            .header h1 {
+                font-size: 1.25rem;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+                gap: 0.5rem;
+            }
+            
+            .stat-card {
+                padding: 0.875rem 0.5rem;
+            }
+            
+            .stat-card .value {
+                font-size: 1.125rem;
+            }
+            
+            .charts-grid {
+                gap: 1rem;
+            }
+            
+            .chart-card {
+                padding: 0.75rem;
+            }
+            
+            .chart-container {
+                height: 180px;
+            }
+            
+            .data-grid {
+                gap: 1rem;
+            }
+            
+            .data-card-header {
+                padding: 0.75rem;
+            }
+            
+            .visitor-row {
+                padding: 0.5rem 0.75rem;
+                font-size: 0.75rem;
+            }
+            
+            .funnel-step {
+                padding: 0.75rem 1rem;
+            }
+            
+            .funnel-step-number {
+                width: 28px;
+                height: 28px;
+                font-size: 0.8rem;
+            }
+            
+            .funnel-step-details h4 {
+                font-size: 0.9rem;
+            }
+            
+            .funnel-step-details p {
+                font-size: 0.75rem;
+            }
+            
+            .funnel-step-stats .value {
+                font-size: 1rem;
+            }
+            
+            .metric-grid {
+                grid-template-columns: 1fr;
+                gap: 0.5rem;
+            }
+            
+            .metric-item {
+                padding: 0.5rem;
+            }
+            
+            .metric-item .value {
+                font-size: 1.125rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header-controls {
+                gap: 0.25rem;
+            }
+            
+            .btn {
+                padding: 0.625rem 0.875rem;
+                font-size: 0.8rem;
+            }
+            
+            .stat-card {
+                padding: 0.75rem 0.5rem;
+            }
+            
+            .stat-card .value {
+                font-size: 1rem;
+            }
+            
+            .chart-container {
+                height: 160px;
+            }
+            
+            .visitor-row {
+                padding: 0.375rem 0.5rem;
+                font-size: 0.7rem;
+            }
+            
+            .funnel-step {
+                padding: 0.5rem 0.75rem;
+            }
+            
+            .funnel-step-number {
+                width: 24px;
+                height: 24px;
+                font-size: 0.7rem;
+            }
+            
+            .metric-item {
+                padding: 0.375rem;
+            }
+            
+            .metric-item .value {
+                font-size: 1rem;
+            }
+        }
+
+        /* Landscape orientation for mobile */
+        @media (max-height: 600px) and (orientation: landscape) {
+            .dashboard {
+                padding: 0.25rem;
+            }
+            
+            .header {
+                padding: 0.5rem;
+                margin-bottom: 0.75rem;
+            }
+            
+            .header h1 {
+                font-size: 1.125rem;
+            }
+            
+            .stats-grid {
+                grid-template-columns: repeat(4, 1fr);
+                gap: 0.5rem;
+                margin-bottom: 1rem;
+            }
+            
+            .stat-card {
+                padding: 0.5rem 0.25rem;
+            }
+            
+            .stat-card .value {
+                font-size: 0.875rem;
+            }
+            
+            .chart-container {
+                height: 140px;
+            }
+            
+            .section {
+                padding: 1rem 0;
+            }
+        }
+
+        /* Touch-friendly interactions for mobile */
+        @media (max-width: 768px) {
+            .btn, .contact-item, .visitor-row, .funnel-step {
+                min-height: 44px;
+                touch-action: manipulation;
+            }
+            
+            .btn:active, .contact-item:active {
+                transform: scale(0.98);
+            }
+        }
+
+        /* High DPI displays */
+        @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+            .chart-container canvas {
+                image-rendering: -webkit-optimize-contrast;
+                image-rendering: crisp-edges;
+            }
+        }
+
+        /* Reduced motion for accessibility */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+            
+            .real-time-indicator {
+                animation: none !important;
             }
         }
     </style>
@@ -1002,12 +1388,12 @@
 
                 return `
                     <div class="visitor-row">
-                        <div>${time}</div>
-                        <div><span class="source-badge ${sourceClass}">${source}</span></div>
-                        <div>${device}</div>
-                        <div>${location}</div>
-                        <div>${timeOnSite}s</div>
-                        <div>${actions} clicks</div>
+                        <div data-label="Time">${time}</div>
+                        <div data-label="Source"><span class="source-badge ${sourceClass}">${source}</span></div>
+                        <div data-label="Device">${device}</div>
+                        <div data-label="Location">${location}</div>
+                        <div data-label="Duration">${timeOnSite}s</div>
+                        <div data-label="Actions">${actions} clicks</div>
                     </div>
                 `;
             }).join('');
