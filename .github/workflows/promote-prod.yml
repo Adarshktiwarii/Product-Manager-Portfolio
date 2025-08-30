@@ -21,11 +21,13 @@ env:
 
 jobs:
   promote:
-    name: Promote to Production
+    name: Promote Dev to Production
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          ref: dev  # Explicitly checkout dev branch
 
       - name: Configure AWS credentials
         if: env.AMPLIFY_PROD_APP_ID != '' || env.AMPLIFY_PROD_WEBHOOK_URL != ''
@@ -35,21 +37,39 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ env.AWS_REGION }}
 
+      - name: Display current branch and files
+        run: |
+          echo "Current branch: $(git branch --show-current)"
+          echo "Latest commit: $(git log -1 --oneline)"
+          echo "Files in current directory:"
+          ls -la
+
       - name: Trigger Amplify prod via webhook (preferred)
         if: env.AMPLIFY_PROD_WEBHOOK_URL != ''
         run: |
+          echo "Triggering production deployment via webhook..."
           curl -sS -X POST -H "Content-Type: application/json" -d '{"note":"${{ github.event.inputs.note }}"}' "${AMPLIFY_PROD_WEBHOOK_URL}" || curl -sS -X POST "${AMPLIFY_PROD_WEBHOOK_URL}"
+          echo "Webhook triggered successfully!"
 
       - name: Trigger Amplify prod via CreateDeployment/StartDeployment
         if: env.AMPLIFY_PROD_WEBHOOK_URL == '' && env.AMPLIFY_PROD_APP_ID != '' && env.AMPLIFY_PROD_BRANCH != ''
         run: |
           sudo apt-get update -y && sudo apt-get install -y jq zip
           
+          echo "Preparing dev branch content for production deployment..."
+          echo "Current directory: $(pwd)"
+          echo "Files to be deployed:"
+          ls -la
+          
           echo "Zipping site files for production..."
           zip -r artifact.zip . \
             -x ".git/*" \
             -x ".github/*" \
-            -x "index - Copy.html"
+            -x "index - Copy.html" \
+            -x "*.log" \
+            -x "node_modules/*"
+          
+          echo "Artifact size: $(du -h artifact.zip)"
           
           echo "Create Amplify deployment (prod)..."
           DEPLOY_JSON=$(aws amplify create-deployment \
@@ -62,10 +82,11 @@ jobs:
           
           if [ -z "$JOB_ID" ] || [ -z "$UPLOAD_URL" ] || [ "$JOB_ID" = "null" ] || [ "$UPLOAD_URL" = "null" ]; then
             echo "Failed to obtain Amplify prod deployment upload URL/jobId" >&2
+            echo "Deploy JSON: $DEPLOY_JSON" >&2
             exit 1
           fi
           
-          echo "Uploading prod artifact..."
+          echo "Uploading prod artifact to: $UPLOAD_URL"
           curl -sS -X PUT -T artifact.zip -H "Content-Type: application/zip" "$UPLOAD_URL"
           
           echo "Start Amplify deployment (prod)..."
@@ -73,10 +94,23 @@ jobs:
             --app-id "${AMPLIFY_PROD_APP_ID}" \
             --branch-name "${AMPLIFY_PROD_BRANCH}" \
             --job-id "$JOB_ID"
+          
+          echo "Production deployment initiated successfully!"
 
       - name: Summary
         run: |
-          echo "Promotion requested by $GITHUB_ACTOR" \
-            > $GITHUB_STEP_SUMMARY
-          echo "Note: ${{ github.event.inputs.note }}" \
-            >> $GITHUB_STEP_SUMMARY
+          echo "## 🚀 Production Deployment Summary" > $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Deployed by:** $GITHUB_ACTOR" >> $GITHUB_STEP_SUMMARY
+          echo "**Source branch:** dev" >> $GITHUB_STEP_SUMMARY
+          echo "**Target:** Production environment" >> $GITHUB_STEP_SUMMARY
+          echo "**Latest commit:** $(git log -1 --oneline)" >> $GITHUB_STEP_SUMMARY
+          echo "**Note:** ${{ github.event.inputs.note }}" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### ✅ What's being deployed:" >> $GITHUB_STEP_SUMMARY
+          echo "- Complete SEO optimization for target keywords" >> $GITHUB_STEP_SUMMARY
+          echo "- WiseRx branding corrections" >> $GITHUB_STEP_SUMMARY
+          echo "- Simplified hero badge ('Consultant at WiseRx')" >> $GITHUB_STEP_SUMMARY
+          echo "- Enhanced meta tags and structured data" >> $GITHUB_STEP_SUMMARY
+          echo "- Technical SEO (sitemap.xml, robots.txt)" >> $GITHUB_STEP_SUMMARY
+          echo "- Professional presentation throughout" >> $GITHUB_STEP_SUMMARY
