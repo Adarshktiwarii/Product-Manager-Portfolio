@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initNavigation();
     initMobileMenu();
     initTypewriter();
-    initBackgroundVideo();
+    initAnimatedBackground();
     initScrollAnimations();
     initStatsCounter();
     initModal();
@@ -150,23 +150,11 @@ function initTypewriter() {
     type();
 }
 
-// Background Video Fallback
-function initBackgroundVideo() {
-    const video = document.querySelector('.background-video video');
-    if (!video) return;
-    
-    // Fallback for video loading issues
-    video.addEventListener('error', function() {
-        console.log('Video failed to load, using fallback background');
-        document.querySelector('.background-video').style.display = 'none';
-    });
-    
-    // Ensure video plays on mobile
-    video.addEventListener('canplay', function() {
-        video.play().catch(function(error) {
-            console.log('Video autoplay failed:', error);
-        });
-    });
+// Animated Background
+function initAnimatedBackground() {
+    // Background animation is handled by CSS
+    // This function can be used for any additional background effects
+    console.log('Animated background initialized');
 }
 
 // Scroll Animations
