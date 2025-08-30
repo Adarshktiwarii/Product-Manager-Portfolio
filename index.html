@@ -754,5 +754,77 @@
     </footer>
     
     <script src="js/main.js"></script>
+    
+    <!-- Analytics Tracking Script for www.adarshktiwari.co.in -->
+    <script>
+    (function() {
+      const TRACKING_ENDPOINT = "https://your-analytics-app-url.com/api/track";
+      const TRACKING_ID = "default";
+      
+      // Generate or retrieve visitor ID
+      function getVisitorId() {
+        let visitorId = localStorage.getItem('visitor_id');
+        if (!visitorId) {
+          visitorId = 'v_' + Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+          localStorage.setItem('visitor_id', visitorId);
+        }
+        return visitorId;
+      }
+      
+      // Collect browser and device info
+      function getDeviceInfo() {
+        return {
+          browser: navigator.userAgent,
+          screenWidth: window.screen.width,
+          screenHeight: window.screen.height,
+          language: navigator.language,
+          referrer: document.referrer || null
+        };
+      }
+      
+      // Track page view
+      function trackPageView() {
+        const visitorId = getVisitorId();
+        const deviceInfo = getDeviceInfo();
+        
+        fetch(TRACKING_ENDPOINT, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            trackingId: TRACKING_ID,
+            visitorId: visitorId,
+            pageUrl: window.location.pathname,
+            timestamp: new Date().toISOString(),
+            ...deviceInfo
+          }),
+          // Use sendBeacon for more reliable tracking when available
+          keepalive: true
+        }).catch(err => console.error('Analytics tracking error:', err));
+      }
+      
+      // Track when the page loads
+      window.addEventListener('load', trackPageView);
+      
+      // Track when the user is about to leave
+      let startTime = Date.now();
+      window.addEventListener('beforeunload', function() {
+        const timeSpent = Date.now() - startTime;
+        
+        // Use sendBeacon API for more reliable tracking when the page is unloading
+        if (navigator.sendBeacon) {
+          const data = JSON.stringify({
+            trackingId: TRACKING_ID,
+            visitorId: getVisitorId(),
+            pageUrl: window.location.pathname,
+            timeOnPage: timeSpent,
+            event: 'exit'
+          });
+          navigator.sendBeacon(TRACKING_ENDPOINT, data);
+        }
+      });
+    })();
+    </script>
 </body>
 </html>
