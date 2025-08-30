@@ -28,6 +28,7 @@ Usage rules:
 - YYYY-MM-DD: <decision> — Rationale: <why> — Link: <Issue/PR>
 
 ## Recent Activity
+- 2025-08-30 01:21 UTC — Cursor Agent: fix: replace blocked image URL with working alternative for 6th work card — https://github.com/Adarshktiwarii/Product-Manager-Portfolio/commit/521c814f2817ec7215b40bded4a3be1e0b744b60
 - 2025-08-30 01:15 UTC — Cursor Agent: debug: add cache-busting parameters to all image URLs and force CSS overrides — https://github.com/Adarshktiwarii/Product-Manager-Portfolio/commit/7317e1164529f6082c370b6d7918dd0ca4f564b3
 - 2025-08-30 01:12 UTC — Cursor Agent: force: trigger deployment with comment to ensure all 6 work card images are live — https://github.com/Adarshktiwarii/Product-Manager-Portfolio/commit/f51ba293f6b08f7deb231acf5173d42dd18f04bf
 - 2025-08-30 01:03 UTC — Cursor Agent: fix: ensure all 6 work cards have unique images from specified Unsplash links - no duplicates, no old links — https://github.com/Adarshktiwarii/Product-Manager-Portfolio/commit/911ddcb935d4f71c7818c3e2dc3ca265723ae387
