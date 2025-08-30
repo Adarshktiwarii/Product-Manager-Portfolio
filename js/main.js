@@ -313,7 +313,7 @@ function initFormSubmission() {
             });
             
             if (response.ok) {
-                showToast('Thank you! I\'ll get back to you within 24 hours with an AI-powered solution.', 'success');
+                showToast('Thank you! I\'ll get back to you in 24-48 hours.', 'success');
                 form.reset();
                 closeModal();
             } else {
