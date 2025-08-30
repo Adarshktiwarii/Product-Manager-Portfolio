@@ -4,11 +4,50 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Adarsh Kumar Tiwari — Strategic Consultant & Technology Expert</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Adarsh Kumar Tiwari - Strategic Consultant & Technology Expert helping healthcare startups achieve exponential growth through data-driven strategies and digital innovation.">
+    <meta name="keywords" content="strategic consultant, healthcare technology, product management, data analytics, digital transformation, AI adoption, agile management">
+    <meta name="author" content="Adarsh Kumar Tiwari">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph tags for social sharing -->
+    <meta property="og:title" content="Adarsh Kumar Tiwari — Strategic Consultant & Technology Expert">
+    <meta property="og:description" content="Strategic consultant helping healthcare startups achieve exponential growth through technology innovation and data-driven strategies.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://adarshktiwari.co.in">
+    <meta property="og:image" content="https://adarshktiwari.co.in/images/og-image.jpg">
+    <meta property="og:site_name" content="Adarsh Kumar Tiwari">
+    
+    <!-- Twitter Card tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Adarsh Kumar Tiwari — Strategic Consultant">
+    <meta name="twitter:description" content="Strategic consultant helping healthcare startups achieve exponential growth through technology innovation and data-driven strategies.">
+    <meta name="twitter:image" content="https://adarshktiwari.co.in/images/og-image.jpg">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    
+    <!-- Preload critical resources -->
+    <link rel="preload" href="css/styles.css" as="style">
+    <link rel="preload" href="js/main.js" as="script">
+    
+    <!-- Google Analytics (Replace GA_MEASUREMENT_ID with your actual ID) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'GA_MEASUREMENT_ID');
+    </script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
+    <!-- Skip link for accessibility -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
     <!-- Animated Background -->
     <div class="animated-background">
         <div class="gradient-orb orb-1"></div>
@@ -70,13 +109,13 @@
     </div>
     
     <!-- Theme Toggle -->
-    <button class="theme-toggle" id="themeToggle">
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark/light theme">
         <i class="fas fa-sun"></i>
         <i class="fas fa-moon"></i>
     </button>
     
     <!-- Navigation -->
-    <nav class="navbar">
+    <nav class="navbar" role="navigation" aria-label="Main navigation">
         <div class="nav-container">
             <div class="logo">
                 <div class="logo-icon">
@@ -91,7 +130,7 @@
                 <li><a href="#work" class="nav-link">Work</a></li>
                 <li><a href="#contact" class="nav-link">Contact</a></li>
             </ul>
-            <button class="mobile-menu-btn" id="mobileMenuBtn">
+            <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle mobile menu">
                 <span></span>
                 <span></span>
                 <span></span>
@@ -119,7 +158,7 @@
     </div>
     
     <!-- Hero Section -->
-    <section class="hero" id="home">
+    <section class="hero" id="home" role="main" id="main-content">
         <div class="hero-content">
             <div class="hero-text">
                 <div class="hero-badge">
@@ -147,7 +186,7 @@
             <div class="hero-visual">
                 <div class="hero-image-container">
                     <div class="hero-image">
-                        <img src="images/profile.jpg" alt="Adarsh Kumar Tiwari" onerror="this.style.display='none'">
+                        <img src="images/profile.jpg" alt="Adarsh Kumar Tiwari" loading="lazy" onerror="this.style.display='none'">
                         <div class="hero-image-fallback">
                             <i class="fas fa-user-tie"></i>
                         </div>

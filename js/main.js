@@ -154,7 +154,6 @@ function initTypewriter() {
 function initAnimatedBackground() {
     // Background animation is handled by CSS
     // This function can be used for any additional background effects
-    console.log('Animated background initialized');
 }
 
 // Scroll Animations
