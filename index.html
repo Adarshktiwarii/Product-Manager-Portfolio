@@ -834,9 +834,10 @@
           connectionType: navigator.connection ? navigator.connection.effectiveType : 'unknown',
           onlineStatus: navigator.onLine,
           
-          // Referrer & Source
-          referrer: document.referrer || null,
-          referrerDomain: getReferrerDomain(),
+                // Referrer & Source
+      referrer: document.referrer || null,
+      referrerDomain: getReferrerDomain(),
+      referrerData: getEnhancedReferrerData(),
           
           // Session & Engagement
           sessionStart: new Date().toISOString(),
@@ -875,6 +876,158 @@
           return new URL(document.referrer).hostname;
         } catch {
           return null;
+        }
+      }
+      
+      // Enhanced referrer tracking with detailed categorization
+      function getEnhancedReferrerData() {
+        const referrer = document.referrer;
+        
+        if (!referrer) {
+          return {
+            type: 'direct',
+            source: 'direct',
+            medium: 'none',
+            campaign: null,
+            searchTerm: null,
+            socialPlatform: null
+          };
+        }
+        
+        try {
+          const url = new URL(referrer);
+          const hostname = url.hostname.toLowerCase();
+          const pathname = url.pathname.toLowerCase();
+          const searchParams = url.searchParams;
+          
+          // Google Search
+          if (hostname.includes('google')) {
+            return {
+              type: 'search',
+              source: 'google',
+              medium: 'organic',
+              campaign: searchParams.get('utm_campaign') || null,
+              searchTerm: searchParams.get('q') || searchParams.get('query') || null,
+              socialPlatform: null
+            };
+          }
+          
+          // Bing Search
+          if (hostname.includes('bing')) {
+            return {
+              type: 'search',
+              source: 'bing',
+              medium: 'organic',
+              campaign: searchParams.get('utm_campaign') || null,
+              searchTerm: searchParams.get('q') || null,
+              socialPlatform: null
+            };
+          }
+          
+          // LinkedIn
+          if (hostname.includes('linkedin')) {
+            return {
+              type: 'social',
+              source: 'linkedin',
+              medium: 'social',
+              campaign: searchParams.get('utm_campaign') || null,
+              searchTerm: null,
+              socialPlatform: 'linkedin'
+            };
+          }
+          
+          // Twitter/X
+          if (hostname.includes('twitter') || hostname.includes('x.com')) {
+            return {
+              type: 'social',
+              source: 'twitter',
+              medium: 'social',
+              campaign: searchParams.get('utm_campaign') || null,
+              searchTerm: null,
+              socialPlatform: 'twitter'
+            };
+          }
+          
+          // Facebook
+          if (hostname.includes('facebook') || hostname.includes('fb.com')) {
+            return {
+              type: 'social',
+              source: 'facebook',
+              medium: 'social',
+              campaign: searchParams.get('utm_campaign') || null,
+              searchTerm: null,
+              socialPlatform: 'facebook'
+            };
+          }
+          
+          // YouTube
+          if (hostname.includes('youtube') || hostname.includes('youtu.be')) {
+            return {
+              type: 'social',
+              source: 'youtube',
+              medium: 'social',
+              campaign: searchParams.get('utm_campaign') || null,
+              searchTerm: null,
+              socialPlatform: 'youtube'
+            };
+          }
+          
+          // GitHub
+          if (hostname.includes('github')) {
+            return {
+              type: 'social',
+              source: 'github',
+              medium: 'social',
+              campaign: searchParams.get('utm_campaign') || null,
+              searchTerm: null,
+              socialPlatform: 'github'
+            };
+          }
+          
+          // Medium
+          if (hostname.includes('medium')) {
+            return {
+              type: 'social',
+              source: 'medium',
+              medium: 'social',
+              campaign: searchParams.get('utm_campaign') || null,
+              searchTerm: null,
+              socialPlatform: 'medium'
+            };
+          }
+          
+          // Email (common email providers)
+          if (hostname.includes('mail.google') || hostname.includes('outlook') || 
+              hostname.includes('yahoo') || hostname.includes('protonmail')) {
+            return {
+              type: 'email',
+              source: 'email',
+              medium: 'email',
+              campaign: searchParams.get('utm_campaign') || null,
+              searchTerm: null,
+              socialPlatform: null
+            };
+          }
+          
+          // Direct referral from another website
+          return {
+            type: 'referral',
+            source: hostname,
+            medium: 'referral',
+            campaign: searchParams.get('utm_campaign') || null,
+            searchTerm: null,
+            socialPlatform: null
+          };
+          
+        } catch (error) {
+          return {
+            type: 'unknown',
+            source: 'unknown',
+            medium: 'unknown',
+            campaign: null,
+            searchTerm: null,
+            socialPlatform: null
+          };
         }
       }
       
