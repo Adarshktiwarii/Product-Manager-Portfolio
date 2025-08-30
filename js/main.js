@@ -10,6 +10,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initStatsCounter();
     initModal();
     initFormSubmission();
+    initNewsletterForm();
     initSmoothScrolling();
     initLearnMoreButton();
 });
@@ -322,6 +323,47 @@ function initFormSubmission() {
         } catch (error) {
             console.error('Form submission error:', error);
             showToast('Sorry, there was an error. Please try again or contact me directly.', 'error');
+        } finally {
+            submitBtn.innerHTML = originalText;
+            submitBtn.disabled = false;
+        }
+    });
+}
+
+// Newsletter Form Handling
+function initNewsletterForm() {
+    const newsletterForm = document.getElementById('newsletterForm');
+    if (!newsletterForm) return;
+    
+    newsletterForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        const submitBtn = newsletterForm.querySelector('button[type="submit"]');
+        const originalText = submitBtn.innerHTML;
+        
+        // Show loading state
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Subscribing...';
+        submitBtn.disabled = true;
+        
+        try {
+            const formData = new FormData(newsletterForm);
+            const response = await fetch(newsletterForm.action, {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'Accept': 'application/json'
+                }
+            });
+            
+            if (response.ok) {
+                showToast('Thank you for subscribing! You\'ll receive our first newsletter soon.', 'success');
+                newsletterForm.reset();
+            } else {
+                throw new Error('Newsletter subscription failed');
+            }
+        } catch (error) {
+            console.error('Newsletter subscription error:', error);
+            showToast('Sorry, there was an error. Please try again.', 'error');
         } finally {
             submitBtn.innerHTML = originalText;
             submitBtn.disabled = false;
