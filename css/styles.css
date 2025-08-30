@@ -499,6 +499,65 @@ body {
     display: block;
 }
 
+/* Floating Consultation Button */
+.floating-consultation {
+    position: fixed;
+    top: 100px;
+    right: 2rem;
+    z-index: 999;
+    transition: all 0.3s ease;
+}
+
+.floating-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem 1.5rem;
+    background: var(--gradient-primary);
+    color: white;
+    border: none;
+    border-radius: 50px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: var(--shadow-lg);
+    transition: all 0.3s ease;
+    white-space: nowrap;
+}
+
+.floating-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-xl);
+    background: var(--gradient-secondary);
+}
+
+.floating-btn i {
+    font-size: 1rem;
+}
+
+@media (max-width: 768px) {
+    .floating-consultation {
+        top: auto;
+        bottom: 2rem;
+        right: 1rem;
+        left: 1rem;
+    }
+    
+    .floating-btn {
+        width: 100%;
+        justify-content: center;
+        padding: 1rem;
+    }
+    
+    .floating-btn span {
+        display: none;
+    }
+    
+    .floating-btn i {
+        font-size: 1.2rem;
+    }
+}
+
 /* Navigation - 2025 Modern */
 .navbar {
     position: fixed;

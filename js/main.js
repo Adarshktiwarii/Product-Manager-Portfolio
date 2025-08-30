@@ -11,6 +11,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initModal();
     initFormSubmission();
     initNewsletterForm();
+    initFloatingConsultation();
     initSmoothScrolling();
     initLearnMoreButton();
 });
@@ -286,6 +287,16 @@ function initModal() {
             closeModal();
         }
     });
+}
+
+// Floating Consultation Button
+function initFloatingConsultation() {
+    const floatingConsultationBtn = document.getElementById('floatingConsultationBtn');
+    if (floatingConsultationBtn) {
+        floatingConsultationBtn.addEventListener('click', () => {
+            openModal();
+        });
+    }
 }
 
 // Form Submission
