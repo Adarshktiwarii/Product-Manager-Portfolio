@@ -1775,11 +1775,15 @@ body {
     padding: 1.5rem;
     background: var(--bg-secondary);
     border-radius: 16px;
-    transition: transform 0.3s ease;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
 }
 
 .contact-item:hover {
-    transform: translateX(10px);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
 }
 
 .contact-item i {
