@@ -671,14 +671,28 @@ body {
 
 .logo {
     display: flex;
-    align-items: center;
-    gap: 12px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.25rem;
     font-weight: 700;
-    font-size: 1.25rem;
     color: var(--text-primary);
     text-decoration: none;
     transition: all 0.3s ease;
     animation: fadeInScale 0.6s ease-out;
+}
+
+.logo span {
+    font-size: 1.25rem;
+    line-height: 1;
+}
+
+.logo-tagline {
+    font-size: 0.75rem;
+    font-weight: 400;
+    color: var(--text-secondary);
+    margin: 0;
+    line-height: 1;
+    opacity: 0.8;
 }
 
 .logo:hover {

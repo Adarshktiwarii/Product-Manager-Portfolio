@@ -47,6 +47,10 @@
         font-size: 1.1rem !important;
     }
     
+    .logo-tagline {
+        font-size: 0.7rem !important;
+    }
+    
     .logo-icon {
         width: 35px !important;
         height: 35px !important;
@@ -427,6 +431,10 @@
         font-size: 1rem !important;
     }
     
+    .logo-tagline {
+        font-size: 0.65rem !important;
+    }
+    
     .logo-icon {
         width: 30px !important;
         height: 30px !important;
@@ -512,6 +520,10 @@
     
     .logo {
         font-size: 0.9rem !important;
+    }
+    
+    .logo-tagline {
+        font-size: 0.6rem !important;
     }
     
     .logo-icon {
