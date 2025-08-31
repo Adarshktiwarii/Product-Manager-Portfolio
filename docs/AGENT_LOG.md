@@ -28,6 +28,7 @@ Usage rules:
 - YYYY-MM-DD: <decision> — Rationale: <why> — Link: <Issue/PR>
 
 ## Recent Activity
+- 2025-08-31 15:05 UTC — Cursor Agent: feat: remove logo icon and apply consistent accent color throughout website — https://github.com/Adarshktiwarii/Product-Manager-Portfolio/commit/07bc40cdf8f170a947fef6b81cf7936f096aaa55
 - 2025-08-31 15:03 UTC — Cursor Agent: feat: add simple geometric logo design for Adarsh & Co — https://github.com/Adarshktiwarii/Product-Manager-Portfolio/commit/4610711c6fa9d0ccb663c62860ced7827c93ff88
 - 2025-08-31 15:01 UTC — Cursor Agent: feat: simplify logo design - remove flashy animations, use website's natural colors — https://github.com/Adarshktiwarii/Product-Manager-Portfolio/commit/4b153e2a9eac50a0f62319f3afaa71b19de6c333
 - 2025-08-31 14:57 UTC — Cursor Agent: feat: create stunning creative logo for Adarsh & Co. with animations and modern design — https://github.com/Adarshktiwarii/Product-Manager-Portfolio/commit/e264d4655857534fa92c4dce82cccbb8b6a36ebf
