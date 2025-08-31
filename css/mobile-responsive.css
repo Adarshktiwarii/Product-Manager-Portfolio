@@ -43,14 +43,7 @@
         height: 70px !important;
     }
     
-    .logo {
-        gap: 0.5rem !important;
-    }
-    
-    .logo-icon {
-        width: 28px !important;
-        height: 28px !important;
-    }
+
     
     .logo-text {
         gap: 0.3rem !important;
@@ -448,10 +441,7 @@
         height: 60px !important;
     }
     
-    .logo-icon {
-        width: 24px !important;
-        height: 24px !important;
-    }
+
     
     .logo-main {
         font-size: 1.1rem !important;
@@ -552,10 +542,7 @@
         padding: 0 0.5rem !important;
     }
     
-    .logo-icon {
-        width: 22px !important;
-        height: 22px !important;
-    }
+
     
     .logo-main {
         font-size: 1rem !important;
