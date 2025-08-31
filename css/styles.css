@@ -690,13 +690,8 @@ body {
 
 .logo-main {
     font-size: 1.5rem;
-    font-weight: 800;
-    background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    text-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
-    animation: logoGlow 3s ease-in-out infinite alternate;
+    font-weight: 700;
+    color: var(--text-primary);
 }
 
 .logo-ampersand {
@@ -704,27 +699,12 @@ body {
     font-weight: 600;
     color: var(--text-secondary);
     opacity: 0.8;
-    transform: rotate(-5deg);
-    animation: logoFloat 4s ease-in-out infinite;
 }
 
 .logo-company {
     font-size: 1.3rem;
     font-weight: 700;
-    color: var(--accent-primary);
-    position: relative;
-}
-
-.logo-company::after {
-    content: '';
-    position: absolute;
-    bottom: -2px;
-    left: 0;
-    width: 100%;
-    height: 2px;
-    background: linear-gradient(90deg, var(--accent-primary), transparent);
-    border-radius: 1px;
-    animation: logoUnderline 2s ease-in-out infinite;
+    color: var(--text-primary);
 }
 
 .logo-tagline {
@@ -733,56 +713,14 @@ body {
     color: var(--text-secondary);
     margin: 0;
     line-height: 1;
-    opacity: 0.9;
+    opacity: 0.8;
     letter-spacing: 0.5px;
     text-transform: uppercase;
-    animation: taglineFade 2.5s ease-in-out infinite;
-}
-
-/* Logo Animations */
-@keyframes logoGlow {
-    0%, 100% {
-        filter: drop-shadow(0 0 10px rgba(59, 130, 246, 0.3));
-    }
-    50% {
-        filter: drop-shadow(0 0 20px rgba(59, 130, 246, 0.6));
-    }
-}
-
-@keyframes logoFloat {
-    0%, 100% {
-        transform: rotate(-5deg) translateY(0);
-    }
-    50% {
-        transform: rotate(-5deg) translateY(-2px);
-    }
-}
-
-@keyframes logoUnderline {
-    0%, 100% {
-        width: 100%;
-        opacity: 1;
-    }
-    50% {
-        width: 80%;
-        opacity: 0.7;
-    }
-}
-
-@keyframes taglineFade {
-    0%, 100% {
-        opacity: 0.9;
-        transform: translateX(0);
-    }
-    50% {
-        opacity: 0.7;
-        transform: translateX(2px);
-    }
 }
 
 .logo:hover {
-    transform: scale(1.05);
-    filter: drop-shadow(0 0 10px var(--accent-primary));
+    transform: scale(1.02);
+    transition: transform 0.2s ease;
 }
 
 .logo-icon {
