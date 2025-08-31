@@ -43,7 +43,19 @@
         height: 70px !important;
     }
     
-    .logo {
+    .logo-text {
+        gap: 0.3rem !important;
+    }
+    
+    .logo-main {
+        font-size: 1.3rem !important;
+    }
+    
+    .logo-ampersand {
+        font-size: 1rem !important;
+    }
+    
+    .logo-company {
         font-size: 1.1rem !important;
     }
     
@@ -427,7 +439,15 @@
         height: 60px !important;
     }
     
-    .logo {
+    .logo-main {
+        font-size: 1.1rem !important;
+    }
+    
+    .logo-ampersand {
+        font-size: 0.9rem !important;
+    }
+    
+    .logo-company {
         font-size: 1rem !important;
     }
     
@@ -518,7 +538,15 @@
         padding: 0 0.5rem !important;
     }
     
-    .logo {
+    .logo-main {
+        font-size: 1rem !important;
+    }
+    
+    .logo-ampersand {
+        font-size: 0.8rem !important;
+    }
+    
+    .logo-company {
         font-size: 0.9rem !important;
     }
     
