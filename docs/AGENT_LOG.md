@@ -28,6 +28,7 @@ Usage rules:
 - YYYY-MM-DD: <decision> — Rationale: <why> — Link: <Issue/PR>
 
 ## Recent Activity
+- 2025-09-01 09:09 UTC — Cursor Agent: feat: make newsletter section much shorter by removing excessive content and spacing — https://github.com/Adarshktiwarii/Product-Manager-Portfolio/commit/482b7b89786ef7310b06434944d2703e9607819f
 - 2025-09-01 09:05 UTC — Cursor Agent: feat: reduce newsletter and footer padding to make page more compact — https://github.com/Adarshktiwarii/Product-Manager-Portfolio/commit/682765806209993b1d2012caaacb53ad09a32349
 - 2025-09-01 09:01 UTC — Cursor Agent: chore(hero): replace personal photo with business illustration and remove orbit animations for mobile stability — https://github.com/Adarshktiwarii/Product-Manager-Portfolio/commit/9f9b724fcf3ef83813cb2f77eed128f1cabdfb50
 - 2025-08-31 15:20 UTC — Cursor Agent: fix: update remaining hello@ email instances to consult@ in contact section — https://github.com/Adarshktiwarii/Product-Manager-Portfolio/commit/c4bfe4d3dd299e4e6b809cc319d2b771ba76b4de
