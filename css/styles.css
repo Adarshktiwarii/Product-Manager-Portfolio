@@ -999,56 +999,17 @@ body {
     gap: 2rem;
 }
 
-.hero-orbit {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 400px;
-    height: 400px;
-}
+.hero-orbit { display: none !important; }
 
-.orbit-ring {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    border-radius: 50%;
-    border: 1px solid var(--accent-primary);
-    opacity: 0.3;
-    animation: orbitRotate 20s infinite linear;
-}
+.orbit-ring { display: none !important; }
 
-.orbit-ring-1 {
-    width: 300px;
-    height: 300px;
-    margin: -150px 0 0 -150px;
-    animation-duration: 20s;
-}
+.orbit-ring-1 { display: none !important; }
 
-.orbit-ring-2 {
-    width: 350px;
-    height: 350px;
-    margin: -175px 0 0 -175px;
-    animation-duration: 25s;
-    animation-direction: reverse;
-}
+.orbit-ring-2 { display: none !important; }
 
-.orbit-ring-3 {
-    width: 400px;
-    height: 400px;
-    margin: -200px 0 0 -200px;
-    animation-duration: 30s;
-}
+.orbit-ring-3 { display: none !important; }
 
-.orbit-dot {
-    position: absolute;
-    width: 8px;
-    height: 8px;
-    background: var(--accent-primary);
-    border-radius: 50%;
-    box-shadow: var(--glow-primary);
-    animation: orbitDot 15s infinite linear;
-}
+.orbit-dot { display: none !important; }
 
 .orbit-dot-1 {
     top: 0;
@@ -1123,31 +1084,31 @@ body {
 
 .hero-image {
     position: relative;
-    width: 300px;
-    height: 300px;
-    border-radius: 20px;
+    width: 280px;
+    height: 220px;
+    border-radius: 16px;
     overflow: hidden;
-    box-shadow: var(--shadow-xl), var(--glow-primary);
-    border: 4px solid var(--glass-border);
-    transition: all 0.3s ease;
-    animation: fadeInScale 1s ease-out 0.8s both;
+    box-shadow: var(--shadow-lg);
+    border: 1px solid var(--border);
+    transition: none;
+    animation: none;
 }
 
 .hero-image:hover {
-    transform: translateY(-10px) scale(1.02);
-    box-shadow: var(--shadow-xl), var(--glow-secondary);
-    border-color: var(--accent-primary);
+    transform: none;
+    box-shadow: var(--shadow-lg);
+    border-color: var(--border);
 }
 
 .hero-image img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
-    transition: transform 0.3s ease;
+    object-fit: contain;
+    background: var(--bg-secondary);
 }
 
 .hero-image:hover img {
-    transform: scale(1.05);
+    transform: none;
 }
 
 .hero-image-fallback {
