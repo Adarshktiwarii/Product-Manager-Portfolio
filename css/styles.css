@@ -1848,7 +1848,7 @@ section:not(:first-child) {
 
 /* Newsletter Section */
 .newsletter {
-    padding: 4rem 0;
+    padding: 2rem 0;
     background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-primary) 100%);
     border-top: 1px solid var(--border);
 }
@@ -2160,7 +2160,7 @@ section:not(:first-child) {
 /* Footer */
 .footer {
     background: var(--bg-secondary);
-    padding: 4rem 0 2rem;
+    padding: 2.5rem 0 1.5rem;
     border-top: 1px solid var(--border);
 }
 
