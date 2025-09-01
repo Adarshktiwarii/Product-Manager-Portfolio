@@ -28,6 +28,7 @@ Usage rules:
 - YYYY-MM-DD: <decision> — Rationale: <why> — Link: <Issue/PR>
 
 ## Recent Activity
+- 2025-09-01 09:01 UTC — Cursor Agent: chore(hero): replace personal photo with business illustration and remove orbit animations for mobile stability — https://github.com/Adarshktiwarii/Product-Manager-Portfolio/commit/9f9b724fcf3ef83813cb2f77eed128f1cabdfb50
 - 2025-08-31 15:20 UTC — Cursor Agent: fix: update remaining hello@ email instances to consult@ in contact section — https://github.com/Adarshktiwarii/Product-Manager-Portfolio/commit/c4bfe4d3dd299e4e6b809cc319d2b771ba76b4de
 - 2025-08-31 15:17 UTC — Cursor Agent: feat: change email back to consult@adarshktiwari.co.in — https://github.com/Adarshktiwarii/Product-Manager-Portfolio/commit/1de374cc4ec137a12a4ef2c4b93b4e3dd622fad7
 - 2025-08-31 15:14 UTC — Cursor Agent: feat: rebrand from Adarsh & Co to Adarsh & Consultants — https://github.com/Adarshktiwarii/Product-Manager-Portfolio/commit/d6a95e02b5ee916e996994b6d6f4dbf213ae48ee
