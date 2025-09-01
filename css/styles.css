@@ -1,4 +1,8 @@
-/* Modern AI-Themed Website CSS - 2025 Edition */
+.newsletter-note {
+    font-size: 0.875rem;
+    color: var(--text-tertiary);
+    margin: 0;
+}/* Modern AI-Themed Website CSS - 2025 Edition */
 :root {
     /* Classic Blue Light Theme */
     --bg-primary: #ffffff;
@@ -1855,26 +1859,33 @@ section:not(:first-child) {
 
 .newsletter-content {
     text-align: center;
-    max-width: 500px;
+    max-width: 600px;
     margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1rem;
 }
 
-.newsletter-content h2 {
-    font-size: 2rem;
+.newsletter-text h2 {
+    font-size: 2.5rem;
     font-weight: 700;
-    margin-bottom: 0.5rem;
+    margin-bottom: 1rem;
     color: var(--text-primary);
+    background: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-secondary) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
 }
 
-.newsletter-content .form-group {
+.newsletter-text p {
+    font-size: 1.125rem;
+    color: var(--text-secondary);
+    margin-bottom: 2rem;
+    line-height: 1.6;
+}
+
+.newsletter-form .form-group {
     display: flex;
     gap: 1rem;
-    max-width: 400px;
-    margin: 0;
+    max-width: 500px;
+    margin: 0 auto 1rem;
 }
 
 .newsletter-form input[type="email"] {

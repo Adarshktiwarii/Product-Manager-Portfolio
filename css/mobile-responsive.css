@@ -347,7 +347,8 @@
     }
     
     .newsletter-content {
-        gap: 1rem !important;
+        grid-template-columns: 1fr !important;
+        gap: 2rem !important;
         text-align: center !important;
     }
     
