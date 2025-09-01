@@ -75,51 +75,46 @@ function initNavigation() {
 // Mobile Menu
 function initMobileMenu() {
     const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-    const navMenu = document.querySelector('.nav-menu');
-    const navLinks = document.querySelectorAll('.nav-link');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
     
-    if (mobileMenuBtn && navMenu) {
+    if (mobileMenuBtn && mobileMenu) {
         mobileMenuBtn.addEventListener('click', () => {
-            navMenu.classList.toggle('active');
+            mobileMenu.classList.toggle('active');
             mobileMenuBtn.classList.toggle('active');
             
-            // Animate hamburger
-            const spans = mobileMenuBtn.querySelectorAll('span');
-            spans.forEach((span, index) => {
-                if (navMenu.classList.contains('active')) {
-                    if (index === 0) span.style.transform = 'rotate(45deg) translate(5px, 5px)';
-                    if (index === 1) span.style.opacity = '0';
-                    if (index === 2) span.style.transform = 'rotate(-45deg) translate(7px, -6px)';
-                } else {
-                    span.style.transform = 'none';
-                    span.style.opacity = '1';
-                }
-            });
+            // Prevent body scroll when menu is open
+            if (mobileMenu.classList.contains('active')) {
+                document.body.style.overflow = 'hidden';
+            } else {
+                document.body.style.overflow = '';
+            }
         });
         
         // Close mobile menu when clicking on links
-        navLinks.forEach(link => {
+        mobileNavLinks.forEach(link => {
             link.addEventListener('click', () => {
-                navMenu.classList.remove('active');
+                mobileMenu.classList.remove('active');
                 mobileMenuBtn.classList.remove('active');
-                const spans = mobileMenuBtn.querySelectorAll('span');
-                spans.forEach(span => {
-                    span.style.transform = 'none';
-                    span.style.opacity = '1';
-                });
+                document.body.style.overflow = '';
             });
         });
         
         // Close mobile menu when clicking outside
         document.addEventListener('click', (e) => {
-            if (!navMenu.contains(e.target) && !mobileMenuBtn.contains(e.target)) {
-                navMenu.classList.remove('active');
+            if (!mobileMenu.contains(e.target) && !mobileMenuBtn.contains(e.target)) {
+                mobileMenu.classList.remove('active');
                 mobileMenuBtn.classList.remove('active');
-                const spans = mobileMenuBtn.querySelectorAll('span');
-                spans.forEach(span => {
-                    span.style.transform = 'none';
-                    span.style.opacity = '1';
-                });
+                document.body.style.overflow = '';
+            }
+        });
+        
+        // Close mobile menu on window resize
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 768) {
+                mobileMenu.classList.remove('active');
+                mobileMenuBtn.classList.remove('active');
+                document.body.style.overflow = '';
             }
         });
     }
