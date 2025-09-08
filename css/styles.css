@@ -739,8 +739,6 @@ body {
     backdrop-filter: var(--backdrop-blur);
     box-shadow: var(--glow-primary);
 }
-    color: var(--accent-primary);
-}
 
 .nav-link::after {
     content: '';
@@ -921,7 +919,6 @@ body {
     background: var(--gradient-primary);
     box-shadow: var(--shadow-md), var(--glow-primary);
     animation: slideInUp 1s ease-out 0.4s both;
-}
     color: white;
 }
 
