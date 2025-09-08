@@ -155,6 +155,13 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/mobile-responsive.css">
+    
+    <!-- Preload hero image for faster loading -->
+    <link rel="preload" as="image" href="https://consultingportfolio.s3.eu-north-1.amazonaws.com/Gemini_Generated_Image_34ntgm34ntgm34nt.png" fetchpriority="high">
+    
+    <!-- Preconnect to S3 for faster connection -->
+    <link rel="preconnect" href="https://consultingportfolio.s3.eu-north-1.amazonaws.com">
+    <link rel="dns-prefetch" href="https://consultingportfolio.s3.eu-north-1.amazonaws.com">
 </head>
 <body>
     <!-- Skip link for accessibility -->
@@ -299,7 +306,12 @@
             <div class="hero-visual">
                 <div class="hero-image-container">
                     <div class="hero-image">
-                        <img src="https://consultingportfolio.s3.eu-north-1.amazonaws.com/Gemini_Generated_Image_34ntgm34ntgm34nt.png" alt="Adarsh Kumar Tiwari" loading="lazy">
+                        <img 
+                            src="https://consultingportfolio.s3.eu-north-1.amazonaws.com/Gemini_Generated_Image_34ntgm34ntgm34nt.png" 
+                            alt="Adarsh Kumar Tiwari" 
+                            loading="eager"
+                            fetchpriority="high"
+                            decoding="async">
                     </div>
                     <div class="hero-stats">
                         <div class="stat-item">

@@ -1,6 +1,7 @@
 // Modern AI-Themed Website JavaScript
 document.addEventListener('DOMContentLoaded', function() {
     // Initialize all components
+    initHeroImageOptimization();
     initThemeToggle();
     initNavigation();
     initMobileMenu();
@@ -15,6 +16,32 @@ document.addEventListener('DOMContentLoaded', function() {
     initSmoothScrolling();
     initLearnMoreButton();
 });
+
+// Hero Image Optimization
+function initHeroImageOptimization() {
+    const heroImg = document.querySelector('.hero-image img');
+    if (heroImg) {
+        // Add loaded class when image loads
+        if (heroImg.complete) {
+            heroImg.style.opacity = '1';
+        } else {
+            heroImg.addEventListener('load', function() {
+                this.style.opacity = '1';
+            });
+            
+            // Add error handling
+            heroImg.addEventListener('error', function() {
+                console.error('Failed to load hero image');
+                // Optionally set a fallback image
+                this.style.display = 'none';
+                const fallback = document.createElement('div');
+                fallback.className = 'hero-image-placeholder';
+                fallback.innerHTML = '<i class="fas fa-user-circle"></i>';
+                this.parentElement.appendChild(fallback);
+            });
+        }
+    }
+}
 
 // Theme Toggle
 function initThemeToggle() {
