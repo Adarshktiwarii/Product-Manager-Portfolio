@@ -80,6 +80,7 @@ function initMobileMenu() {
     
     mobileMenuBtn.addEventListener('click', () => {
         mobileMenu.classList.toggle('active');
+        mobileMenuBtn.setAttribute('aria-expanded', mobileMenu.classList.contains('active') ? 'true' : 'false');
         
         // Animate hamburger
         const spans = mobileMenuBtn.querySelectorAll('span');
@@ -99,6 +100,7 @@ function initMobileMenu() {
     mobileNavLinks.forEach(link => {
         link.addEventListener('click', () => {
             mobileMenu.classList.remove('active');
+            mobileMenuBtn.setAttribute('aria-expanded', 'false');
             const spans = mobileMenuBtn.querySelectorAll('span');
             spans.forEach(span => {
                 span.style.transform = 'none';
