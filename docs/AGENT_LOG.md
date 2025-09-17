@@ -48,6 +48,7 @@ Usage rules:
 - YYYY-MM-DD: <decision> — Rationale: <why> — Link: <Issue/PR>
 
 ## Recent Activity
+- 2025-09-17 22:52 UTC — Cursor Agent: Update author name to Adarsh Kumar Tiwari — https://github.com/Adarshktiwarii/Product-Manager-Portfolio/commit/c59a8ad15ab915197c571b405fbd9964accf665b
 - 2025-09-17 21:31 UTC — Cursor Agent: feat: enhance hero section with professional background images — https://github.com/Adarshktiwarii/Product-Manager-Portfolio/commit/6048b2fc852f50219b82d8ec6a86e30de5376528
 - 2025-09-08 23:21 UTC — Cursor Agent: feat: implement user feedback - grammar fix and hero background — https://github.com/Adarshktiwarii/Product-Manager-Portfolio/commit/a7d19af595982ec880499d10c939f1a11847022a
 - 2025-09-08 23:16 UTC — Cursor Agent: perf: optimize hero image loading for faster performance — https://github.com/Adarshktiwarii/Product-Manager-Portfolio/commit/49ff93098f18b41e3096d9b98da0db4a3f5fa33e
