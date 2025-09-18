@@ -48,6 +48,7 @@ Usage rules:
 - YYYY-MM-DD: <decision> — Rationale: <why> — Link: <Issue/PR>
 
 ## Recent Activity
+- 2025-09-18 08:54 UTC — Cursor Agent: fix: improve grammar and punctuation in hero description — https://github.com/Adarshktiwarii/Product-Manager-Portfolio/commit/f1b311694931afa2c9ab8d186503767b3c81e56d
 - 2025-09-18 08:12 UTC — Cursor Agent: fix: position tagline below name with smaller font — https://github.com/Adarshktiwarii/Product-Manager-Portfolio/commit/9aa10820b8de4ccde2ad56ad5fe123de76679a56
 - 2025-09-18 08:10 UTC — Cursor Agent: fix: restore original tagline 'Think, Build, Thrive' while keeping 'Adarsh Kumar Tiwari' as main name — https://github.com/Adarshktiwarii/Product-Manager-Portfolio/commit/1a25c89d393b65429b5bf9917255c9b520f69d3b
 - 2025-09-17 22:52 UTC — Cursor Agent: Update author name to Adarsh Kumar Tiwari — https://github.com/Adarshktiwarii/Product-Manager-Portfolio/commit/c59a8ad15ab915197c571b405fbd9964accf665b
