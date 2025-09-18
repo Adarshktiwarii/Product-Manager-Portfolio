@@ -1123,8 +1123,8 @@ body {
 }
 
 .stat-plus {
-    font-size: 1.5rem;
-    font-weight: 700;
+    font-size: 2rem;
+    font-weight: 800;
     color: var(--accent-primary);
     margin-left: 2px;
 }
@@ -1701,7 +1701,7 @@ section:not(:first-child) {
 }
 
 .stat-number {
-    font-size: 2.5rem;
+    font-size: 2rem;
     font-weight: 800;
     color: var(--accent-primary);
     margin-bottom: 0.5rem;
