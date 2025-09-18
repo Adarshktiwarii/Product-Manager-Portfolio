@@ -1126,7 +1126,7 @@ body {
     font-size: 2rem;
     font-weight: 800;
     color: var(--accent-primary);
-    margin-left: 2px;
+    margin-left: 1px;
 }
 
 
@@ -2090,7 +2090,7 @@ section:not(:first-child) {
     border-radius: 20px;
     max-width: 500px;
     width: 100%;
-    max-height: 95vh;
+    max-height: 98vh;
     overflow-y: auto;
     box-shadow: var(--shadow-xl);
     animation: modalSlideIn 0.3s ease;
@@ -2113,7 +2113,7 @@ section:not(:first-child) {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1.5rem 2rem 1rem;
+    padding: 1rem 1.5rem 0.5rem;
     border-bottom: 1px solid var(--border);
     flex-shrink: 0;
 }
@@ -2141,26 +2141,28 @@ section:not(:first-child) {
 }
 
 .modal-body {
-    padding: 1.5rem 2rem 2rem;
+    padding: 1rem 1.5rem 1.5rem;
     flex: 1;
     overflow-y: auto;
 }
 
 .modal-body p {
     color: var(--text-secondary);
-    margin-bottom: 2rem;
-    line-height: 1.6;
+    margin-bottom: 1rem;
+    line-height: 1.5;
+    font-size: 0.9rem;
 }
 
 .form-group {
-    margin-bottom: 1rem;
+    margin-bottom: 0.75rem;
 }
 
 .form-group label {
     display: block;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.25rem;
     font-weight: 500;
     color: var(--text-primary);
+    font-size: 0.9rem;
 }
 
 .form-group input,
