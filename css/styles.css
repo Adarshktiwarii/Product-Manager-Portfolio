@@ -1116,6 +1116,13 @@ body {
     font-weight: 500;
 }
 
+.stat-plus {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--accent-primary);
+    margin-left: 2px;
+}
+
 
 
 .hero-image {
