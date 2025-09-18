@@ -15,7 +15,187 @@ document.addEventListener('DOMContentLoaded', function() {
     initFloatingConsultation();
     initSmoothScrolling();
     initLearnMoreButton();
+    initConsultationForm();
 });
+
+// Enhanced Form Functionality
+function initConsultationForm() {
+    const form = document.getElementById('consultationForm');
+    const submitBtn = document.getElementById('submitBtn');
+    const challengeTextarea = document.getElementById('challenge');
+    const charCount = document.getElementById('charCount');
+    const industrySelect = document.getElementById('industry');
+    const industryOtherGroup = document.getElementById('industryOtherGroup');
+    const referralSelect = document.getElementById('referral');
+    const referralOtherGroup = document.getElementById('referralOtherGroup');
+    const successState = document.getElementById('successState');
+    const returnBtn = document.getElementById('returnToWebsite');
+
+    if (!form) return;
+
+    // Character counter for challenge textarea
+    if (challengeTextarea && charCount) {
+        challengeTextarea.addEventListener('input', () => {
+            const length = challengeTextarea.value.length;
+            charCount.textContent = length;
+            
+            if (length > 1000) {
+                charCount.style.color = 'var(--warning)';
+            } else if (length > 800) {
+                charCount.style.color = 'var(--text-secondary)';
+            } else {
+                charCount.style.color = 'var(--text-muted)';
+            }
+        });
+    }
+
+    // Conditional fields
+    if (industrySelect && industryOtherGroup) {
+        industrySelect.addEventListener('change', () => {
+            if (industrySelect.value === 'Other') {
+                industryOtherGroup.style.display = 'block';
+            } else {
+                industryOtherGroup.style.display = 'none';
+                document.getElementById('industryOther').value = '';
+            }
+        });
+    }
+
+    if (referralSelect && referralOtherGroup) {
+        referralSelect.addEventListener('change', () => {
+            if (referralSelect.value === 'Other') {
+                referralOtherGroup.style.display = 'block';
+            } else {
+                referralOtherGroup.style.display = 'none';
+                document.getElementById('referralOther').value = '';
+            }
+        });
+    }
+
+    // Form submission
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        // Analytics: form_submit_attempt
+        if (window.mixpanel) {
+            mixpanel.track('form_submit_attempt');
+        }
+
+        // Show loading state
+        submitBtn.classList.add('loading');
+        submitBtn.disabled = true;
+
+        try {
+            // Submit to Formspree
+            const formData = new FormData(form);
+            const response = await fetch(form.action, {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'Accept': 'application/json'
+                }
+            });
+
+            if (response.ok) {
+                // Show success state
+                form.style.display = 'none';
+                successState.style.display = 'block';
+                successState.setAttribute('aria-live', 'polite');
+                
+                // Analytics: form_submit_success
+                if (window.mixpanel) {
+                    mixpanel.track('form_submit_success');
+                }
+            } else {
+                throw new Error('Form submission failed');
+            }
+        } catch (error) {
+            console.error('Form submission error:', error);
+            
+            // Analytics: form_submit_fail
+            if (window.mixpanel) {
+                mixpanel.track('form_submit_fail', { error: error.message });
+            }
+            
+            // Show error message
+            showFormError('Failed to submit form. Please try again.');
+        } finally {
+            // Reset button state
+            submitBtn.classList.remove('loading');
+            submitBtn.disabled = false;
+        }
+    });
+
+    // Return to website button
+    if (returnBtn) {
+        returnBtn.addEventListener('click', () => {
+            const modal = document.getElementById('consultationModal');
+            modal.classList.remove('show');
+            document.body.style.overflow = '';
+            
+            // Reset form
+            form.reset();
+            form.style.display = 'block';
+            successState.style.display = 'none';
+            if (industryOtherGroup) industryOtherGroup.style.display = 'none';
+            if (referralOtherGroup) referralOtherGroup.style.display = 'none';
+            if (charCount) charCount.textContent = '0';
+        });
+    }
+
+    // Track form field interactions
+    const formFields = form.querySelectorAll('input, textarea, select');
+    let formStarted = false;
+
+    formFields.forEach(field => {
+        field.addEventListener('focus', () => {
+            if (!formStarted) {
+                formStarted = true;
+                // Analytics: form_start
+                if (window.mixpanel) {
+                    mixpanel.track('form_start');
+                }
+            }
+        });
+
+        field.addEventListener('blur', () => {
+            if (field.value.trim()) {
+                // Analytics: form_field_complete
+                if (window.mixpanel) {
+                    mixpanel.track('form_field_complete', { field: field.name });
+                }
+            }
+        });
+    });
+}
+
+// Helper function to show form errors
+function showFormError(message) {
+    const form = document.getElementById('consultationForm');
+    let errorDiv = form.querySelector('.form-error');
+    
+    if (!errorDiv) {
+        errorDiv = document.createElement('div');
+        errorDiv.className = 'form-error';
+        errorDiv.style.cssText = `
+            background: var(--error);
+            color: white;
+            padding: 12px 16px;
+            border-radius: 8px;
+            margin-bottom: 16px;
+            font-size: 14px;
+        `;
+        form.insertBefore(errorDiv, form.firstChild);
+    }
+    
+    errorDiv.textContent = message;
+    errorDiv.style.display = 'block';
+    
+    // Hide error after 5 seconds
+    setTimeout(() => {
+        errorDiv.style.display = 'none';
+    }, 5000);
+}
 
 // Hero Image Optimization
 function initHeroImageOptimization() {

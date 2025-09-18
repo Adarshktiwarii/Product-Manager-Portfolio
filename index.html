@@ -771,41 +771,168 @@
                 </button>
             </div>
             <div class="modal-body">
-                <p>Tell me about your business challenge and I'll get back to you within 24 hours with a strategic solution.</p>
+                <p>Share your challenge and I'll respond within 48–72 hours with a tailored strategy.</p>
                 <form id="consultationForm" action="https://formspree.io/f/xrbkkjzg" method="POST">
                     <input type="hidden" name="_subject" value="Strategic Consultation Request - Adarsh Kumar Tiwari">
                     <input type="hidden" name="source" value="Consulting Website">
+                    <!-- Honeypot field for spam protection -->
+                    <input type="text" name="websiteURL" style="display: none;" tabindex="-1" autocomplete="off">
                     
-                    <div class="form-group">
-                        <label for="name">Full Name *</label>
-                        <input type="text" id="name" name="name" required>
+                    <div class="form-grid">
+                        <!-- Left Column -->
+                        <div class="form-column">
+                            <div class="form-group">
+                                <label for="fullName">Full Name *</label>
+                                <input type="text" id="fullName" name="fullName" placeholder="John Doe" required minlength="2" maxlength="80">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="phone">Phone Number *</label>
+                                <input type="tel" id="phone" name="phone" placeholder="+91 98765 43210" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="company">Company Name</label>
+                                <input type="text" id="company" name="company" placeholder="Your Company" maxlength="100">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="timeline">Project Timeline</label>
+                                <select id="timeline" name="timeline">
+                                    <option value="">Select timeline</option>
+                                    <option value="Immediately">Immediately</option>
+                                    <option value="Within 3 months">Within 3 months</option>
+                                    <option value="3–6 months">3–6 months</option>
+                                    <option value="6+ months">6+ months</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <!-- Right Column -->
+                        <div class="form-column">
+                            <div class="form-group">
+                                <label for="email">Email Address *</label>
+                                <input type="email" id="email" name="email" placeholder="john@company.com" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="role">Your Role / Position</label>
+                                <input type="text" id="role" name="role" placeholder="Founder, CEO, Product Manager...">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="stage">Company Stage</label>
+                                <select id="stage" name="stage">
+                                    <option value="">Select stage</option>
+                                    <option value="Startup (0–10)">Startup (0–10)</option>
+                                    <option value="Growth (11–50)">Growth (11–50)</option>
+                                    <option value="Scale (50+)">Scale (50+)</option>
+                                    <option value="Enterprise">Enterprise</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="industry">Focus Area</label>
+                                <select id="industry" name="industry">
+                                    <option value="">Select focus area</option>
+                                    <option value="Telemedicine">Telemedicine</option>
+                                    <option value="Home Health">Home Health</option>
+                                    <option value="Digital Health SaaS">Digital Health SaaS</option>
+                                    <option value="MedTech">MedTech</option>
+                                    <option value="Healthcare Services">Healthcare Services</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group" id="industryOtherGroup" style="display: none;">
+                                <label for="industryOther">Please specify</label>
+                                <input type="text" id="industryOther" name="industryOther" placeholder="Your focus area">
+                            </div>
+                        </div>
                     </div>
                     
+                    <!-- Full-width rows -->
                     <div class="form-group">
-                        <label for="email">Email Address *</label>
-                        <input type="email" id="email" name="email" required>
+                        <label for="challenge">Business Challenge *</label>
+                        <textarea id="challenge" name="challenge" rows="4" placeholder="E.g., struggling with go-to-market strategy, product-market fit, or scaling ops." required minlength="20" maxlength="1200"></textarea>
+                        <div class="char-counter">
+                            <span id="charCount">0</span> / 1200
+                        </div>
+                        <div class="helper-text">Please describe problem, goals, current blockers and any KPIs. Include numbers where possible.</div>
                     </div>
                     
-                    <div class="form-group">
-                        <label for="phone">Phone Number *</label>
-                        <input type="tel" id="phone" name="phone" required>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="budget">Budget Range (optional)</label>
+                            <select id="budget" name="budget">
+                                <option value="">Select budget</option>
+                                <option value="< $10K">< $10K</option>
+                                <option value="$10K–$50K">$10K–$50K</option>
+                                <option value="$50K–$200K">$50K–$200K</option>
+                                <option value="> $200K">> $200K</option>
+                                <option value="Prefer not to disclose">Prefer not to disclose</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="referral">How did you hear about me?</label>
+                            <select id="referral" name="referral">
+                                <option value="">Select source</option>
+                                <option value="LinkedIn">LinkedIn</option>
+                                <option value="Referral">Referral</option>
+                                <option value="Website">Website</option>
+                                <option value="Event / Meetup">Event / Meetup</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
                     </div>
                     
-                    <div class="form-group">
-                        <label for="company">Company</label>
-                        <input type="text" id="company" name="company">
+                    <div class="form-group" id="referralOtherGroup" style="display: none;">
+                        <label for="referralOther">Please specify</label>
+                        <input type="text" id="referralOther" name="referralOther" placeholder="How you heard about me">
                     </div>
                     
-                    <div class="form-group">
-                        <label for="message">Business Challenge *</label>
-                        <textarea id="message" name="message" rows="3" placeholder="Describe your business challenge and goals..." required></textarea>
+                    <div class="privacy-note">
+                        By submitting you agree to our Privacy Policy.
                     </div>
                     
-                    <button type="submit" class="btn btn-primary btn-full">
-                        <i class="fas fa-paper-plane"></i>
-                        Send Message
+                    <button type="submit" class="btn btn-primary btn-full" id="submitBtn">
+                        <i class="fas fa-rocket"></i>
+                        <span class="btn-text">Get My Strategic Plan</span>
+                        <span class="btn-loading" style="display: none;">
+                            <i class="fas fa-spinner fa-spin"></i>
+                            Sending…
+                        </span>
                     </button>
+                    
+                    <div class="secondary-cta">
+                        <a href="https://topmate.io/adarshktiwari/" target="_blank" class="schedule-link">
+                            <i class="fas fa-calendar"></i>
+                            Schedule a Call
+                        </a>
+                    </div>
                 </form>
+                
+                <!-- Success State -->
+                <div id="successState" style="display: none;">
+                    <div class="success-content">
+                        <div class="success-icon">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <h3>Thanks — I'll review this and reply within 48–72 hours.</h3>
+                        <p>If you selected a timeline for immediate help, you'll be prioritized. I'll email you a summary of this request shortly.</p>
+                        <div class="success-actions">
+                            <a href="https://topmate.io/adarshktiwari/" target="_blank" class="btn btn-secondary">
+                                <i class="fas fa-calendar"></i>
+                                Schedule a Call
+                            </a>
+                            <button class="btn btn-outline" id="returnToWebsite">
+                                <i class="fas fa-arrow-left"></i>
+                                Return to Website
+                            </button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
