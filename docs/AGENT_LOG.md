@@ -7,27 +7,7 @@ Usage rules:
 - Keep notes concise; link Issues/PRs/Commits for details.
 - When handing off, ensure In Progress items reflect reality and include Next Actions.
 
-## Today (2025-09-08)
-- Owner: @cursorcursor[bot]
-- Context: Branch dev; updated hero image and deployed to dev
-- Summary:
-  - What changed:
-    - Replaced hero image with S3 URL: https://consultingportfolio.s3.eu-north-1.amazonaws.com/Gemini_Generated_Image_34ntgm34ntgm34nt.png
-    - Fixed mobile display to remove blue background below image
-    - Changed image display from contain to cover for better appearance
-    - Set transparent backgrounds to prevent color bleeding
-    - Optimized image sizes for different breakpoints (280px desktop, 200px tablet, 160px mobile)
-    - Deployed all changes to dev environment (commit 4864016)
-  - Why it changed: User requested specific S3 image and fix for mobile blue background issue
-  - Impact: Hero section now displays custom image properly across all devices without blue background
-- In Progress:
-  - [ ] None
-- Next Actions:
-  - Monitor dev deployment completion
-  - Verify image displays correctly on all device sizes
-  - Add production secrets when ready for production deployment
-
-## Previous (2025-08-27)
+## Today (2025-08-27)
 - Owner: @cursorcursor[bot]
 - Context: Branch dev; baseline 586c8e4 restored; tracking merged; auto-log enabled
 - Summary:
@@ -48,48 +28,12 @@ Usage rules:
 - YYYY-MM-DD: <decision> — Rationale: <why> — Link: <Issue/PR>
 
 ## Recent Activity
-- 2025-09-18 09:32 UTC — Cursor Agent: feat: implement comprehensive two-column consultation form — https://github.com/Adarshktiwarii/Product-Manager-Portfolio/commit/c4db58886af335b7781bd0ed698b3c777a50d482
-- 2025-09-18 09:16 UTC — Cursor Agent: fix: optimize consultation modal and plus sign spacing — https://github.com/Adarshktiwarii/Product-Manager-Portfolio/commit/7a79286acaffbb33007480885147f7438466f1f4
-- 2025-09-18 09:12 UTC — Cursor Agent: fix: make consultation modal more compact and viewport-friendly — https://github.com/Adarshktiwarii/Product-Manager-Portfolio/commit/82729ff1f250006522ca3cc2ffff9f2131b60f3f
-- 2025-09-18 09:09 UTC — Cursor Agent: fix: make plus signs consistent with numbers — https://github.com/Adarshktiwarii/Product-Manager-Portfolio/commit/c967e0281474b287b2c6837b82f4fe3c77048c19
-- 2025-09-18 09:07 UTC — Cursor Agent: fix: remove duplicate plus signs from JavaScript — https://github.com/Adarshktiwarii/Product-Manager-Portfolio/commit/99c95b41f32a70c1c49a0b70c5b8091c2643fd01
-- 2025-09-18 09:04 UTC — Cursor Agent: fix: position plus signs adjacent to numbers (right side) — https://github.com/Adarshktiwarii/Product-Manager-Portfolio/commit/a5b7a0f0078c7649fc30234898f4ae4bd5c84d0f
-- 2025-09-18 09:01 UTC — Cursor Agent: feat: add plus sign to team members led stat — https://github.com/Adarshktiwarii/Product-Manager-Portfolio/commit/1974d7f42b4e971a179c427ce8615711b9ae1545
-- 2025-09-18 09:00 UTC — Cursor Agent: feat: add plus signs adjacent to numbers in hero stats — https://github.com/Adarshktiwarii/Product-Manager-Portfolio/commit/571f3eb6e5de19404bf6750292d89dcbfc57805c
-- 2025-09-18 08:59 UTC — Cursor Agent: fix: clean up projects label to match other stats format — https://github.com/Adarshktiwarii/Product-Manager-Portfolio/commit/014a44ea26294c01f86101024b2fc935eac624cb
-- 2025-09-18 08:57 UTC — Cursor Agent: feat: update projects count from 5 to 8+ Major Projects — https://github.com/Adarshktiwarii/Product-Manager-Portfolio/commit/61a3f280b4e1207887815ec558a7829e978a2b1f
-- 2025-09-18 08:54 UTC — Cursor Agent: fix: improve grammar and punctuation in hero description — https://github.com/Adarshktiwarii/Product-Manager-Portfolio/commit/f1b311694931afa2c9ab8d186503767b3c81e56d
-- 2025-09-18 08:12 UTC — Cursor Agent: fix: position tagline below name with smaller font — https://github.com/Adarshktiwarii/Product-Manager-Portfolio/commit/9aa10820b8de4ccde2ad56ad5fe123de76679a56
-- 2025-09-18 08:10 UTC — Cursor Agent: fix: restore original tagline 'Think, Build, Thrive' while keeping 'Adarsh Kumar Tiwari' as main name — https://github.com/Adarshktiwarii/Product-Manager-Portfolio/commit/1a25c89d393b65429b5bf9917255c9b520f69d3b
-- 2025-09-17 22:52 UTC — Cursor Agent: Update author name to Adarsh Kumar Tiwari — https://github.com/Adarshktiwarii/Product-Manager-Portfolio/commit/c59a8ad15ab915197c571b405fbd9964accf665b
-- 2025-09-17 21:31 UTC — Cursor Agent: feat: enhance hero section with professional background images — https://github.com/Adarshktiwarii/Product-Manager-Portfolio/commit/6048b2fc852f50219b82d8ec6a86e30de5376528
-- 2025-09-08 23:21 UTC — Cursor Agent: feat: implement user feedback - grammar fix and hero background — https://github.com/Adarshktiwarii/Product-Manager-Portfolio/commit/a7d19af595982ec880499d10c939f1a11847022a
-- 2025-09-08 23:16 UTC — Cursor Agent: perf: optimize hero image loading for faster performance — https://github.com/Adarshktiwarii/Product-Manager-Portfolio/commit/49ff93098f18b41e3096d9b98da0db4a3f5fa33e
-- 2025-09-08 20:56 UTC — Cursor Agent: docs: update AGENT_LOG with hero image changes — https://github.com/Adarshktiwarii/Product-Manager-Portfolio/commit/7d901e1d11740df80a522f1ce3e816d5466e47a5
-- 2025-09-08 20:56 UTC — Cursor Agent: feat: update hero image with S3 URL and fix mobile display — https://github.com/Adarshktiwarii/Product-Manager-Portfolio/commit/4864016ccada1df1ce4cf23923fff1614820464f
-- 2025-09-08 20:50 UTC — Cursor Agent: docs: update AGENT_LOG with dev deployment status — https://github.com/Adarshktiwarii/Product-Manager-Portfolio/commit/03e7b73d91a66308bb68e2c22f31691fccd14b76
-- 2025-09-08 20:49 UTC — Cursor Agent: fix: resolve CSS syntax errors in styles.css — https://github.com/Adarshktiwarii/Product-Manager-Portfolio/commit/e223aca2adfc6a41af5d8673af739fe2016309f2
-- 2025-09-01 09:27 UTC — Cursor Agent: feat: fix all three issues - hero image, newsletter width, and mobile responsiveness with hamburger menu — https://github.com/Adarshktiwarii/Product-Manager-Portfolio/commit/7326816f1a19e8797d2bb21ebc59bdafcde53f90
-- 2025-09-01 09:18 UTC — Cursor Agent: feat: make page more compact by reducing container width and section spacing — https://github.com/Adarshktiwarii/Product-Manager-Portfolio/commit/bb072b208b80a7670b213aed06a421aa3eda33b8
-- 2025-09-01 09:13 UTC — Cursor Agent: restore: revert newsletter section back to original version with full content and spacing — https://github.com/Adarshktiwarii/Product-Manager-Portfolio/commit/e3aacb30327c8b209d0ff5073acd991fec78ff67
-- 2025-09-01 09:09 UTC — Cursor Agent: feat: make newsletter section much shorter by removing excessive content and spacing — https://github.com/Adarshktiwarii/Product-Manager-Portfolio/commit/482b7b89786ef7310b06434944d2703e9607819f
-- 2025-09-01 09:05 UTC — Cursor Agent: feat: reduce newsletter and footer padding to make page more compact — https://github.com/Adarshktiwarii/Product-Manager-Portfolio/commit/682765806209993b1d2012caaacb53ad09a32349
-- 2025-09-01 09:01 UTC — Cursor Agent: chore(hero): replace personal photo with business illustration and remove orbit animations for mobile stability — https://github.com/Adarshktiwarii/Product-Manager-Portfolio/commit/9f9b724fcf3ef83813cb2f77eed128f1cabdfb50
-- 2025-08-31 15:20 UTC — Cursor Agent: fix: update remaining hello@ email instances to consult@ in contact section — https://github.com/Adarshktiwarii/Product-Manager-Portfolio/commit/c4bfe4d3dd299e4e6b809cc319d2b771ba76b4de
-- 2025-08-31 15:17 UTC — Cursor Agent: feat: change email back to consult@adarshktiwari.co.in — https://github.com/Adarshktiwarii/Product-Manager-Portfolio/commit/1de374cc4ec137a12a4ef2c4b93b4e3dd622fad7
-- 2025-08-31 15:14 UTC — Cursor Agent: feat: rebrand from Adarsh & Co to Adarsh & Consultants — https://github.com/Adarshktiwarii/Product-Manager-Portfolio/commit/d6a95e02b5ee916e996994b6d6f4dbf213ae48ee
-- 2025-08-31 15:05 UTC — Cursor Agent: feat: remove logo icon and apply consistent accent color throughout website — https://github.com/Adarshktiwarii/Product-Manager-Portfolio/commit/07bc40cdf8f170a947fef6b81cf7936f096aaa55
-- 2025-08-31 15:03 UTC — Cursor Agent: feat: add simple geometric logo design for Adarsh & Co — https://github.com/Adarshktiwarii/Product-Manager-Portfolio/commit/4610711c6fa9d0ccb663c62860ced7827c93ff88
-- 2025-08-31 15:01 UTC — Cursor Agent: feat: simplify logo design - remove flashy animations, use website's natural colors — https://github.com/Adarshktiwarii/Product-Manager-Portfolio/commit/4b153e2a9eac50a0f62319f3afaa71b19de6c333
-- 2025-08-31 14:57 UTC — Cursor Agent: feat: create stunning creative logo for Adarsh & Co. with animations and modern design — https://github.com/Adarshktiwarii/Product-Manager-Portfolio/commit/e264d4655857534fa92c4dce82cccbb8b6a36ebf
-- 2025-08-31 14:52 UTC — Cursor Agent: feat: add Think, Build, Thrive tagline below Adarsh & Co logo in header and footer — https://github.com/Adarshktiwarii/Product-Manager-Portfolio/commit/398228e5f7d8b3eaae7246c69e61f7a064460633
-- 2025-08-31 14:49 UTC — Cursor Agent: feat: clean up branding - remove logo icons, remove tagline, restore original hero title — https://github.com/Adarshktiwarii/Product-Manager-Portfolio/commit/dc06f42b029f748a34636017c611273086e22b10
-- 2025-08-31 14:45 UTC — Cursor Agent: feat: rebrand to Adarsh & Co with Think, Build, Thrive tagline and new logo — https://github.com/Adarshktiwarii/Product-Manager-Portfolio/commit/44bf39056df35c9fd466c07d3288419230ccc748
-- 2025-08-31 12:48 UTC — Cursor Agent: Checkpoint before follow-up message — https://github.com/Adarshktiwarii/Product-Manager-Portfolio/commit/94c4f891d08c170ad6fea83ac4f3a161c6b1582f
-- 2025-08-30 13:56 UTC — Cursor Agent: fix: mobile responsiveness overhaul — https://github.com/Adarshktiwarii/Product-Manager-Portfolio/commit/e69430ce06ba4d8e8dad1f76f20b6dd37679605e
-- 2025-08-30 05:53 UTC — Cursor Agent: Checkpoint before follow-up message — https://github.com/Adarshktiwarii/Product-Manager-Portfolio/commit/8ac08379cf5e493eddd8f9865928b9032f40132c
-- 2025-08-30 05:26 UTC — Cursor Agent: feat: sync dev with main - include mobile responsiveness fixes and deployment workflows — https://github.com/Adarshktiwarii/Product-Manager-Portfolio/commit/76d65a740f8f9944ac39c613422b47fe00a98388
-- 2025-08-30 04:52 UTC — Cursor Agent: feat: create bulletproof production deployment workflows - Add 'Deploy Dev to Production' workflow with confirmation and detailed logging - Add 'Quick Deploy to Production' workflow for one-click deployment - Both workflows explicitly checkout dev branch and deploy to production - Include comprehensive error handling and deployment validation - Automatically sync main branch with dev content after deployment - Streamlined process for reliable dev-to-production deployment — https://github.com/Adarshktiwarii/Product-Manager-Portfolio/commit/64fadb9dd1cb5d19d9ff60d742de29f50ae50515
+- 2025-09-21 19:18 UTC — Adarsh Kumar Tiwari: docs: Add comprehensive workflow documentation — https://github.com/Adarshktiwarii/Product-Manager-Portfolio/commit/7e8b77919f6a0c0096f17db235e9493646081504
+- 2025-09-03 12:57 UTC — Adarsh Kumar Tiwari: Update index.html — https://github.com/Adarshktiwarii/Product-Manager-Portfolio/commit/9180567e900df32aa8ed19f6e4b16cb5c3641a34
+- 2025-08-30 05:25 UTC — Cursor Agent: fix: add comprehensive mobile responsiveness - Add complete mobile responsive styles for all screen sizes - Fix navigation, hero section, cards, and layout for mobile devices - Include landscape orientation and high DPI display support - Add accessibility features for reduced motion and print styles - Ensure website is fully responsive on all mobile devices — https://github.com/Adarshktiwarii/Product-Manager-Portfolio/commit/41d98a76f7771d6be7a429621de0707f6ab9204e
+- 2025-08-30 05:11 UTC — Cursor Agent: feat: add webhook-based deployment workflow as alternative - Create simple webhook deployment that doesn't require AWS credentials - Provide fallback option for users without AWS access keys - Streamlined deployment process using Amplify webhook URL — https://github.com/Adarshktiwarii/Product-Manager-Portfolio/commit/7748bae6299e1e36f0ca823ed6122b2aee04b3e0
+- 2025-08-30 05:03 UTC — Cursor Agent: feat: add simple, reliable production deployment workflow - Remove problematic git operations that were causing failures - Create streamlined workflow that only deploys dev content to production - Focus on core deployment functionality without branch management - Ensure reliable dev-to-production deployment process — https://github.com/Adarshktiwarii/Product-Manager-Portfolio/commit/1957776b02d0565e4608aa634f0d24a3afa34394
+- 2025-08-30 04:54 UTC — Cursor Agent: feat: sync main with dev and add production deployment workflows - Include comprehensive SEO optimization for target keywords - Add WiseRx branding corrections and simplified hero badge - Deploy enhanced meta tags, structured data, and technical SEO - Add bulletproof production deployment workflows for reliable dev-to-production deployment — https://github.com/Adarshktiwarii/Product-Manager-Portfolio/commit/3db292a8aa62df7d9b9e5e9b98075534d95e2bb2
 - 2025-08-30 04:47 UTC — Cursor Agent: fix: completely rewrite production deployment workflows to properly deploy dev to production - Fix promote-prod.yml to explicitly checkout dev branch and deploy its content - Create new dev-to-prod.yml workflow as alternative with better debugging - Add comprehensive logging and error handling for deployment process - Ensure dev branch content is properly packaged and deployed to production - Add detailed deployment summary with expected SEO results - Fix workflow to actually copy dev server content to prod server — https://github.com/Adarshktiwarii/Product-Manager-Portfolio/commit/54380f10df6fe2cde184631a79f347cc0f2f21ea
 - 2025-08-30 04:32 UTC — Cursor Agent: feat: simplify hero badge to 'Consultant at WiseRx' - Update hero section badge text for cleaner, more direct presentation - Maintain SEO optimization while improving visual clarity — https://github.com/Adarshktiwarii/Product-Manager-Portfolio/commit/4c46b0b974f900e576ecc3b7385950a90385bd71
 - 2025-08-30 04:31 UTC — Cursor Agent: fix: correct company name spelling from 'Wiserex' to 'WiseRx' throughout website - Update title tag, meta description, and keywords - Fix Open Graph and Twitter Card meta tags - Update structured data (Schema.org) organization name - Correct hero section badge and description text - Update SEO optimization guide documentation - Ensure consistent branding across all SEO elements — https://github.com/Adarshktiwarii/Product-Manager-Portfolio/commit/a219fa327bb1b2c346ded1a75148aa3fd0d2f7e1
