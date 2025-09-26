@@ -2,9 +2,11 @@
 
 ## 📊 **Current Status: PRODUCTION READY**
 - **Live URL**: [AWS Amplify Production Deployment]
+- **Dev URL**: [AWS Amplify Development Deployment]
 - **Repository**: https://github.com/Adarshktiwarii/Product-Manager-Portfolio
-- **Last Updated**: September 22, 2025
+- **Last Updated**: September 26, 2025
 - **Environment**: Production with Dev/Staging Pipeline
+- **Branding**: Adarsh & Consultants (Consulting Firm)
 - **Engineering Maturity**: 8.5/10
 
 ---
