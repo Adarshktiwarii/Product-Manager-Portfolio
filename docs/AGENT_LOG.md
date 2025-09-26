@@ -28,6 +28,7 @@ Usage rules:
 - YYYY-MM-DD: <decision> — Rationale: <why> — Link: <Issue/PR>
 
 ## Recent Activity
+- 2025-09-26 01:49 UTC — Adarsh Kumar Tiwari: fix: Remove debug workflow - identify token scope issue — https://github.com/Adarshktiwarii/Product-Manager-Portfolio/commit/a81a92f2d0f70a499ac1553a55fe866987f63ea9
 - 2025-09-26 01:46 UTC — Adarsh Kumar Tiwari: fix: Correct title to maintain original positioning — https://github.com/Adarshktiwarii/Product-Manager-Portfolio/commit/a118052fb61bffc81706a4990e1aea8ef2665f8b
 - 2025-09-26 01:45 UTC — Adarsh Kumar Tiwari: deploy: Retrigger dev deployment — https://github.com/Adarshktiwarii/Product-Manager-Portfolio/commit/61b9da9cafd4d15850708ca4126d3d7cfeb7790a
 - 2025-09-26 01:43 UTC — Adarsh Kumar Tiwari: test: Trigger GitHub Actions workflow for dev deployment — https://github.com/Adarshktiwarii/Product-Manager-Portfolio/commit/a0cf52a1cebbcb567a8489f28ee27a715f04dbc9
