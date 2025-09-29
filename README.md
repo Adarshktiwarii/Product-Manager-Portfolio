@@ -1,6 +1,11 @@
-# Adarsh Kumar Tiwari - Consulting Website
+# Adarsh & Consultants - Strategic Consulting Website
 Dev deployment via GitHub Actions (S3)
 -------------------------------------
+
+## 📅 **Recent Update - September 30, 2025**
+- **Status**: Code restored to commit `13d7449` (September 26, 2025)
+- **Branding**: Updated to "Adarsh & Consultants" 
+- **State**: Stable production-ready version
 
 This repo includes a workflow to deploy to an AWS S3 dev bucket on pushes to `dev` and any `feat/**` branches, and on manual dispatch.
 
