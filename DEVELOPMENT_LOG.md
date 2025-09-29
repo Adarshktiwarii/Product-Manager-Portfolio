@@ -1,5 +1,26 @@
 # Product Manager Portfolio - Development Log
 
+## 📅 **September 30, 2025 - Repository Restoration to Commit 8a1b091**
+- **Action**: Restored repository to commit 8a1b091 (Documentation update)
+- **Commit**: `8a1b091` - "docs: Update documentation for code restoration to commit 13d7449"
+- **Date**: September 30, 2025
+- **Reason**: Reset to stable documentation state before experimental changes
+- **Status**: ✅ Successfully restored
+- **Base Commit**: `13d7449` (Adarsh & Consultants branding)
+- **Dev Commit**: `a528a62` (Previous dev state)
+- **Files Affected**: All repository files reverted to commit 8a1b091 state
+- **Documentation**: Updated PROJECT_STATUS.md and DEVELOPMENT_LOG.md
+
+## 📅 **September 30, 2025 - McKinsey-Inspired Website Redesign**
+- **Action**: Complete website redesign inspired by McKinsey's professional consulting design
+- **Commit**: `fd12d5e` - "feat: Complete McKinsey-inspired website redesign"
+- **Date**: September 30, 2025
+- **Reason**: Transform website to match McKinsey's professional consulting firm aesthetic
+- **Status**: ✅ Successfully deployed to dev environment
+- **Files Affected**: Complete rewrite of index.html, styles.css, and main.js
+- **Features**: Professional layout, McKinsey color palette, responsive design, interactive elements
+- **Documentation**: Updated PROJECT_STATUS.md and DEVELOPMENT_LOG.md
+
 ## 📅 **September 30, 2025 - Code Restoration**
 - **Action**: Restored code to commit `13d7449`
 - **Commit**: "feat: Update branding from 'Adarsh Kumar Tiwari' to 'Adarsh & Consultants'"
