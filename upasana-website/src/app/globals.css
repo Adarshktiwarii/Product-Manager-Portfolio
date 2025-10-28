@@ -1,0 +1,114 @@
+@import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700&family=Inter:wght@300;400;500;600;700&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    @apply bg-off-white text-navy font-sans;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-serif;
+  }
+  
+  /* Focus styles for accessibility */
+  *:focus {
+    @apply outline-none ring-2 ring-accent-blue ring-offset-2;
+  }
+  
+  /* Skip to content link */
+  .skip-link {
+    @apply absolute -top-10 left-4 bg-navy text-white px-4 py-2 rounded-md z-50;
+    transition: top 0.3s;
+  }
+  
+  .skip-link:focus {
+    @apply top-4;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-navy text-white px-6 py-3 rounded-lg font-medium hover:bg-opacity-90 transition-all duration-200 focus:ring-2 focus:ring-accent-blue focus:ring-offset-2;
+  }
+  
+  .btn-secondary {
+    @apply bg-warm-beige text-navy px-6 py-3 rounded-lg font-medium hover:bg-opacity-80 transition-all duration-200 border border-navy focus:ring-2 focus:ring-accent-blue focus:ring-offset-2;
+  }
+  
+  .btn-outline {
+    @apply border-2 border-navy text-navy px-6 py-3 rounded-lg font-medium hover:bg-navy hover:text-white transition-all duration-200 focus:ring-2 focus:ring-accent-blue focus:ring-offset-2;
+  }
+  
+  .card {
+    @apply bg-white rounded-xl shadow-sm border border-gray-100 p-6 hover:shadow-md transition-shadow duration-200;
+  }
+  
+  .input-field {
+    @apply w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent-blue focus:border-accent-blue transition-colors duration-200;
+  }
+  
+  .text-hero {
+    @apply text-hero font-serif font-bold text-navy;
+  }
+  
+  .text-display {
+    @apply text-display font-serif font-bold text-navy;
+  }
+  
+  .text-heading {
+    @apply text-heading font-serif font-semibold text-navy;
+  }
+  
+  .text-subheading {
+    @apply text-subheading font-serif font-medium text-navy;
+  }
+  
+  .text-body {
+    @apply text-body text-slate-gray leading-relaxed;
+  }
+  
+  .text-small {
+    @apply text-small text-slate-gray;
+  }
+  
+  .section-padding {
+    @apply py-16 md:py-24;
+  }
+  
+  .container-custom {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+  
+  .gradient-overlay {
+    background: linear-gradient(135deg, rgba(11, 37, 69, 0.8) 0%, rgba(11, 37, 69, 0.6) 100%);
+  }
+  
+  .hero-pattern {
+    background-image: radial-gradient(circle at 1px 1px, rgba(59, 130, 246, 0.1) 1px, transparent 0);
+    background-size: 20px 20px;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  
+  .animation-delay-200 {
+    animation-delay: 200ms;
+  }
+  
+  .animation-delay-400 {
+    animation-delay: 400ms;
+  }
+  
+  .animation-delay-600 {
+    animation-delay: 600ms;
+  }
+}
