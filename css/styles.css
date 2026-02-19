@@ -1278,16 +1278,23 @@ section {
     margin: 0 auto 12px;
 }
 
-.newsletter-form input[type="email"] {
-    flex: 1;
-    padding: 10px 16px;
-    border: 1px solid var(--border);
-    border-radius: var(--radius-sm);
-    background: var(--bg-elevated);
-    color: var(--text-primary);
+.newsletter-form input[type="email"],
+.newsletter-form .btn {
+    padding: 12px 20px;
     font-size: 0.875rem;
     font-family: inherit;
+    border-radius: var(--radius-sm);
+    height: 48px;
+    box-sizing: border-box;
+}
+
+.newsletter-form input[type="email"] {
+    flex: 1;
+    border: 1px solid var(--border);
+    background: var(--bg-elevated);
+    color: var(--text-primary);
     transition: border-color 0.2s ease;
+    min-width: 0;
 }
 
 .newsletter-form input[type="email"]:focus {
@@ -1298,6 +1305,7 @@ section {
 
 .newsletter-form .btn {
     white-space: nowrap;
+    flex-shrink: 0;
 }
 
 .newsletter-note {
@@ -1661,17 +1669,17 @@ section {
     .newsletter-form .form-group {
         flex-direction: column;
         gap: 10px;
+        max-width: 100%;
     }
-    .newsletter-form input[type="email"] {
-        width: 100%;
-        padding: 14px 16px;
-        font-size: 1rem;
-    }
+    .newsletter-form input[type="email"],
     .newsletter-form .btn {
         width: 100%;
-        justify-content: center;
-        padding: 14px 24px;
+        height: 48px;
+        padding: 12px 20px;
         font-size: 0.9375rem;
+    }
+    .newsletter-form .btn {
+        justify-content: center;
     }
 
     /* Expertise chips */
