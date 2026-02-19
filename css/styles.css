@@ -104,7 +104,6 @@ body {
     margin: 0 auto;
     padding: 0 24px;
     display: flex;
-    justify-content: space-between;
     align-items: center;
     height: 64px;
 }
@@ -140,6 +139,7 @@ body {
     display: flex;
     list-style: none;
     gap: 4px;
+    margin-left: auto;
 }
 
 .nav-link {
@@ -234,6 +234,7 @@ body {
     display: flex;
     align-items: center;
     gap: 4px;
+    margin-left: 8px;
 }
 
 .theme-toggle {
@@ -1627,6 +1628,7 @@ section {
 @media (max-width: 768px) {
     .nav-menu { display: none; }
     .mobile-menu-btn { display: flex; }
+    .nav-actions { margin-left: auto; }
 
     .hero {
         padding: 80px 16px 48px;
