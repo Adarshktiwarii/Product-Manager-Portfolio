@@ -1,140 +1,116 @@
-// Typing animation words
-const typingWords = ['Consultant', 'Innovator', 'Advisor'];
+const typingWords = ['Product Strategy', 'AI Adoption', 'Data & Analytics', 'Digital Transformation', 'Team Leadership', 'Growth Engineering'];
 
-// Services data
 const services = [
     {
         id: 1,
-        title: 'Digital Transformation Strategy',
-        description: 'Comprehensive digital transformation roadmaps tailored to your organization\'s unique challenges and goals.',
-        icon: 'fas fa-rocket',
+        title: 'Product Strategy & Management',
+        description: 'From zero-to-one to scaling. Define strategy, build roadmaps, and ship features that drive adoption and retention.',
+        icon: 'fas fa-cube',
         features: [
-            'Technology assessment & gap analysis',
-            'Change management strategies',
-            'ROI optimization frameworks',
-            'Implementation roadmaps',
-            'AI-assisted efficiency improvements'
-        ],
-        color: 'linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%)'
+            'Product roadmap & prioritization',
+            'User research & validation',
+            'Go-to-market planning',
+            'Feature spec & delivery',
+            'Competitive positioning'
+        ]
     },
     {
         id: 2,
-        title: 'Healthcare Technology Consulting',
-        description: 'Specialized expertise in healthcare technology solutions, compliance, and patient experience optimization.',
-        icon: 'fas fa-heartbeat',
+        title: 'AI Adoption & Integration',
+        description: 'Cut through the hype. Identify high-impact AI use cases and implement with proper guardrails and governance.',
+        icon: 'fas fa-robot',
         features: [
-            'EHR/EMR system optimization',
-            'Healthcare compliance frameworks',
-            'Patient experience enhancement',
-            'Interoperability solutions',
-            'AI for triage, routing, and documentation'
-        ],
-        color: 'linear-gradient(135deg, #ec4899 0%, #8b5cf6 100%)'
+            'AI opportunity assessment',
+            'Implementation roadmap',
+            'Team enablement & training',
+            'Vendor evaluation',
+            'ROI measurement'
+        ]
     },
     {
         id: 3,
-        title: 'Product Strategy & Development',
-        description: 'End-to-end product strategy from ideation to launch, with focus on user-centric design and market fit.',
-        icon: 'fas fa-lightbulb',
+        title: 'Data-Driven Growth',
+        description: 'Set up metrics, build dashboards, and run experiments that improve acquisition, activation, and retention.',
+        icon: 'fas fa-chart-bar',
         features: [
-            'Market research & validation',
-            'User experience design',
-            'Product roadmap development',
-            'Go-to-market strategies',
-            'AI-powered research synthesis and insights'
-        ],
-        color: 'linear-gradient(135deg, #10b981 0%, #6366f1 100%)'
+            'Analytics architecture',
+            'Growth experimentation',
+            'KPI frameworks',
+            'A/B testing strategy',
+            'Funnel optimization'
+        ]
     },
     {
         id: 4,
-        title: 'Business Process Optimization',
-        description: 'Streamline operations and improve efficiency through data-driven process analysis and optimization.',
-        icon: 'fas fa-cogs',
+        title: 'Digital Transformation',
+        description: 'Modernize legacy systems, adopt cloud-first architectures, and build scalable foundations.',
+        icon: 'fas fa-layer-group',
         features: [
-            'Process mapping & analysis',
-            'Automation opportunities',
-            'Performance metrics & KPIs',
-            'Continuous improvement frameworks',
-            'AI copilots to reduce manual work'
-        ],
-        color: 'linear-gradient(135deg, #f59e0b 0%, #ec4899 100%)'
+            'Technology assessment',
+            'Architecture planning',
+            'Migration strategy',
+            'Change management',
+            'Process automation'
+        ]
     },
     {
         id: 5,
-        title: 'Strategic Planning & Advisory',
-        description: 'Strategic planning and advisory services to help organizations navigate complex business challenges.',
-        icon: 'fas fa-chess',
+        title: 'Team Building & Process',
+        description: 'Build high-performing teams. Implement agile processes that work for your organization\'s size and stage.',
+        icon: 'fas fa-users-cog',
         features: [
-            'Strategic planning workshops',
-            'Competitive analysis',
-            'Risk assessment & mitigation',
-            'Growth strategy development',
-            'AI leverage for scale with guardrails'
-        ],
-        color: 'linear-gradient(135deg, #8b5cf6 0%, #10b981 100%)'
+            'Agile transformation',
+            'Hiring & team structure',
+            'Process optimization',
+            'Leadership coaching',
+            'Culture development'
+        ]
     },
     {
         id: 6,
-        title: 'Data Analytics & Insights',
-        description: 'Transform raw data into actionable insights to drive informed decision-making and business growth.',
-        icon: 'fas fa-chart-line',
+        title: 'Startup Advisory',
+        description: 'For early-stage founders: validate ideas, find product-market fit, and build before scaling.',
+        icon: 'fas fa-rocket',
         features: [
-            'Data strategy development',
-            'Analytics implementation',
-            'Performance dashboards',
-            'Predictive modeling',
-            'AI/ML models for forecasting'
-        ],
-        color: 'linear-gradient(135deg, #6366f1 0%, #f59e0b 100%)'
-    },
-    {
-        id: 7,
-        title: 'AI Adoption',
-        description: 'Integrate AI to make work faster, cheaper, and more consistent—safely.',
-        icon: 'fas fa-brain',
-        features: [
-            'Workflow automation and copilots',
-            'Data readiness, privacy, and guardrails',
-            'Change management and team enablement'
-        ],
-        color: 'linear-gradient(135deg, #7c3aed 0%, #ec4899 100%)'
+            'Idea validation',
+            'MVP definition & scoping',
+            'Fundraising support',
+            'Pitch deck review',
+            'Business model design'
+        ]
     }
 ];
 
-// Case studies data
 const caseStudies = [
     {
         id: 1,
         title: 'Healthcare Platform Transformation',
         client: 'Leading Healthcare Provider',
         industry: 'Healthcare',
-        challenge: 'Legacy system modernization and patient experience enhancement',
-        solution: 'Led comprehensive digital transformation initiative including EHR optimization, patient portal development, and staff training programs.',
+        challenge: 'Legacy system modernization and patient experience improvement',
+        solution: 'End-to-end digital transformation including EHR optimization, patient portal development, and workflow redesign.',
         results: [
-            '40% improvement in patient satisfaction scores',
-            '60% reduction in appointment scheduling time',
-            '25% increase in staff productivity',
-            'Compliance with latest healthcare regulations'
+            '40% improvement in patient satisfaction',
+            '60% reduction in scheduling time',
+            '25% increase in staff productivity'
         ],
-        technologies: ['EHR Systems', 'Patient Portals', 'API Integration', 'Cloud Migration'],
-        duration: '12 months',
-        image: 'healthcare-transformation.jpg'
+        technologies: ['EHR Systems', 'Patient Portals', 'Cloud Migration'],
+        duration: '12 months'
     },
     {
         id: 2,
-        title: 'Telemedicine Throughput Uplift',
+        title: 'Telemedicine Throughput Optimization',
         client: 'Virtual Care Platform',
-        industry: 'Healthcare',
-        challenge: 'High wait times and session reliability issues across clinics',
-        solution: 'Introduced AI triage and routing, streamlined provider workflows, and improved session resilience.',
+        industry: 'Healthcare Technology',
+        challenge: 'High wait times and low session completion rates',
+        solution: 'AI triage and smart routing, streamlined provider workflows, improved session resilience.',
         results: [
-            '28% reduction in average wait time',
-            '22% increase in visit completion rate',
-            'Improved clinician satisfaction and throughput'
+            '28% reduction in wait time',
+            '22% increase in completion rate',
+            'Improved clinician satisfaction'
         ],
-        technologies: ['AI Triage', 'RTC Optimization', 'Analytics', 'Queueing'],
-        duration: '6 months',
-        image: 'telemedicine-throughput.jpg'
+        technologies: ['AI Triage', 'RTC Optimization', 'Analytics'],
+        duration: '6 months'
     },
     {
         id: 3,
@@ -142,104 +118,74 @@ const caseStudies = [
         client: 'Chronic Care Program',
         industry: 'Healthcare',
         challenge: 'Manual alert review overwhelming clinical teams',
-        solution: 'Automated alert prioritization with risk scoring and created escalation playbooks integrated with EHR.',
+        solution: 'Automated alert prioritization with risk scoring and EHR-integrated escalation playbooks.',
         results: [
             '35% reduction in manual review time',
             '30% increase in patient adherence',
             'Lower false-positive escalations'
         ],
-        technologies: ['Risk Scoring', 'EHR Integration', 'Automation', 'Dashboards'],
-        duration: '5 months',
-        image: 'rpm-automation.jpg'
+        technologies: ['Risk Scoring', 'EHR Integration', 'Automation'],
+        duration: '5 months'
     },
     {
         id: 4,
-        title: 'Startup Product Strategy',
+        title: 'HealthTech Startup — Zero to Series A',
         client: 'HealthTech Startup',
         industry: 'Healthcare Technology',
-        challenge: 'Product-market fit validation and scalable growth strategy',
-        solution: 'Developed comprehensive product strategy including market research, user validation, and scalable architecture planning.',
+        challenge: 'Product-market fit validation and growth strategy',
+        solution: 'Comprehensive product strategy, user validation, and scalable architecture planning.',
         results: [
-            'Successful product-market fit validation',
             '200% user growth in 6 months',
-            'Secured Series A funding',
-            'Established scalable product architecture'
+            'Series A funding secured',
+            'Scalable product architecture established'
         ],
-        technologies: ['Product Strategy', 'Market Research', 'User Research', 'Growth Hacking'],
-        duration: '6 months',
-        image: 'startup-strategy.jpg'
+        technologies: ['Product Strategy', 'Market Research', 'Growth'],
+        duration: '6 months'
     }
 ];
 
-// Experience timeline data
 const experience = [
     {
         id: 1,
-        title: 'Consultant',
-        company: 'WiseRx',
+        title: 'Independent Consultant',
+        company: 'Self',
         period: '2024 - Present',
         location: 'Bangalore, India',
-        description: 'Leading strategic consulting engagements for healthcare technology companies, focusing on digital transformation, product strategy, and business process optimization.',
+        description: 'Product strategy, AI adoption, and growth consulting for technology companies.',
         achievements: [
-            'Led 5+ major healthcare technology transformation projects',
-            'Developed strategic roadmaps for 3 enterprise clients',
-            'Achieved 25% average cost reduction for clients',
-            'Mentored 10+ junior consultants'
-        ],
-        technologies: ['Healthcare Technology', 'Digital Transformation', 'Strategic Planning', 'Process Optimization'],
-        type: 'current'
+            'Multiple product launches',
+            'AI implementation for enterprise clients',
+            'Growth strategy for early-stage startups'
+        ]
     },
     {
         id: 2,
+        title: 'Consultant',
+        company: 'WiseRx',
+        period: '2024',
+        location: 'Bangalore, India',
+        description: 'Strategic consulting for healthcare technology transformation.',
+        achievements: [
+            'Led 5+ major transformation projects',
+            '25% average cost reduction',
+            'Strategic roadmaps for 3 enterprise clients'
+        ]
+    },
+    {
+        id: 3,
         title: 'Senior Product Manager',
         company: 'Cavista',
         period: '2022 - 2024',
         location: 'Bangalore, India',
-        description: 'Led product strategy and development for healthcare technology solutions, managing cross-functional teams and driving product success.',
+        description: 'Product strategy and team leadership for healthcare technology.',
         achievements: [
-            'Reduced technical debt by 25% through strategic refactoring',
-            'Led team of 17 developers and designers',
-            'Increased user engagement by 30%',
-            'Improved interaction rates by 35%'
-        ],
-        technologies: ['Product Management', 'Healthcare Technology', 'Team Leadership', 'Data Analytics'],
-        type: 'previous'
-    },
-    {
-        id: 3,
-        title: 'Product Manager',
-        company: 'Healthcare Startup',
-        period: '2021 - 2022',
-        location: 'Bangalore, India',
-        description: 'Managed product development lifecycle for healthcare applications, focusing on user experience and regulatory compliance.',
-        achievements: [
-            'Launched 3 major product features',
-            'Improved user satisfaction scores by 40%',
-            'Ensured HIPAA compliance for all products',
-            'Reduced customer support tickets by 50%'
-        ],
-        technologies: ['Product Development', 'Healthcare Compliance', 'User Experience', 'Agile Methodologies'],
-        type: 'previous'
-    },
-    {
-        id: 4,
-        title: 'Pharmacy Graduate',
-        company: 'Amity University',
-        period: '2017 - 2021',
-        location: 'Gwalior, India',
-        description: 'Bachelor of Pharmacy degree with focus on pharmaceutical sciences and healthcare systems.',
-        achievements: [
-            'Graduated with distinction',
-            'Completed research project on healthcare technology adoption',
-            'Developed understanding of healthcare systems and regulations',
-            'Gained analytical and scientific methodology skills'
-        ],
-        technologies: ['Pharmaceutical Sciences', 'Healthcare Systems', 'Research Methods', 'Analytical Thinking'],
-        type: 'education'
+            'Led 17-person engineering team',
+            '25% technical debt reduction',
+            '30% user engagement increase'
+        ]
     }
 ];
 
-// Export data for use in main.js
 window.websiteData = {
     typingWords,
     services,
