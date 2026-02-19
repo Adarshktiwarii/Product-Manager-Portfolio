@@ -229,22 +229,23 @@ body {
     color: var(--accent-primary);
 }
 
-/* ===== THEME TOGGLE ===== */
+/* ===== NAV ACTIONS (theme toggle + hamburger) ===== */
+.nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
 .theme-toggle {
-    position: fixed;
-    top: 80px;
-    right: 24px;
     width: 40px;
     height: 40px;
     border-radius: 50%;
-    background: var(--bg-elevated);
-    border: 1px solid var(--border);
+    background: transparent;
+    border: none;
     color: var(--text-secondary);
     font-size: 1rem;
     cursor: pointer;
-    z-index: 100;
-    transition: all 0.2s ease;
-    box-shadow: var(--shadow-sm);
+    transition: all 0.15s ease;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -252,7 +253,7 @@ body {
 
 .theme-toggle:hover {
     background: var(--bg-secondary);
-    box-shadow: var(--shadow-md);
+    color: var(--text-primary);
 }
 
 .theme-toggle .fa-moon { display: none; }
@@ -1650,17 +1651,6 @@ section {
     .section-subtitle { font-size: 1rem; }
     section { padding: 56px 0; }
 
-    /* Theme toggle — tuck into navbar area */
-    .theme-toggle {
-        position: fixed;
-        top: 14px;
-        right: 60px;
-        width: 36px;
-        height: 36px;
-        font-size: 0.875rem;
-        z-index: 101;
-    }
-
     /* Floating CTA */
     .floating-consultation { bottom: 16px; right: 16px; }
     .floating-btn span { display: none; }
@@ -1668,8 +1658,21 @@ section {
 
     /* Newsletter — full-width stacked */
     .newsletter { padding: 48px 0; }
-    .newsletter-form .form-group { flex-direction: column; gap: 10px; }
-    .newsletter-form .btn { width: 100%; justify-content: center; }
+    .newsletter-form .form-group {
+        flex-direction: column;
+        gap: 10px;
+    }
+    .newsletter-form input[type="email"] {
+        width: 100%;
+        padding: 14px 16px;
+        font-size: 1rem;
+    }
+    .newsletter-form .btn {
+        width: 100%;
+        justify-content: center;
+        padding: 14px 24px;
+        font-size: 0.9375rem;
+    }
 
     /* Expertise chips */
     .expertise-strip { margin-bottom: 48px; padding-top: 40px; }
