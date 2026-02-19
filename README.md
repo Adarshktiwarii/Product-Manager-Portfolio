@@ -3,9 +3,12 @@ Dev deployment via GitHub Actions (S3)
 -------------------------------------
 
 ## 📅 **Recent Update - September 30, 2025**
-- **Status**: Code restored to commit `13d7449` (September 26, 2025)
-- **Branding**: Updated to "Adarsh & Consultants" 
-- **State**: Stable production-ready version
+- **Status**: Restored to commit `8a1b091` (Documentation update)
+- **Base**: `13d7449` (Adarsh & Consultants branding)
+- **Dev**: `a528a62` (Previous dev state)
+- **Design**: Stable documentation state with Adarsh & Consultants branding
+- **Features**: Professional consulting website with comprehensive documentation
+- **State**: Production-ready with stable codebase
 
 This repo includes a workflow to deploy to an AWS S3 dev bucket on pushes to `dev` and any `feat/**` branches, and on manual dispatch.
 
