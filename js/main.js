@@ -140,11 +140,11 @@ function initScrollAnimations() {
         });
     }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
 
-    const els = document.querySelectorAll('.service-card, .work-card, .stat-item, .contact-item, .approach-card, .timeline-item');
-    els.forEach((el, i) => {
+    const els = document.querySelectorAll('.service-card, .work-card, .stat-item, .contact-item, .approach-card, .timeline-item, .credential-item');
+    els.forEach(el => {
         el.style.opacity = '0';
-        el.style.transform = 'translateY(20px)';
-        el.style.transition = `opacity 0.4s ease ${i * 0.05}s, transform 0.4s ease ${i * 0.05}s`;
+        el.style.transform = 'translateY(16px)';
+        el.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
         observer.observe(el);
     });
 }
