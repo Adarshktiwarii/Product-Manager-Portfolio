@@ -1641,32 +1641,99 @@ section {
 
     .about-content { grid-template-columns: 1fr; gap: 32px; }
     .approach-grid { grid-template-columns: 1fr; }
-    .stats-grid { grid-template-columns: repeat(2, 1fr); }
+    .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
     .services-grid { grid-template-columns: 1fr; }
     .work-grid { grid-template-columns: 1fr; }
     .contact-content { grid-template-columns: 1fr; gap: 32px; }
-    .footer-content { grid-template-columns: 1fr; gap: 32px; text-align: center; }
-    .footer-social { justify-content: center; }
 
     .section-title { font-size: 1.75rem; }
-    section { padding: 64px 0; }
+    .section-subtitle { font-size: 1rem; }
+    section { padding: 56px 0; }
 
+    /* Theme toggle — tuck into navbar area */
+    .theme-toggle {
+        position: fixed;
+        top: 14px;
+        right: 60px;
+        width: 36px;
+        height: 36px;
+        font-size: 0.875rem;
+        z-index: 101;
+    }
+
+    /* Floating CTA */
     .floating-consultation { bottom: 16px; right: 16px; }
     .floating-btn span { display: none; }
-    .floating-btn { padding: 12px; border-radius: 50%; }
+    .floating-btn { padding: 14px; border-radius: 50%; }
 
-    .theme-toggle { top: 72px; right: 16px; width: 36px; height: 36px; font-size: 0.875rem; }
+    /* Newsletter — full-width stacked */
+    .newsletter { padding: 48px 0; }
+    .newsletter-form .form-group { flex-direction: column; gap: 10px; }
+    .newsletter-form .btn { width: 100%; justify-content: center; }
 
-    .newsletter-form .form-group { flex-direction: column; }
+    /* Expertise chips */
+    .expertise-strip { margin-bottom: 48px; padding-top: 40px; }
+    .expertise-chip-grid { gap: 8px; }
+    .expertise-chip { padding: 6px 12px; font-size: 0.75rem; }
+    .expertise-chip i { font-size: 0.675rem; }
+
+    /* Footer — proper centering for flex children */
+    .footer { padding: 40px 0 20px; }
+    .footer-content {
+        grid-template-columns: 1fr;
+        gap: 32px;
+        text-align: center;
+    }
+
+    .footer-brand .logo {
+        justify-content: center;
+    }
+
+    .footer-social {
+        justify-content: center;
+    }
+
+    .footer-contact {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .footer-contact .contact-item {
+        justify-content: center;
+    }
+
+    .footer-bottom { font-size: 0.75rem; }
+
+    /* Contact section */
+    .contact-cta { padding: 32px 24px; }
+    .contact-item { padding: 14px 16px; }
 }
 
 @media (max-width: 480px) {
     .container { padding: 0 16px; }
+    .hero { padding: 72px 16px 40px; }
     .hero-title { font-size: 1.75rem; }
+    .hero-description { font-size: 1rem; }
     .hero-actions { flex-direction: column; align-items: center; }
     .btn { width: 100%; max-width: 280px; justify-content: center; }
     .stats-grid { grid-template-columns: 1fr; }
-    .hero-stats { flex-direction: column; }
+    .hero-stats { flex-direction: column; align-items: center; }
+    .hero-stats .stat-item { width: 100%; max-width: 200px; }
+
+    .about-bottom-section { padding-top: 32px; }
+    .approach-card { padding: 24px; }
+    .service-card { padding: 24px; }
+    .timeline-item { padding: 16px; }
+
+    .section-title { font-size: 1.5rem; }
+    .unified-approach .section-header h3 { font-size: 1.375rem; }
+
+    .work-image { height: 160px; }
+
+    .newsletter-content { padding: 0 8px; }
+    .newsletter-text h2 { font-size: 1.5rem; }
+    .newsletter-text p { font-size: 0.875rem; }
 }
 
 @media (prefers-reduced-motion: reduce) {
