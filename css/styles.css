@@ -123,24 +123,18 @@ body {
 .logo-icon {
     display: flex;
     align-items: center;
-    gap: 2px;
+    line-height: 1;
 }
 
-.logo-icon .dot {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
+.logo-icon svg {
+    display: block;
     transition: transform 0.2s ease;
 }
 
-.logo:hover .dot {
-    transform: scale(1.2);
+.logo:hover .logo-icon svg {
+    transform: scale(1.08);
 }
 
-.dot-blue { background: var(--google-blue); }
-.dot-red { background: var(--google-red); }
-.dot-yellow { background: var(--google-yellow); }
-.dot-green { background: var(--google-green); }
 
 .nav-menu {
     display: flex;
