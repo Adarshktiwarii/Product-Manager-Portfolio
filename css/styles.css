@@ -698,6 +698,8 @@ section {
     padding: 32px;
     transition: all 0.2s ease;
     position: relative;
+    display: flex;
+    flex-direction: column;
 }
 
 .approach-card::before {
@@ -757,6 +759,7 @@ section {
     line-height: 1.6;
     color: var(--text-secondary);
     margin-bottom: 16px;
+    flex: 1;
 }
 
 .expertise-tags {
