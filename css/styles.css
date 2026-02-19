@@ -840,6 +840,67 @@ section {
     font-size: 0.875rem;
 }
 
+/* Technical Expertise Strip */
+.expertise-strip {
+    margin-bottom: 64px;
+    padding-top: 48px;
+    border-top: 1px solid var(--border);
+    text-align: center;
+}
+
+.expertise-strip .section-header {
+    margin-bottom: 32px;
+}
+
+.expertise-strip .section-header h3 {
+    font-size: 1.75rem;
+    font-weight: 400;
+    margin-bottom: 8px;
+    color: var(--text-primary);
+}
+
+.expertise-strip .section-header p {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    max-width: 520px;
+    margin: 0 auto;
+}
+
+.expertise-chip-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.expertise-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-full);
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    transition: all 0.2s ease;
+    white-space: nowrap;
+}
+
+.expertise-chip i {
+    font-size: 0.75rem;
+    color: var(--accent-primary);
+}
+
+.expertise-chip:hover {
+    border-color: var(--accent-primary);
+    color: var(--accent-primary);
+    background: var(--accent-light);
+}
+
 /* About Stats */
 .about-stats {
     padding-top: 48px;
@@ -1006,17 +1067,28 @@ section {
     justify-content: center;
 }
 
-.work-card:nth-child(1) .work-image { background: linear-gradient(135deg, #4285F4, #34A853) !important; }
-.work-card:nth-child(2) .work-image { background: linear-gradient(135deg, #EA4335, #FBBC05) !important; }
-.work-card:nth-child(3) .work-image { background: linear-gradient(135deg, #34A853, #4285F4) !important; }
-.work-card:nth-child(4) .work-image { background: linear-gradient(135deg, #FBBC05, #EA4335) !important; }
-.work-card:nth-child(5) .work-image { background: linear-gradient(135deg, #4285F4, #EA4335) !important; }
-.work-card:nth-child(6) .work-image { background: linear-gradient(135deg, #34A853, #FBBC05) !important; }
+.work-image {
+    background-color: var(--bg-tertiary) !important;
+}
 
 .work-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(32,33,36,.35);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+
+.work-card:hover .work-overlay {
+    opacity: 1;
+}
+
+.work-overlay i {
     color: white;
     font-size: 2rem;
-    opacity: 0.8;
 }
 
 .work-content {
