@@ -172,11 +172,7 @@ function initStatsCounter() {
                 current = target;
                 clearInterval(timer);
             }
-            if (target === 4) {
-                element.textContent = Math.floor(current) + '+';
-            } else {
-                element.textContent = Math.floor(current);
-            }
+            element.textContent = Math.floor(current) + '+';
         }, 25);
     }
 }
