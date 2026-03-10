@@ -28,6 +28,7 @@ Usage rules:
 - YYYY-MM-DD: <decision> — Rationale: <why> — Link: <Issue/PR>
 
 ## Recent Activity
+- 2026-03-10 21:13 UTC — Cursor Agent: chore: merge dev into main — Ask Adarsh AI feature — https://github.com/Adarshktiwarii/Product-Manager-Portfolio/commit/c782b9707b50dd82e1e41882f44574f29643e33a
 - 2026-03-10 18:40 UTC — Cursor Agent: Merge branch 'cursor/consultant-website-branding-2ff9' into dev — https://github.com/Adarshktiwarii/Product-Manager-Portfolio/commit/57439ede194c6cad2259af6e9acef64c0a70858f
 - 2026-03-10 18:19 UTC — Cursor Agent: Merge branch 'cursor/consultant-website-branding-2ff9' into dev — https://github.com/Adarshktiwarii/Product-Manager-Portfolio/commit/596aea9ede2c3ab5bdae6d5159d64d9bf9f36ff0
 - 2026-03-10 18:14 UTC — Cursor Agent: Merge branch 'cursor/consultant-website-branding-2ff9' into dev — https://github.com/Adarshktiwarii/Product-Manager-Portfolio/commit/59f8bc3d3df3f7931112f0a0373ab22ec1e1e249
