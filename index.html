@@ -912,7 +912,52 @@
         </div>
     </footer>
 
+    <!-- Ask Adarsh AI Chat Widget -->
+    <button class="chat-trigger" id="chatTrigger" aria-label="Ask Adarsh AI">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z" fill="white"/></svg>
+        <span class="chat-trigger-label">Ask AI</span>
+    </button>
+
+    <div class="chat-panel" id="chatPanel">
+        <div class="chat-window">
+            <div class="chat-header">
+                <div class="chat-header-left">
+                    <div class="chat-avatar">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z" fill="white"/></svg>
+                    </div>
+                    <div>
+                        <div class="chat-header-title">Ask Adarsh AI</div>
+                        <div class="chat-header-sub">Powered by Gemini</div>
+                    </div>
+                </div>
+                <button class="chat-close" id="chatClose" aria-label="Close chat">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="chat-messages" id="chatMessages">
+                <div class="chat-msg chat-msg-assistant">
+                    <div class="chat-bubble">
+                        Hi! I'm Adarsh's AI assistant. Ask me anything about his experience, skills, or whether he's a good fit for your project.
+                    </div>
+                </div>
+                <div class="chat-suggestions" id="chatSuggestions">
+                    <button class="chat-suggestion">Is Adarsh a good fit for my healthcare SaaS?</button>
+                    <button class="chat-suggestion">What's his AI and ML experience?</button>
+                    <button class="chat-suggestion">Has he worked with startups before?</button>
+                    <button class="chat-suggestion">What does a typical engagement look like?</button>
+                </div>
+            </div>
+            <div class="chat-input-area">
+                <textarea id="chatInput" placeholder="Ask about experience, skills, project fit..." rows="1"></textarea>
+                <button class="chat-send" id="chatSend" aria-label="Send message">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z" fill="currentColor"/></svg>
+                </button>
+            </div>
+        </div>
+    </div>
+
     <script src="js/main.js"></script>
+    <script src="js/chat.js"></script>
     
     <script>
     (function() {
