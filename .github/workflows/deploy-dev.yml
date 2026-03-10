@@ -17,7 +17,6 @@ env:
   AMPLIFY_WEBHOOK_URL: ${{ secrets.AMPLIFY_WEBHOOK_URL }}
   AMPLIFY_APP_ID: ${{ secrets.AMPLIFY_APP_ID }}
   AMPLIFY_BRANCH: ${{ secrets.AMPLIFY_BRANCH }}
-  ENABLE_S3: ${{ secrets.ENABLE_S3 }}
 
 jobs:
   deploy:
@@ -41,8 +40,8 @@ jobs:
             sudo apt-get install -y awscli
           fi
 
-      - name: Sync static assets to S3 (optional)
-        if: env.ENABLE_S3 == 'true' && env.S3_DEV_BUCKET != ''
+      - name: Sync static assets to S3
+        if: env.S3_DEV_BUCKET != ''
         run: |
           aws s3 sync . "s3://${S3_DEV_BUCKET}" \
             --delete \
@@ -59,9 +58,14 @@ jobs:
           aws s3 cp card4.jpg "s3://${S3_DEV_BUCKET}/card4.jpg" --cache-control "public, max-age=31536000" --content-type "image/jpeg"
           aws s3 cp card5.jpg "s3://${S3_DEV_BUCKET}/card5.jpg" --cache-control "public, max-age=31536000" --content-type "image/jpeg"
           aws s3 cp card6.jpg "s3://${S3_DEV_BUCKET}/card6.jpg" --cache-control "public, max-age=31536000" --content-type "image/jpeg"
+          
+          # Upload resume PDF
+          if [ -f Adarsh_Tiwari_Resume.pdf ]; then
+            aws s3 cp Adarsh_Tiwari_Resume.pdf "s3://${S3_DEV_BUCKET}/Adarsh_Tiwari_Resume.pdf" --cache-control "public, max-age=86400" --content-type "application/pdf"
+          fi
 
-      - name: Upload HTML with no-cache headers to S3 (optional)
-        if: env.ENABLE_S3 == 'true' && env.S3_DEV_BUCKET != ''
+      - name: Upload HTML with no-cache headers to S3
+        if: env.S3_DEV_BUCKET != ''
         run: |
           find . -type f -name "*.html" \
             -not -path "./.git/*" \
@@ -72,7 +76,7 @@ jobs:
               --content-type "text/html"
 
       - name: Invalidate CloudFront (optional)
-        if: env.ENABLE_S3 == 'true' && env.S3_DEV_BUCKET != '' && env.CLOUDFRONT_DISTRIBUTION_ID != ''
+        if: env.S3_DEV_BUCKET != '' && env.CLOUDFRONT_DISTRIBUTION_ID != ''
         run: |
           aws cloudfront create-invalidation \
             --distribution-id "${CLOUDFRONT_DISTRIBUTION_ID}" \
