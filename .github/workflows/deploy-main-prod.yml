@@ -1,0 +1,74 @@
+name: Deploy Main to Production
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+env:
+  AWS_REGION: ${{ secrets.AWS_REGION }}
+  AMPLIFY_PROD_APP_ID: ${{ secrets.AMPLIFY_PROD_APP_ID }}
+  AMPLIFY_PROD_BRANCH: ${{ secrets.AMPLIFY_PROD_BRANCH }}
+  AMPLIFY_PROD_WEBHOOK_URL: ${{ secrets.AMPLIFY_PROD_WEBHOOK_URL }}
+
+jobs:
+  deploy:
+    name: Deploy to Production (Amplify)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Deploy via Amplify webhook (if configured)
+        if: env.AMPLIFY_PROD_WEBHOOK_URL != ''
+        run: |
+          curl -sS -X POST -H "Content-Type: application/json" -d '{}' "${AMPLIFY_PROD_WEBHOOK_URL}" || curl -sS -X POST "${AMPLIFY_PROD_WEBHOOK_URL}"
+          echo "Triggered Amplify webhook deployment"
+
+      - name: Deploy via Amplify API (if no webhook)
+        if: env.AMPLIFY_PROD_WEBHOOK_URL == '' && env.AMPLIFY_PROD_APP_ID != '' && env.AMPLIFY_PROD_BRANCH != ''
+        run: |
+          sudo apt-get update -y && sudo apt-get install -y jq zip
+
+          zip -r deploy.zip . \
+            -x ".git/*" \
+            -x ".github/*" \
+            -x "index - Copy.html" \
+            -x "*.log" \
+            -x "node_modules/*" \
+            -x "cosmos-website/*"
+
+          DEPLOY_JSON=$(aws amplify create-deployment \
+            --app-id "${AMPLIFY_PROD_APP_ID}" \
+            --branch-name "${AMPLIFY_PROD_BRANCH}" \
+            --output json)
+
+          JOB_ID=$(echo "$DEPLOY_JSON" | jq -r '.jobId')
+          UPLOAD_URL=$(echo "$DEPLOY_JSON" | jq -r '.zipUploadUrl')
+
+          if [ -z "$JOB_ID" ] || [ "$JOB_ID" = "null" ]; then
+            echo "Failed to create Amplify deployment"
+            exit 1
+          fi
+
+          curl -sS -X PUT -T deploy.zip -H "Content-Type: application/zip" "$UPLOAD_URL"
+
+          aws amplify start-deployment \
+            --app-id "${AMPLIFY_PROD_APP_ID}" \
+            --branch-name "${AMPLIFY_PROD_BRANCH}" \
+            --job-id "$JOB_ID"
+
+          echo "Production deployment started successfully"
