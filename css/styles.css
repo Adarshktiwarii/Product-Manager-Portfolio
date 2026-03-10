@@ -1404,21 +1404,18 @@ section {
     gap: 8px;
     max-width: 480px;
     margin: 0 auto 12px;
-    align-items: stretch;
 }
 
 .newsletter-form input[type="email"] {
     flex: 1;
     min-width: 0;
-    padding: 0 16px;
-    height: 48px;
+    padding: 12px 16px;
     border: 1px solid var(--border);
     border-radius: var(--radius-sm);
     background: var(--bg-elevated);
     color: var(--text-primary);
     font-size: 0.875rem;
     font-family: inherit;
-    box-sizing: border-box;
     transition: border-color 0.2s ease;
 }
 
@@ -1426,31 +1423,6 @@ section {
     outline: none;
     border-color: var(--accent-primary);
     box-shadow: 0 0 0 2px var(--accent-light);
-}
-
-.newsletter-form .btn {
-    height: 48px;
-    padding: 0 24px;
-    font-size: 0.875rem;
-    font-family: inherit;
-    border-radius: var(--radius-sm);
-    box-sizing: border-box;
-    white-space: nowrap;
-    flex-shrink: 0;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0;
-    border: none;
-    background: var(--accent-primary);
-    color: white;
-    font-weight: 500;
-    cursor: pointer;
-    transition: background 0.15s ease;
-}
-
-.newsletter-form .btn:hover {
-    background: var(--accent-hover);
 }
 
 .newsletter-note {
@@ -1811,17 +1783,18 @@ section {
     .floating-btn span { display: none; }
     .floating-btn { padding: 14px; border-radius: 50%; }
 
-    /* Newsletter — full-width stacked */
+    /* Newsletter — stack on mobile */
     .newsletter { padding: 48px 0; }
     .newsletter-form .form-group {
         flex-direction: column;
         gap: 10px;
-        max-width: 100%;
     }
-    .newsletter-form input[type="email"],
+    .newsletter-form input[type="email"] {
+        width: 100%;
+    }
     .newsletter-form .btn {
         width: 100%;
-        height: 48px;
+        justify-content: center;
     }
 
     /* Credentials */
